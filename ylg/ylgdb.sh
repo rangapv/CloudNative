@@ -5,17 +5,17 @@ declare -A spec
 declare -A value
 
 spec[2]="apiVersion:"
-value[2]="Version"
+value[2]="Input API Version"
 spec[3]="kind:"
-value[3]="kind"
+value[3]="kind(a.k.a Deployment,Service,ConfigMap etc)"
 spec[4]=metadata:
-value[4]="Metadata"
+value[4]="Metadata for the kind"
 spec[4.4]=name:
-value[4.4]="Name"
+value[4.4]="Name for this Metadata"
 spec[4.5]=namespace:
-value[4.5]="Namespaces"
+value[4.5]="Namespaces that this has to run"
 spec[5.1]=replicas:
-value[5.1]="Replicas"
+value[5.1]="How many Replicas you want"
 spec[5]=spec:
 value[5]="spec"
 spec[5.21]=metadata:
@@ -25,7 +25,7 @@ value[5.2]="template"
 spec[5.211]=labels:
 value[5.211]="label"
 spec[5.2111]=app:
-value[5.2111]="apps"
+value[5.2111]="Input the Label for the apps here"
 spec[5.31]=spec:
 value[5.31]="Spec"
 spec[5.311]=containers:
