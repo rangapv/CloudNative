@@ -6,8 +6,8 @@
 
 set -E
 source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh) >>/dev/null 2>&1
-#source "./ylgdb.sh"
-source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
+source "./ylgdb.sh"
+#source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 chk=(spec metadata labels template args containers ports volumes)
 maskflag=0
 
@@ -91,7 +91,7 @@ done
 fill() {
 ffln="v.yaml"
 gln="r.yaml"
-
+genylg
 if [[ (-z $ffln) || (-z $gln) ]]
 then
     echo "Files $ffln and $gln are not there or EMPTY"
@@ -108,10 +108,9 @@ while read -r line; do
      if [[ "${value[$f]}" == "$line1" ]]
      then
 	     v1=$(echo "$line" | awk '{split($0,f1,":"); print f1[2]}')
-             echo "v1 is $v1"
-      	     v2="${spec[$f]}"
-	     echo "v2 is $v2"   
-	     sudo sed -i "s/${v2}/${v2} ${v1}/" $gln
+	     v11=$(echo $v1 | awk '{$1=$1;print}') 
+	     v2="${spec[$f]}"
+	     sudo sed -i "s/${v2}/${v2} ${v11}/" $gln
      fi
    done
 
