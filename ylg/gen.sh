@@ -1,5 +1,8 @@
 #!/bin/bash
 #author: rangapv@yahoo.com 15-04-23
+#USUAGE: ./gen.sh gen (will generate the Skeletal YAML r.yaml and v.yaml a human readable file to fill values)
+#USUAGE: ./gen.sh (SAME as above ....will generate the Skeletal YAML r.yaml and v.yaml a human readable file to fill values)
+#USUAGE: ./gen.sh fill (The program takes the FILLED v.yaml file generated ealier from above step and popluates the Skeletal r.yaml with values) 
 
 set -E
 source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh) >>/dev/null 2>&1
@@ -7,6 +10,13 @@ source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.s
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 chk=(spec metadata labels template args containers ports volumes)
 maskflag=0
+
+sortit() {
+readarray -t sorted < <(for l in "${!spec[@]}"
+do
+        echo "$l"	
+done | sort -n)
+}
 
 genylg() {
 int1=0
@@ -16,10 +26,6 @@ do
         ((int1+=1))
 done
 echo "int1 is $int1"
-readarray -t sorted < <(for l in "${!spec[@]}"
-do
-        echo "$l"	
-done | sort -n)
 
 #for a in "${sorted[@]}"; do echo "a is $a" ; done
 
@@ -81,8 +87,55 @@ do
 done
 }
 
+
+fill() {
+ffln="v.yaml"
+gln="r.yaml"
+
+if [[ (-z $ffln) || (-z $gln) ]]
+then
+    echo "Files $ffln and $gln are not there or EMPTY"
+    exit
+fi
+
+while read -r line; do
+   #v1=(echo "$line" | awk '{split($0,f1,":") print(a[1])}')
+   #v2=(echo "$line" | awk '{split($0,f1,":") print(a[2])}')
+   #line1="${line:0:-1}"
+   line1=$(echo "$line" | awk '{split($0,f1,":"); print f1[1]}')
+   for f in "${sorted[@]}"
+   do
+     if [[ "${value[$f]}" == "$line1" ]]
+     then
+	     v1=$(echo "$line" | awk '{split($0,f1,":"); print f1[2]}')
+             echo "v1 is $v1"
+      	     v2="${spec[$f]}"
+	     echo "v2 is $v2"   
+	     sudo sed -i "s/${v2}/${v2} ${v1}/" $gln
+     fi
+   done
+
+done <$ffln
+}
+
+
+sortit
+
+if [[ "$#" -eq 0 ]]
+then
+	set -- "gen"
+fi
+
+if [[ "$1" == "gen" ]]
+then
 genylg
 if [[ ! -z "$cln" ]]
 then
 	filyl
+fi
+else
+	if [[ "$1" == "fill" ]]
+	then
+		fill
+	fi
 fi
