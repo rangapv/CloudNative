@@ -99,21 +99,19 @@ then
 fi
 
 while read -r line; do
-   #v1=(echo "$line" | awk '{split($0,f1,":") print(a[1])}')
-   #v2=(echo "$line" | awk '{split($0,f1,":") print(a[2])}')
-   #line1="${line:0:-1}"
+
    line1=$(echo "$line" | awk '{split($0,f1,":"); print f1[1]}')
+   line10=$(echo "$line1" | awk '{$1=$1;print}') 
    for f in "${sorted[@]}"
    do
-     if [[ "${value[$f]}" == "$line1" ]]
+     if [[ "${value[$f]}" == "$line10" ]]
      then
-	     v1=$(echo "$line" | awk '{split($0,f1,":"); print f1[2]}')
+             v1=$(echo "$line" | awk '{l=index($0,":"); print substr($0,l+1)}')
 	     v11=$(echo $v1 | awk '{$1=$1;print}') 
 	     v2="${spec[$f]}"
 	     sudo sed -i "s/${v2}/${v2} ${v11}/" $gln
      fi
    done
-
 done <$ffln
 }
 
