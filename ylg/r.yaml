@@ -1,18 +1,18 @@
-apiVersion:
-kind:
+apiVersion: v5.6
+kind: Deployment
 metadata:
-  name:
-  namespace:
+  name: deployment meta
+  namespace: default
 spec:
-  replicas:
+  replicas: 5
   template:
     metadata:
       labels:
-        app:
+        app: prom-app
     spec:
       containers:
-        - name:
-          image:
+        - name: promo deployment meta
+          image: prom
           args:
           ports:
-            - containerPorts:
+            - containerPorts: 8080
