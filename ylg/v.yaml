@@ -1,0 +1,9 @@
+Version: v5.6
+kind: Deployment
+Name for this metadata: deployment meta
+Namespaces that you want this kind to be deployed: default
+Replicas: 5
+app name for the container: prom-app
+Name of this Container: promo
+image tag: prom:3.4
+containerports: 8080
