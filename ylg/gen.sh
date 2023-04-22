@@ -127,10 +127,10 @@ fln="r.yaml"
 gfln=`> "$fln"`
 #genylg
 
-if [[ (-z $ffln) || (-z $gln) ]]
+if [[ (-z $ffln) ]]
 then
-    echo "Files $ffln and $gln are not there or EMPTY"
-    #exit
+    echo "File $ffln not there or EMPTY"
+    exit
 fi
 
 for f in "${sorted[@]}"
@@ -144,7 +144,6 @@ while read -r line; do
      then
              v1=$(echo "$line" | awk '{l=index($0,":"); print substr($0,l+1)}')
 	     v11=$(echo $v1 | awk '{$1=$1;print}') 
-	     echo "v11 is $v11" 
 	     v2="${spec[$f]}"
 	     v3="${v2} ${v11}"
 #	     sudo sed -i "s/${v2}/${v2} ${v11}/" $line
@@ -156,7 +155,6 @@ if [[ (( $rflag -eq 0 )) ]]
 then
      rgenylg "$f" "${spec[$f]}" 
 fi
-rflag=1
 done
 }
 
