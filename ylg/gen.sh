@@ -8,7 +8,7 @@ set -E
 source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh) >>/dev/null 2>&1
 #source "./ylgdb.sh"
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
-chk=(spec metadata labels template args containers ports volumes)
+chk=(spec metadata labels template args containers ports volumes configMap volumeMounts)
 maskflag=0
 
 sortit() {
@@ -59,6 +59,39 @@ done
 
 }
 
+rgenylg() {
+int1=0
+ind="$1"
+argr1="$2"
+cln="r.yaml"
+#clnc=`> "$cln"`
+t=" "
+if [[ (( "$2" == " " )) ]]
+then
+	argr1=" "
+fi
+num1=$(echo "$ind" |sed  's/[^0-9]//g')
+num2=${#num1}
+num3=$((num2-=1))
+       if [[ (($num3 -eq 0)) ]]
+       then
+               echo "$argr1"  >>"$cln"
+       elif [[ (($num3 -eq 1)) ]]
+       then
+
+               echo "  $argr1" >>"$cln"
+       elif [[ (($num3 -gt 1 )) ]]
+       then
+	for ((i=1; i <= $num3; i++));
+        do 
+	 echo -n "  " >>"$cln"
+        done
+        echo "$argr1" >>"$cln"
+       else
+	       echo "  "
+       fi
+}
+
 chkspec() {
 
 chspeck=("$@")
@@ -90,29 +123,41 @@ done
 
 fill() {
 ffln="v.yaml"
-gln="r.yaml"
-genylg
+fln="r.yaml"
+gfln=`> "$fln"`
+#genylg
+
 if [[ (-z $ffln) || (-z $gln) ]]
 then
     echo "Files $ffln and $gln are not there or EMPTY"
-    exit
+    #exit
 fi
 
+for f in "${sorted[@]}"
+do
+rflag=0
 while read -r line; do
 
    line1=$(echo "$line" | awk '{split($0,f1,":"); print f1[1]}')
    line10=$(echo "$line1" | awk '{$1=$1;print}') 
-   for f in "${sorted[@]}"
-   do
      if [[ "${value[$f]}" == "$line10" ]]
      then
              v1=$(echo "$line" | awk '{l=index($0,":"); print substr($0,l+1)}')
 	     v11=$(echo $v1 | awk '{$1=$1;print}') 
+	     echo "v11 is $v11" 
 	     v2="${spec[$f]}"
-	     sudo sed -i "s/${v2}/${v2} ${v11}/" $gln
+	     v3="${v2} ${v11}"
+#	     sudo sed -i "s/${v2}/${v2} ${v11}/" $line
+             rgenylg "$f" "$v3"
+             rflag=1
      fi
-   done
 done <$ffln
+if [[ (( $rflag -eq 0 )) ]]
+then
+     rgenylg "$f" "${spec[$f]}" 
+fi
+rflag=1
+done
 }
 
 
