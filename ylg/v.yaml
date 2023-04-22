@@ -1,9 +1,14 @@
-Version: v5.6
-kind: Deployment
-Name for this metadata: deployment meta
-Namespaces that you want this kind to be deployed: default
-Replicas: 5
-app name for the container: prom-app
-Name of this Container: promo
-image tag: prom:3.4
-containerports: 8080
+Version:extensions/v1beta1
+kind:Deployment
+Name for this metadata:prometheus-deployment
+Namespaces that you want this kind to be deployed:monitoring
+Replicas:1
+app name for the container:prometheus-server
+Name of this Container:prometheus
+image tag:prom/prometheus:v2.1.0
+containerports:9090
+Name of the container mount points:prometheus-config-volume
+The container mount points: /etc/prometheus/
+Name of the Volume(configMapName):prometheus-config-volume
+Name fo this Configmap:prometheus-server-conf
+Config Map permissions:420

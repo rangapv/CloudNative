@@ -1,18 +1,26 @@
-apiVersion: v5.6
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: deployment meta
-  namespace: default
+  name: prometheus-deployment
+  namespace: monitoring
 spec:
-  replicas: 5
+  replicas: 1
   template:
     metadata:
       labels:
-        app: prom-app
+        app: prometheus-server
     spec:
       containers:
-        - name: promo deployment meta
-          image: prom
+        - name: prometheus
+          image: prom/prometheus:v2.1.0
           args:
           ports:
-            - containerPorts: 8080
+            - containerPorts: 9090
+          volumeMounts:
+            - name: prometheus-config-volume
+              mountPath: /etc/prometheus/
+      volumes:
+        - name: prometheus-config-volume
+          configMap:
+            name: prometheus-server-conf
+            defaultMode: 420
