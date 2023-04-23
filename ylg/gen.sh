@@ -8,7 +8,7 @@ set -E
 source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh) >>/dev/null 2>&1
 #source "./ylgdb.sh"
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
-chk=(spec metadata labels template args containers ports volumes configMap volumeMounts)
+chk=(spec metadata labels template containers ports volumes configMap volumeMounts)
 maskflag=0
 
 sortit() {
@@ -138,11 +138,41 @@ do
 rflag=0
 while read -r line; do
 
+   donef=0
    line1=$(echo "$line" | awk '{split($0,f1,":"); print f1[1]}')
    line10=$(echo "$line1" | awk '{$1=$1;print}') 
-     if [[ "${value[$f]}" == "$line10" ]]
+   if [[ ("${value[$f]}" == "$line10") && ("${spec[$f]}" == "args:") ]]
+   then
+	    #echo "line is $line and f is $f and spec is ${spec[$f]}"
+	     rgenylg "$f" "${spec[$f]}" 
+	     lined=$(echo "$line" | awk '{split($0,f1,":"); print f1[2]}')
+             #echo "lined is $lined"
+	     lined1=$(echo "$lined" | awk '{ld=split($0,fd1,","); for (i=1;i<ld;i++) {print fd1[1]} }')
+             #echo "lined1 is $lined1"
+	     lined2="- \"$lined1\""
+	     num11=$(echo "$f" |sed  's/[^0-9]//g')
+             num12=${#num11}
+             #echo "num12 is $num12"
+	     num14="1"
+	     for (( b=1; b <= $num12; b++))
+	     do
+		     num14=$((num14*10))
+	     done
+	     #echo "num14 is $num14"
+	     num141="$num12"
+	     #echo "num141 is $num141"
+	     num5="1"
+	     num142=`echo "scale=${num141}; $num5/$num14" | bc -l`
+	     #echo "num142 is $num142"
+	     num143=`echo "scale=${num141}; $num142+$f" | bc -l`
+             #echo "num143 is $num143"
+             rgenylg "$num143" "$lined2"
+       	    donef=1
+	    rflag=1
+   fi
+     if [[ ("${value[$f]}" == "$line10") && ("${spec[$f]}" != "args:") ]]
      then
-             v1=$(echo "$line" | awk '{l=index($0,":"); print substr($0,l+1)}')
+	     v1=$(echo "$line" | awk '{l=index($0,":"); print substr($0,l+1)}')
 	     v11=$(echo $v1 | awk '{$1=$1;print}') 
 	     v2="${spec[$f]}"
 	     v3="${v2} ${v11}"
