@@ -146,10 +146,14 @@ while read -r line; do
 	    #echo "line is $line and f is $f and spec is ${spec[$f]}"
 	     rgenylg "$f" "${spec[$f]}" 
 	     lined=$(echo "$line" | awk '{split($0,f1,":"); print f1[2]}')
-             #echo "lined is $lined"
-	     lined1=$(echo "$lined" | awk '{ld=split($0,fd1,","); for (i=1;i<ld;i++) {print fd1[1]} }')
-             #echo "lined1 is $lined1"
-	     lined2="- \"$lined1\""
+	     lined1=($(echo "$lined" | awk '{ld=split($0,fd1,","); for (i=1;i<=ld;i++) {print fd1[i]} }'))
+	     count1=0
+             for i1 in "${lined1[@]}"
+		do
+   			#echo "array is $i1"
+                        ((count1+=1))
+	          
+             lined2="- \"$i1\""
 	     num11=$(echo "$f" |sed  's/[^0-9]//g')
              num12=${#num11}
              #echo "num12 is $num12"
@@ -161,12 +165,14 @@ while read -r line; do
 	     #echo "num14 is $num14"
 	     num141="$num12"
 	     #echo "num141 is $num141"
-	     num5="1"
+	     num5="$count1"
 	     num142=`echo "scale=${num141}; $num5/$num14" | bc -l`
 	     #echo "num142 is $num142"
 	     num143=`echo "scale=${num141}; $num142+$f" | bc -l`
-             #echo "num143 is $num143"
+             # echo "count1 is $count1"
+	     #echo "num143 is $num143"
              rgenylg "$num143" "$lined2"
+		done
        	    donef=1
 	    rflag=1
    fi
