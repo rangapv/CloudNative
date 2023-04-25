@@ -26,7 +26,6 @@ nsfile="nsr.yaml"
 nsfile1=`> "$nsfile"`
 chknsln="${#chkns[@]}"
 pcount=0
-	echo "pcount is $pcount"
 for a in "${sorted[@]}"
 do 
 #echo "a si $a num3 is $num3" 
@@ -38,8 +37,6 @@ then
     if [[ (( "$pcount" < "$chknsln" )) ]]
     then
 	((pcount+=1))
-	echo "pcount is $pcount"
-	echo "MAtch a is $a and chkns is $c:"
         num1=$(echo "$a" |sed  's/[^0-9]//g')
         num2=${#num1}
         num3=$((num2-=1))
@@ -65,29 +62,54 @@ done
 done
 }
 
+
+nchkspec() {
+
+nchspeck=("$@")
+for nb in "${chknsflg[@]}"
+do
+ if [[ "$nb" == "$nchspeck" ]]
+ then
+       	nmaskflag=1
+ fi
+done
+}
+
+
+
 nsfilyl() {
 
 nsvfile="nsv.yaml"
-nsvfilec="> $nsvfile"
-nslen="${#chknsflg[@]}"
-
+nsvfilec=`> "$nsvfile"`
+nslen="${#chkns[@]}"
+pcount=0
 for a in "${sorted[@]}"
 do
 #echo "a si $a num3 is $num3"
 t=" "
-for (( i=1; i<="$nslen"; i++))
+
+for c in "${chkns[@]}"
 do
-if [[ "$spec[$a]" == "$chknsflg[$i]:" ]]
+
+nchkspec "${spec[$a]:0:-1}"
+
+if [[ "${spec[$a]}" == "$c:" ]]
 then
-        echo "$value[$a]" >>"$nsvfile"
+    if [[ (( "$pcount" < "$nslen" )) ]]
+    then
+        ((pcount+=1))
+	if [[ (( $nmaskflag -eq 1 )) ]]
+	then
+        echo "${value[$a]}:" >>"$nsvfile"
+	nmaskflag=0
+	fi
+    fi
 fi
 done
 done
-
 }
 
 sortit
-
 
 if [[ "$#" -eq 0 ]]
 then
@@ -97,10 +119,10 @@ fi
 if [[ "$1" == "gen" ]]
 then
 nsgen
-if [[ ! -z "$cln" ]]
+if [[ ! -z "$nsfile" ]]
 then
-     echo "todo"
-#        nsfilyl
+ #    echo "todo"
+      nsfilyl
 fi
 else
         if [[ "$1" == "fill" ]]
