@@ -23,20 +23,26 @@ done | sort -n)
 
 nsgen() {
 nsfile="nsr.yaml"
-nsfile1=`> $nsfile`
-chknsln="#{chkns[@]}"
-
+nsfile1=`> "$nsfile"`
+chknsln="${#chkns[@]}"
+pcount=0
+	echo "pcount is $pcount"
 for a in "${sorted[@]}"
 do 
 #echo "a si $a num3 is $num3" 
 t=" "
-for (( i=1; i<="$chklnsln"; i++))
+for c in "${chkns[@]}" 
 do
-if [[ "$spec[$a]" == "$chkns[$i]:" ]]
+if [[ "${spec[$a]}" == "$c:" ]]
 then
-num1=$(echo "$a" |sed  's/[^0-9]//g')
-num2=${#num1}
-num3=$((num2-=1))
+    if [[ (( "$pcount" < "$chknsln" )) ]]
+    then
+	((pcount+=1))
+	echo "pcount is $pcount"
+	echo "MAtch a is $a and chkns is $c:"
+        num1=$(echo "$a" |sed  's/[^0-9]//g')
+        num2=${#num1}
+        num3=$((num2-=1))
        if [[ (($num3 -eq 0)) ]]
        then
                echo "${spec[$a]}"  >>"$nsfile"
@@ -53,14 +59,11 @@ num3=$((num2-=1))
        else
 	       echo "  "
        fi
+    fi
 fi
 done
 done
-
 }
-
-
-
 
 nsfilyl() {
 
@@ -96,7 +99,8 @@ then
 nsgen
 if [[ ! -z "$cln" ]]
 then
-        nsfilyl
+     echo "todo"
+#        nsfilyl
 fi
 else
         if [[ "$1" == "fill" ]]
