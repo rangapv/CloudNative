@@ -1,0 +1,7 @@
+apiVersion:
+kind:
+metadata:
+  name:
+  namespace:
+  labels:
+    type:
