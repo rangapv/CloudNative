@@ -5,3 +5,13 @@ metadata:
   namespace:
   labels:
     type:
+    app:
+spec:
+  storageClassName:
+  capacity:
+    storage:
+  accessModes:
+  nfs:
+  resources:
+    requests:
+      storage:
