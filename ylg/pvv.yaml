@@ -2,14 +2,10 @@ Version:
 kind:
 Name for this kind:
 Namespaces that you want this kind to be deployed:
-labels for this type of kind:
 type definitions:
 app name to be referenced:
 User defiend Name for the Storage Claim:
-Capacity details:
 Mention the amount of Storage details:
-The Access Modes that needs to be mentioned Read/Write/ReadWrite etc:
-The NEtwrok File Storage Details:
+The nfs server IP address:
+The NEtwrok File Storage path:
 The resource Details:
-The requests Details:
-The storage Details(Mb/Gb):
