@@ -9,6 +9,7 @@ source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.s
 #source "./ylgdb.sh"
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 
+skippv=(resources)
 skippv1=(metadata labels)
 skippv2=(spec capacity accessModes nfs)
 
@@ -64,11 +65,72 @@ pvspec "5"
 }
 
 
+findp() {
+
+chind="$@"
+skip1=0
+#echo "chind is $chind"
+p13=$(echo "$chind" |sed 's/[^0-9]//g')
+p1=${#p13}
+p2=`echo "scale=${p1}; $chind" | bc -l`
+#echo "p13 is $p13 p1 is $p1 and p2 is $p2"
+for ((c=1;c<"$p1";c++))
+do
+ab="${p2:0:-1}"
+#echo "inside ab is ${spec[$ab]} and ab is $ab"
+
+#rightsift "$a2"
+for p in ${skippv[@]}
+do
+#	echo "inside for p is $p and spec is ${spec[$ab]} and ab is $ab"
+if [[ "${spec[$ab]}" == "$p:" ]]
+then
+	skip1=1
+	#echo "inside skipp"
+	break
+fi
+done
+ab13=$(echo "$ab" |sed 's/[^0-9]//g')
+ab1=${#ab13}
+ab2=`echo "scale=${ab1}; $ab" | bc -l`
+#echo "ab13 is $ab13 ab1 is $ab1 and ab2 is $ab2 and ab is $ab"
+p2="$ab2"
+#p13=$(echo "$p2" |sed 's/[^0-9]//g')
+#p1=${#p13}
+#p2=`echo "scale=${p1}; $ab" | bc -l`
+#echo "p13 is $p13 p1 is $p1 and p2 is $p2"
+done
+}
+
+chkspec() {
+ch1="$1"
+shift
+chid="$1"
+shift
+chspeck="$@"
+maskflag=0
+for b in ${chspeck[@]};
+do
+        #echo "in the for ch1 is $ch1 and b is $b "
+	if [[ "$ch1" == "$b" ]]
+	then
+#	   echo "in the if ch1 is $ch1 and b is $b "
+ 	   maskflag=1
+        fi
+        findp "$chid"
+        if  [[ (( "$skip1" -eq "1" )) ]]
+	then
+		maskflag=1
+	fi
+done
+}
+
 pvspec() {
 ind1="$@"
 pvfile="$pvfile"
 ul=`echo "$ind1+1" | bc -l`
-for a in "${sorted[@]}"
+
+for a in "${sorted[@]}";
 do
 	a11=$(echo "$a" |sed 's/[^0-9]//g')
         a1=${#a11}
@@ -76,24 +138,17 @@ do
 	#echo "a ia $a2 ind1 is $ind1 ul is $ul"
 	if ( (( $(echo "$a2 >= $ind1" | bc -l) )) && (( $(echo "$a2 < $ul" | bc -l) )) )
 	then
-          indent "$a" "$pvfile"
+          chkspec "${spec[$a]:0:-1}" "$a" "${skippv[@]}"
+          if [[ (( $maskflag -eq 0 )) ]]
+          then
+		  indent "$a" "$pvfile"
+          fi
+          maskflag=1
 	fi
 done
 }
 
 
-chkspec() {
-
-chspeck="$1"
-skip="$2"
-for b in "${skip[@]}"
-do
- if [[ "$b" == "$chspeck" ]]
- then
-       	maskflag=1
- fi
-done
-}
 
 pvfilyl() {
 
@@ -158,8 +213,8 @@ then
 pvgen
 if [[ ! -z "$pvvfile" ]]
 then
- #    echo "todo"
-      pvfilyl
+     echo "todo"
+#      pvfilyl
 fi
 else
         if [[ "$1" == "fill" ]]
