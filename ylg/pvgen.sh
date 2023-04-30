@@ -10,7 +10,7 @@ source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.s
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 
 skippv=(resources)
-skippv1=(metadata labels)
+skippv1=(metadata labels spec capacity accessModes nfs)
 skippv2=(spec capacity accessModes nfs)
 
 sortit() {
@@ -48,20 +48,38 @@ ifile="$2"
 }
 
 
+funecho() {
+input1="$1"
+fileo="$2"
+
+echo "${value[$input1]}:" >>"$fileo"
+#echo "${value[$a]}:" >>"$fln"
+
+}
+
+
+
 pvgen() {
-nsfile="$pvfile"
+nsfile="$1"
+shift
 nsfile1=`> "$nsfile"`
-chknsln="8"
+chknsln="$1"
+shift
+fun1="$1"
+shift
+indx="$1"
+shift
 pcount=0
+skar="$@"
 for a in "${sorted[@]}"
 do 
     if [[ (( "$pcount" < "$chknsln" )) ]]
     then
 	((pcount+=1))
-        indent "$a" "$nsfile"
+        "$fun1" "$a" "$nsfile"
     fi
 done
-pvspec "5"
+pvspec "$indx" "$fun1" "$nsfile" "${skar[@]}" 
 }
 
 
@@ -117,17 +135,22 @@ do
 #	   echo "in the if ch1 is $ch1 and b is $b "
  	   maskflag=1
         fi
+done
         findp "$chid"
         if  [[ (( "$skip1" -eq "1" )) ]]
 	then
 		maskflag=1
 	fi
-done
 }
 
 pvspec() {
-ind1="$@"
-pvfile="$pvfile"
+ind1="$1"
+shift
+func1="$1"
+shift
+pvfile="$1"
+shift
+skarray="$@"
 ul=`echo "$ind1+1" | bc -l`
 
 for a in "${sorted[@]}";
@@ -138,10 +161,10 @@ do
 	#echo "a ia $a2 ind1 is $ind1 ul is $ul"
 	if ( (( $(echo "$a2 >= $ind1" | bc -l) )) && (( $(echo "$a2 < $ul" | bc -l) )) )
 	then
-          chkspec "${spec[$a]:0:-1}" "$a" "${skippv[@]}"
+          chkspec "${spec[$a]:0:-1}" "$a" "${skarray[@]}"
           if [[ (( $maskflag -eq 0 )) ]]
           then
-		  indent "$a" "$pvfile"
+		  "$func1" "$a" "$pvfile"
           fi
           maskflag=1
 	fi
@@ -162,7 +185,7 @@ do
     if [[ (( "$pcount" < "$chknsln" )) ]]
     then
         ((pcount+=1))
-	chkspec "${spec[$a]:0:-1}" "$skippv1"
+	chkspec "${spec[$a]:0:-1}" "$a" "${skippv1[@]}"
 	if [[ (( $maskflag -eq 0 )) ]]
 	then
 	echo "${value[$a]}:" >>"$fln"
@@ -172,24 +195,7 @@ do
 done
 
 ind1="5"
-pvfile="$fln"
-ul=`echo "$ind1+1" | bc -l`
-for a in "${sorted[@]}"
-do
-        a11=$(echo "$a" |sed 's/[^0-9]//g')
-        a1=${#a11}
-        a2=`echo "scale=${a1}; $a" | bc -l`
-        #echo "a ia $a2 ind1 is $ind1 ul is $ul"
-        if ( (( $(echo "$a2 >= $ind1" | bc -l) )) && (( $(echo "$a2 < $ul" | bc -l) )) )
-        then
-        chkspec "${spec[$a]:0:-1}" "$skippv2"
-        if [[ (( $maskflag -eq 0 )) ]]
-        then
-        echo "${value[$a]}:" >>"$fln"
-        fi
-        maskflag=0
-        fi
-done
+pvspec "$ind1" "funecho" "$fln" "${skippv2[@]}" 
 
 }
 
@@ -210,11 +216,15 @@ fi
 
 if [[ "$1" == "gen" ]]
 then
-pvgen
+ nsfile="$pvfile"
+ chknsln="8"
+ fun2call="indent"
+ specind="5"
+ pvgen "$nsfile" "$chknsln" "$fun2call" "$specind" "${skippv[@]}" 
 if [[ ! -z "$pvvfile" ]]
 then
-     echo "todo"
-#      pvfilyl
+#     echo "todo"
+      pvfilyl
 fi
 else
         if [[ "$1" == "fill" ]]
