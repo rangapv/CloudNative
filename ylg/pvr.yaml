@@ -12,6 +12,5 @@ spec:
     storage:
   accessModes:
   nfs:
-  resources:
-    requests:
-      storage:
+    server:
+    path:
