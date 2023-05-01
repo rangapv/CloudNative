@@ -10,7 +10,7 @@ source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.s
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 
 skippv=(resources)
-skippv1=(metadata labels spec capacity accessModes nfs)
+skippv1=(metadata labels spec capacity accessModes nfs resources)
 skippv2=(spec capacity accessModes nfs)
 
 sortit() {
@@ -44,7 +44,7 @@ ifile="$2"
        else
                echo "  "
        fi
-
+    #echo "in the indent fun and writing ${spec[$ai]}"
 }
 
 
@@ -132,7 +132,7 @@ do
         #echo "in the for ch1 is $ch1 and b is $b "
 	if [[ "$ch1" == "$b" ]]
 	then
-#	   echo "in the if ch1 is $ch1 and b is $b "
+	   #echo "in the if ch1 is $ch1 and b is $b "
  	   maskflag=1
         fi
 done
@@ -195,7 +195,7 @@ do
 done
 
 ind1="5"
-pvspec "$ind1" "funecho" "$fln" "${skippv2[@]}" 
+pvspec "$ind1" "funecho" "$fln" "${skippv1[@]}" 
 
 }
 
