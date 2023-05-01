@@ -141,7 +141,7 @@ do
           if [[ (( $maskflag -eq 0 )) ]]
           then
 
-
+                  pvcallagain
 		  "$func1" "$a" "$pvfile"
           fi
           maskflag=1
@@ -310,8 +310,6 @@ done
 
  ind1="5"
 pvspec1 "$ind1" "funecho" "$pvfln" "${skippv2[@]}"
-
-
 
 }
 
