@@ -201,7 +201,7 @@ pvspec "$ind1" "funecho" "$fln" "${skippv1[@]}"
 
 
 pvfill(){
-echo "gi"
+source "./pvfill.sh"
 }
 
 pvfile="pvr.yaml"
