@@ -2,7 +2,6 @@
 #author: rangapv@yahoo.com 01-05-23
 
 
-
 set -E
 source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh) >>/dev/null 2>&1
 #source "./ylgdb.sh"
@@ -140,29 +139,40 @@ do
           chkspec1 "${spec[$a]:0:-1}" "$a" "${skarray[@]}"
           if [[ (( $maskflag -eq 0 )) ]]
           then
-
-                  pvcallagain
-		  "$func1" "$a" "$pvfile"
+                  pvcallagain "${spec[$a]:0:-1}" "$a" "${skippv2[@]}"
+		  #"$func1" "$a" "$pvfile"
           fi
-          maskflag=1
 	fi
 done
 }
 
 pvcallagain() {
-
-
-for f in "${sorted[@]}"
+item1="$1"
+shift
+item3="$1"
+shift
+item2="$@"
+fileo="pvr.yaml"
+rflag=0
+for g in ${item2[@]};
 do
+if [[ (( "$rflag" -eq "0" )) ]]
+then
+if [[ "$item1" == "$g" ]]
+then
+      rgenylg "$item3" "${spec[$item3]}"
+      rflag=1 
+  #    	echo "${spec[$a]}" >> "$fileo"
+else
+f="$item3"
 while read -r line; do
-
-line1=$(echo "$line" | awk '{split($0,f1,":"); print f1[1]}')
+ 
+   line1=$(echo "$line" | awk '{split($0,f1,":"); print f1[1]}')
    line10=$(echo "$line1" | awk '{$1=$1;print}')
    linec2=$(echo "$line" | grep ",")
    #echo "line2c is $line2c"
    if [[ ("${value[$f]}" == "$line10") && ( ! -z "$linec2") ]]
    then
-   #echo "in the while line10 is $line10 and line2c is $line2c"
        lined=$(echo "$line" | awk '{split($0,f1,":"); print f1[2]}')
        lined1=($(echo "$lined" | awk '{ld=split($0,fd1,","); for (i=1;i<=ld;i++) {print fd1[i]} }'))
        count1=0
@@ -199,7 +209,6 @@ line1=$(echo "$line" | awk '{split($0,f1,":"); print f1[1]}')
    fi
    if [[ ("${value[$f]}" == "$line10") && ( -z "$linec2") ]]
    then
-      echo "in the second if line10 is $line10 and line2c is $line2c"
      v1=$(echo "$line" | awk '{l=index($0,":"); print substr($0,l+1)}')
      v11=$(echo $v1 | awk '{$1=$1;print}')
      v2="${spec[$f]}"
@@ -212,13 +221,13 @@ line1=$(echo "$line" | awk '{split($0,f1,":"); print f1[1]}')
 #for while read
 done <$pvfln
 #for f loop
-if [[ (( $rflag -eq 0 )) ]]
-then
-     rgenylg "$f" "${spec[$f]}"
+#if [[ (( $rflag -eq 0 )) ]]
+#then
+ #    rgenylg "$f" "${spec[$f]}"
+#fi
+fi
 fi
 done
-
-
 }
 
 pvfill() {
@@ -227,21 +236,21 @@ pvfln="$1"
 pvrfln="$2"
 gfln=`> "$pvrfln"`
 #genylg
+chklen="8"
+fcount=0
 
 if [[ (-z $pvfln) ]]
 then
     echo "File $pvfln not there or EMPTY"
     exit
 fi
-chklen="8"
 
 for f in "${sorted[@]}"
 do
 rflag=0
-fcount=0
-while read -r line; do
 if [[ (( "$fcount" < "$chklen" )) ]]
 then
+while read -r line; do
    donef=0
    line1=$(echo "$line" | awk '{split($0,f1,":"); print f1[1]}')
    line10=$(echo "$line1" | awk '{$1=$1;print}')
@@ -281,12 +290,11 @@ then
              rgenylg "$num143" "$lined2"
              ((fcount+=1))
              done
-            rflag=1
 	 fi
+             rflag=1
    fi
    if [[ ("${value[$f]}" == "$line10") && ( -z "$linec2") ]]
    then
-      echo "in the second if line10 is $line10 and line2c is $line2c" 
      v1=$(echo "$line" | awk '{l=index($0,":"); print substr($0,l+1)}')
      v11=$(echo $v1 | awk '{$1=$1;print}')
      v2="${spec[$f]}"
@@ -296,20 +304,20 @@ then
      rflag=1
      ((fcount+=1))
    fi
-fi
 #for while read
 done <$pvfln
 #for f loop
-if [[ (( $rflag -eq 0 )) ]]
-then
+   if [[ (( $rflag -eq 0 )) ]]
+   then
      rgenylg "$f" "${spec[$f]}"
+     ((fcount+=1))
+   fi
 fi
 
 done
 
-
  ind1="5"
-pvspec1 "$ind1" "funecho" "$pvfln" "${skippv2[@]}"
+pvspec1 "$ind1" "funecho" "$pvfln" "${skippv[@]}"
 
 }
 
