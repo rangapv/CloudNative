@@ -1,16 +1,16 @@
-apiVersion:
-kind:
+apiVersion: v1
+kind: PersistentVolume
 metadata:
-  name:
-  namespace:
+  name: pvc-nfs-data
+  namespace: monitoring
   labels:
-    type:
-    app:
+    type: nfs
+    app: prometheus-deployment
 spec:
-  storageClassName:
+  storageClassName: managed-nfs
   capacity:
-    storage:
+    storage: 1Gi
   accessModes:
   nfs:
-    server:
-    path:
+    server: 192.168.31.174
+    path: "/mnt/nfs/promdata"
