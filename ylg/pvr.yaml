@@ -11,6 +11,7 @@ spec:
   capacity:
     storage: 1Gi
   accessModes:
+    - ReadWriteMany
   nfs:
     server: 192.168.31.174
     path: "/mnt/nfs/promdata"
