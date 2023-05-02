@@ -1,6 +1,6 @@
 #!/bin/bash
 #author: rangapv@yahoo.com 01-05-23
-
+#This file gets called in the pvgen.sh script for filling the skeletal pvr.yaml file with the filled pvv.yaml file that the user populates.
 
 set -E
 source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh) >>/dev/null 2>&1
@@ -23,7 +23,7 @@ rgenylg() {
 int1=0
 ind="$1"
 argr1="$2"
-cln="pvr.yaml"
+cln="$3"
 #clnc=`> "$cln"`
 t=" "
 if [[ (( "$2" == " " )) ]]
@@ -125,6 +125,8 @@ func1="$1"
 shift
 pvfile="$1"
 shift
+pvrfile="$1"
+shift
 skarray="$@"
 ul=`echo "$ind1+1" | bc -l`
 
@@ -139,7 +141,7 @@ do
           chkspec1 "${spec[$a]:0:-1}" "$a" "${skarray[@]}"
           if [[ (( $maskflag -eq 0 )) ]]
           then
-                  pvcallagain "${spec[$a]:0:-1}" "$a" "${skippv2[@]}"
+                  pvcallagain "${spec[$a]:0:-1}" "$a" "$pvrfile" "${skippv2[@]}"
 		  #"$func1" "$a" "$pvfile"
           fi
 	fi
@@ -151,8 +153,9 @@ item1="$1"
 shift
 item3="$1"
 shift
+fileo="$1"
+shift
 item2="$@"
-fileo="pvr.yaml"
 rflag=0
 for g in ${item2[@]};
 do
@@ -160,7 +163,7 @@ if [[ (( "$rflag" -eq "0" )) ]]
 then
 if [[ "$item1" == "$g" ]]
 then
-      rgenylg "$item3" "${spec[$item3]}"
+      rgenylg "$item3" "${spec[$item3]}" "$fileo"
       rflag=1 
   #    	echo "${spec[$a]}" >> "$fileo"
 else
@@ -201,7 +204,7 @@ while read -r line; do
              num143=`echo "scale=${num141}; $num142+$f" | bc -l`
              # echo "count1 is $count1"
 #echo "num143 is $num143"
-             rgenylg "$num143" "$lined2"
+             rgenylg "$num143" "$lined2" "$fileo"
              ((fcount+=1))
              done
             rflag=1
@@ -214,7 +217,7 @@ while read -r line; do
      v2="${spec[$f]}"
      v3="${v2} ${v11}"
 #            sudo sed -i "s/${v2}/${v2} ${v11}/" $line
-     rgenylg "$f" "$v3"
+     rgenylg "$f" "$v3" "$fileo"
      rflag=1
      ((fcount+=1))
    fi
@@ -287,7 +290,7 @@ while read -r line; do
              num143=`echo "scale=${num141}; $num142+$f" | bc -l`
              # echo "count1 is $count1"
              #echo "num143 is $num143"
-             rgenylg "$num143" "$lined2"
+             rgenylg "$num143" "$lined2" "$pvrfln"
              ((fcount+=1))
              done
 	 fi
@@ -300,7 +303,7 @@ while read -r line; do
      v2="${spec[$f]}"
      v3="${v2} ${v11}"
 #            sudo sed -i "s/${v2}/${v2} ${v11}/" $line
-     rgenylg "$f" "$v3"
+     rgenylg "$f" "$v3" "$pvrfln"
      rflag=1
      ((fcount+=1))
    fi
@@ -309,7 +312,7 @@ done <$pvfln
 #for f loop
    if [[ (( $rflag -eq 0 )) ]]
    then
-     rgenylg "$f" "${spec[$f]}"
+     rgenylg "$f" "${spec[$f]}" "$pvrfln"
      ((fcount+=1))
    fi
 fi
@@ -317,7 +320,7 @@ fi
 done
 
  ind1="5"
-pvspec1 "$ind1" "funecho" "$pvfln" "${skippv[@]}"
+pvspec1 "$ind1" "funecho" "$pvfln" "$pvrfln" "${skippv[@]}"
 
 }
 
