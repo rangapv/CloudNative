@@ -7,9 +7,11 @@ source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.s
 #source "./ylgdb.sh"
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 
+skippm=(metadata labels type )
+skippm1=(type )
 skippv=(capacity nfs)
-skippv1=(metadata labels spec accessModes resources requests)
-skippv2=(spec capacity accessModes nfs)
+skippv1=(metadata labels spec capacity accessModes nfs resources requests)
+skippv2=(spec resources accessModes requests)
 
 sortit() {
 readarray -t sorted < <(for l in "${!spec[@]}"
@@ -246,10 +248,19 @@ then
     echo "File $pvfln not there or EMPTY"
     exit
 fi
+marraylen="${#skippm[@]}"
+chknsln=`echo "$chknsln-$marraylen" | bc -l`
 
 for f in "${sorted[@]}"
 do
 rflag=0
+
+if [[ (( "$f" < "4" )) ]]
+then
+chkspec1 "${spec[$f]:0:-1}" "$f" "${skippm1[@]}"
+if [[ (( "$maskflag" -eq "0" )) ]]
+then
+
 if [[ (( "$fcount" < "$chklen" )) ]]
 then
 while read -r line; do
@@ -315,7 +326,8 @@ done <$pvfln
      ((fcount+=1))
    fi
 fi
-
+fi
+fi
 done
 
  ind1="5"

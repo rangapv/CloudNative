@@ -9,9 +9,10 @@ source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.s
 #source "./ylgdb.sh"
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 
+skippm=(type )
 skippv=(capacity nfs)
-skippv1=(metadata labels spec capacity accessModes nfs resources requests)
-skippv2=(spec capacity accessModes nfs)
+skippv1=(metadata labels type spec capacity accessModes nfs resources requests)
+skippv2=(spec resources accessModes requests)
 
 sortit() {
 readarray -t sorted < <(for l in "${!spec[@]}"
@@ -71,12 +72,19 @@ indx="$1"
 shift
 pcount=0
 skar="$@"
+marraylen="${#skippm[@]}"
+chknsln=`echo "$chknsln-$marraylen" | bc -l`
+#echo "chksln is $chknsln"
 for a in "${sorted[@]}"
 do 
     if [[ (( "$pcount" < "$chknsln" )) ]]
     then
+        chkspec "${spec[$a]:0:-1}" "$a" "${skippm[@]}"
+        if [[ (( "$maskflag" -eq "0" )) ]]
+	then
 	((pcount+=1))
-        "$fun1" "$a" "$nsfile"
+	"$fun1" "$a" "$nsfile"
+	fi
     fi
 done
 pvspec "$indx" "$fun1" "$nsfile" "${skar[@]}" 
@@ -134,6 +142,7 @@ do
 	then
 	   #echo "in the if ch1 is $ch1 and b is $b "
  	   maskflag=1
+	   break
         fi
 done
         findp "$chid"
@@ -171,31 +180,70 @@ do
 done
 }
 
+pvspec11() {
+ind1="$1"
+shift
+func1="$1"
+shift
+pvfile="$1"
+shift
+skarray="$@"
+ul=`echo "$ind1+1" | bc -l`
+
+for a in "${sorted[@]}";
+do
+	a11=$(echo "$a" |sed 's/[^0-9]//g')
+        a1=${#a11}
+	a2=`echo "scale=${a1}; $a" | bc -l`
+	#echo "a ia $a2 ind1 is $ind1 ul is $ul"
+	if ( (( $(echo "$a2 >= $ind1" | bc -l) )) && (( $(echo "$a2 < $ul" | bc -l) )) )
+	then
+          chkspec "${spec[$a]:0:-1}" "$a" "${skarray[@]}"
+          if [[ (( $maskflag -eq 0 )) ]]
+          then
+		chkspec "${spec[$a]:0:-1}" "$a" "${skippv2[@]}"
+		if [[ (( $maskflag -eq 0 )) ]]
+		then
+		  "$func1" "$a" "$pvfile"
+	        fi
+          fi
+          maskflag=1
+	fi
+done
+}
 
 
 pvfilyl() {
 
 fln="$pvvfile"
 flnc=`> "$fln"`
-chknsln="8"
+chknsln="6"
 pcount=0
+
+marraylen="${#skippm[@]}"
+chknsln=`echo "$chknsln-$marraylen" | bc -l`
+
 
 for a in "${sorted[@]}"
 do
+    if [[ (( "$a" < "4" )) ]]
+    then
     if [[ (( "$pcount" < "$chknsln" )) ]]
     then
-        ((pcount+=1))
-	chkspec "${spec[$a]:0:-1}" "$a" "${skippv1[@]}"
+	#chkspec "${spec[$a]:0:-1}" "$a" "${skippv1[@]}"
+	maskflag=1
+        chkspec "${spec[$a]:0:-1}" "$a" "${skippv1[@]}"
 	if [[ (( $maskflag -eq 0 )) ]]
 	then
-	echo "${value[$a]}:" >>"$fln"
-        fi
-	maskflag=0
+                ((pcount+=1))
+	        echo "${value[$a]}:" >>"$fln"
+       fi
+    fi
     fi
 done
 
 ind1="5"
-pvspec "$ind1" "funecho" "$fln" "${skippv1[@]}" 
+pvspec11 "$ind1" "funecho" "$fln" "${skippv[@]}" 
 
 }
 
@@ -220,7 +268,8 @@ then
  chknsln="8"
  fun2call="indent"
  specind="5"
- pvgen "$nsfile" "$chknsln" "$fun2call" "$specind" "${skippv[@]}" 
+ pvgen "$nsfile" "$chknsln" "$fun2call" "$specind" "${skippv[@]}"
+ #pvgen "$nsfile" "$chknsln" "$fun2call" "$specind" "${skippv[@]}" "${skippm[@]}" 
 if [[ ! -z "$pvvfile" ]]
 then
 #     echo "todo"

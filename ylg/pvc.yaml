@@ -4,10 +4,11 @@ metadata:
   name: pvc-nfs-data
   namespace: monitoring
   labels:
-    type: 
     app: prometheus-deployment
 spec:
   storageClassName: managed-nfs
   accessModes:
     - ReadWriteMany
+  resources:
+    requests:
       storage: 500Mi
