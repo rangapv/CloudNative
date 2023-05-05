@@ -223,7 +223,6 @@ pcount=0
 marraylen="${#skippm[@]}"
 chknsln=`echo "$chknsln-$marraylen" | bc -l`
 
-
 for a in "${sorted[@]}"
 do
     if [[ (( "$a" < "4" )) ]]
