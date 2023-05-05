@@ -7,8 +7,15 @@ source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.s
 #source "./ylgdb.sh"
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 
+#skippv=(resources)
+#skippv1=(metadata labels spec capacity accessModes nfs)
+
+skippm=( )
+#array values that needs to be skipped fromt eh database in the spec section
 skippv=(resources)
-skippv1=(metadata labels spec capacity accessModes nfs)
+#entries that dont need USer values this is referenced by the values file in the function pvfilyl
+skippv1=(metadata labels spec capacity accessModes nfs resources)
+#entries that need be present in the YAML but no value needed like kind of heading
 skippv2=(spec capacity accessModes nfs)
 
 
@@ -248,9 +255,20 @@ then
     exit
 fi
 
+marraylen="${#skippm[@]}"
+chknsln=`echo "$chknsln-$marraylen" | bc -l`
+
+
 for f in "${sorted[@]}"
 do
 rflag=0
+
+if [[ (( "$f" < "4" )) ]]
+then
+chkspec1 "${spec[$f]:0:-1}" "$f" "${skippm1[@]}"
+if [[ (( "$maskflag" -eq "0" )) ]]
+then
+
 if [[ (( "$fcount" < "$chklen" )) ]]
 then
 while read -r line; do
@@ -316,7 +334,8 @@ done <$pvfln
      ((fcount+=1))
    fi
 fi
-
+fi
+fi
 done
 
  ind1="5"

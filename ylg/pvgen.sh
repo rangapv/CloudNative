@@ -9,8 +9,13 @@ source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.s
 #source "./ylgdb.sh"
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 
+#array values that needs to be skipped in the top section befor spec no entries means no values to skipp all present 
+skippm=( )
+#array values that needs to be skipped fromt eh database in the spec section 
 skippv=(resources)
+#entries that dont need USer values this is referenced by the values file in the function pvfilyl
 skippv1=(metadata labels spec capacity accessModes nfs resources)
+#entries that need be present in the YAML but no value needed like kind of heading
 skippv2=(spec capacity accessModes nfs)
 
 sortit() {
@@ -52,6 +57,7 @@ funecho() {
 input1="$1"
 fileo="$2"
 
+
 echo "${value[$input1]}:" >>"$fileo"
 #echo "${value[$a]}:" >>"$fln"
 
@@ -71,12 +77,19 @@ indx="$1"
 shift
 pcount=0
 skar="$@"
+marraylen="${#skippm[@]}"
+chknsln=`echo "$chknsln-$marraylen" | bc -l`
+#echo "chknsln is $chknsln and marraylen is $marraylen"
 for a in "${sorted[@]}"
 do 
     if [[ (( "$pcount" < "$chknsln" )) ]]
     then
-	((pcount+=1))
+	chkspec "${spec[$a]:0:-1}" "$a" "${skippm[@]}"
+        if [[ (( "$maskflag" -eq "0" )) ]]
+        then
+	    ((pcount+=1))
         "$fun1" "$a" "$nsfile"
+	fi
     fi
 done
 pvspec "$indx" "$fun1" "$nsfile" "${skar[@]}" 
@@ -134,6 +147,7 @@ do
 	then
 	   #echo "in the if ch1 is $ch1 and b is $b "
  	   maskflag=1
+	   break
         fi
 done
         findp "$chid"
@@ -171,6 +185,38 @@ do
 done
 }
 
+pvspec11() {
+ind1="$1"
+shift
+func1="$1"
+shift
+pvfile="$1"
+shift
+skarray="$@"
+ul=`echo "$ind1+1" | bc -l`
+
+for a in "${sorted[@]}";
+do
+        a11=$(echo "$a" |sed 's/[^0-9]//g')
+        a1=${#a11}
+        a2=`echo "scale=${a1}; $a" | bc -l`
+        #echo "a ia $a2 ind1 is $ind1 ul is $ul"
+        if ( (( $(echo "$a2 >= $ind1" | bc -l) )) && (( $(echo "$a2 < $ul" | bc -l) )) )
+        then
+          chkspec "${spec[$a]:0:-1}" "$a" "${skarray[@]}"
+          if [[ (( $maskflag -eq 0 )) ]]
+          then
+                chkspec "${spec[$a]:0:-1}" "$a" "${skippv2[@]}"
+                if [[ (( $maskflag -eq 0 )) ]]
+                then
+                  "$func1" "$a" "$pvfile"
+                fi
+          fi
+          maskflag=1
+        fi
+done
+}
+
 
 
 pvfilyl() {
@@ -180,22 +226,28 @@ flnc=`> "$fln"`
 chknsln="8"
 pcount=0
 
+marraylen="${#skippm[@]}"
+chknsln=`echo "$chknsln-$marraylen" | bc -l`
+
 for a in "${sorted[@]}"
 do
+    if [[ (( "$a" < "4" )) ]]
+    then
     if [[ (( "$pcount" < "$chknsln" )) ]]
     then
-        ((pcount+=1))
+	maskflag=1
 	chkspec "${spec[$a]:0:-1}" "$a" "${skippv1[@]}"
 	if [[ (( $maskflag -eq 0 )) ]]
 	then
+        ((pcount+=1))
 	echo "${value[$a]}:" >>"$fln"
         fi
-	maskflag=0
+    fi
     fi
 done
 
 ind1="5"
-pvspec "$ind1" "funecho" "$fln" "${skippv1[@]}" 
+pvspec11 "$ind1" "funecho" "$fln" "${skippv[@]}" 
 
 }
 
