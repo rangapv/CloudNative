@@ -7,10 +7,21 @@ source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.s
 #source "./ylgdb.sh"
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 
-skippm=(metadata labels type )
-skippm1=(type )
+#Entries that need no user input bcasue they are labels before the spec section
+#it is being referenced in pvfill(chkspec1) 
+
+
+#Entries that need no user input bcasue they are labels before the spec section
+#it is being referenced in pvfill(chkspec1)
+skippm=(type )
+#skippm=(metadata labels type )
+#array values that needs to be skipped fromt eh database in the spec section
+#referenced in findp1 , pvfill(pvspec1)
 skippv=(capacity nfs)
+#currently not referenced in this file pvfill.sh
 skippv1=(metadata labels spec capacity accessModes nfs resources requests)
+#entries that need be present in the YAML but no value needed like kind of heading
+#referenced in pvcallagain(pvspec1)
 skippv2=(spec resources accessModes requests)
 
 sortit() {
@@ -257,7 +268,7 @@ rflag=0
 
 if [[ (( "$f" < "4" )) ]]
 then
-chkspec1 "${spec[$f]:0:-1}" "$f" "${skippm1[@]}"
+chkspec1 "${spec[$f]:0:-1}" "$f" "${skippm[@]}"
 if [[ (( "$maskflag" -eq "0" )) ]]
 then
 
