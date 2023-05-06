@@ -10,12 +10,15 @@ source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.s
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 
 #array values that needs to be skipped in the top section befor spec no entries means no values to skipp all present 
+#it is being called at checkspec in the pvgen function
 skippm=( )
-#array values that needs to be skipped fromt eh database in the spec section 
+#array values that needs to be skipped fromt eh database in the spec section
+#it is being called at function findp, pvfilyl(pvspec11) , pvfill(pvgen)
 skippv=(resources)
-#entries that dont need USer values this is referenced by the values file in the function pvfilyl
+#entries that dont need USer values this is referenced by the values file in the function pvfilyl(chkspec)
 skippv1=(metadata labels spec capacity accessModes nfs resources)
 #entries that need be present in the YAML but no value needed like kind of heading
+#it is being referenced in pvspec11(chkspec)
 skippv2=(spec capacity accessModes nfs)
 
 sortit() {

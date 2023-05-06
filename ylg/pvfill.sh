@@ -10,12 +10,17 @@ source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/
 #skippv=(resources)
 #skippv1=(metadata labels spec capacity accessModes nfs)
 
+#Entries that need no user input bcasue they are labels before the spec section
+#it is being referenced in pvfill(chkspec1)
 skippm=( )
 #array values that needs to be skipped fromt eh database in the spec section
+#referenced in findp1 , pvfill(pvspec1) 
 skippv=(resources)
 #entries that dont need USer values this is referenced by the values file in the function pvfilyl
+#currently not referenced in this file pvfill.sh
 skippv1=(metadata labels spec capacity accessModes nfs resources)
 #entries that need be present in the YAML but no value needed like kind of heading
+#it is called in pvcallagain(pvspec1)
 skippv2=(spec capacity accessModes nfs)
 
 
