@@ -2,9 +2,15 @@
 #author: rangapv@yahoo.com 17-04-23
 #This is a multi utility script to make Database changes which is take care by the function fix2 to adda new filed "tag"
 #This SCRIPT should be run to update Key values INDEX incrementing it by 1(m varaible) and then commit the ylgdb.sh to REPO taken care by function fix1
-
+#THe dunction fix3 adds the tag value "0" to the labels fields mentioned in the array tago
 
 set -E
+
+source "./ylgdb.sh"
+
+tago=(spec metadata labels capacity accessModes nfs resources requests selector annotations args ports volumeMounts configMap persistentVolumeClaim volumes) 
+
+
 
 fix1() {
 file1="./ylgdb.sh"
@@ -72,5 +78,36 @@ mm2=$(((m+m1)| bc))
 echo "m2 is $mm2" 
 }
 
+
+
+fix3() {
+
+sortit
+file1="./ylgdb.sh"
+
+
+for a in "${sorted[@]}"
+do
+	for b in ${tago[@]}
+	do
+          if [[ "${spec[$a]}" == "$b:" ]]
+	  then
+	     rep=`echo "tag[$a]=\"0\""`  
+	     # sed s//$rep/ line 
+             #echo "spec is ${spec[$a]} and b is $b and tag is tag[$a] and rep is $rep"  
+             tr=`grep "tag\[$a\]" $file1`
+	     suc=`sudo sed -i "s|tag\[$a\].*|${rep}|g" "$file1"`
+	  fi
+	done
+
+done
+}
+
+
+
+
 #fix1
-fix2
+#fix2
+sortit
+fix3
+
