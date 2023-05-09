@@ -8,9 +8,9 @@ set -E
 
 source "./ylgdb.sh"
 
-tago=(spec metadata labels capacity accessModes nfs resources requests selector annotations template containers args ports volumeMounts volumes configMap persistentVolumeClaim volumes) 
+tago=(spec metadata labels capacity accessModes nfs resources requests selector annotations template containers ports volumeMounts volumes configMap persistentVolumeClaim volumes) 
 
-
+tag1=(args )
 
 fix1() {
 file1="./ylgdb.sh"
@@ -79,12 +79,10 @@ echo "m2 is $mm2"
 }
 
 
-
 fix3() {
 
 sortit
 file1="./ylgdb.sh"
-
 
 for a in "${sorted[@]}"
 do
@@ -104,10 +102,33 @@ done
 }
 
 
+fix4() {
+
+sortit
+file1="./ylgdb.sh"
+
+for a in "${sorted[@]}"
+do
+	for b in ${tag1[@]}
+	do
+          if [[ "${spec[$a]}" == "$b:" ]]
+	  then
+	     rep=`echo "tag[$a]=\"1\""`  
+	     # sed s//$rep/ line 
+             #echo "spec is ${spec[$a]} and b is $b and tag is tag[$a] and rep is $rep"  
+             tr=`grep "tag\[$a\]" $file1`
+	     suc=`sudo sed -i "s|tag\[$a\].*|${rep}|g" "$file1"`
+	  fi
+	done
+
+done
+}
+
 
 
 #fix1
 #fix2
 sortit
 fix3
-
+sortit
+fix4
