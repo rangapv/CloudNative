@@ -8,7 +8,7 @@ set -E
 
 source "./ylgdb.sh"
 
-tago=(spec metadata labels capacity accessModes nfs resources requests selector annotations args ports volumeMounts configMap persistentVolumeClaim volumes) 
+tago=(spec metadata labels capacity accessModes nfs resources requests selector annotations template containers args ports volumeMounts volumes configMap persistentVolumeClaim volumes) 
 
 
 
