@@ -230,7 +230,7 @@ chknsln=`echo "$chknsln-$marraylen" | bc -l`
 for a in "${sorted[@]}"
 do
 #	`echo "$a < "3.62" | bc -l`
-    val=`echo "$a<3.62" | bc -l`
+    val=`echo "$a<3.63" | bc -l`
      #echo "val is $val"
     if [[ (( "$val" > "0" )) ]]
     then
