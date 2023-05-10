@@ -1,7 +1,8 @@
 Version: extensions/v1beta1
 kind: Deployment
-Name for this kind: prometheus-deployment
+Name for this kind: prometheus
 Namespaces that you want this kind to be deployed: monitoring
+app name to be referenced: prometheus
 Replicas: 1
 app name for the container: prometheus-server
 Name of this Container: prometheus
