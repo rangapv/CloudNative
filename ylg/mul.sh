@@ -42,6 +42,14 @@ do
 done | sort -n)
 }
 
+sortag() {
+source "./ylgdb.sh"
+readarray -t sortg < <(for l in "${!tag[@]}"
+do
+        echo "$l"
+done | sort -n)
+}
+
 
 fix2() {
 file1="./ylgdb.sh"
@@ -125,10 +133,66 @@ done
 }
 
 
+fix5() {
+
+sortag
+file1="./ylgdb.sh"
+file34="./thb.sh"
+`> $file34`
+count=0
+insindex="3.62"
+pnsindex="3.7"
+specvalue="annotations"
+valuevalue="The list of annotations for this kind"
+tagvalue="1"
+
+while read -r line; do
+
+  if [[ ("$line" =~ ^"spec") ]]
+  then   
+       echo "$line">>"$file34"
+  elif [[ ("$line" =~ ^"value") ]]
+  then
+       echo "$line">>"$file34"
+   elif [[ ("$line" =~ ^"tag") ]]
+   then
+   #echo "line os $line and mstr1 is $mstr11 and a is $a"
+   dig1=`echo "$line" | awk '{split($0,a,"="); print a[1]}'`
+   #echo "dig1 is $dig1"
+   mstr1=`grep -o "[(0-9)(.)(0-9)]*" <<< $dig1`
+   #echo "mstr1 is $mstr1"
+  # mstr1=`grep -o "[0-9.]*" <<< $line`
+   num1=$(echo "$mstr1" | sed 's/[^0-9]//g') 
+  # mstr11=${#num1}
+   mstr2=${#num1}
+   #echo "mstr2 is $mstr2 and num1 is $num1"
+   #echo "hi mstr1 $mstr1 and mstr2 is $mstr2 line is $line"
+  # echo "num1 is $num1"
+   echo "$line">>"$file34"
+   if [[ ("$insindex"  == "$mstr1") ]]
+   then
+        #`echo "$line">>"$file34"`
+        ((count+=1))
+	#echo "hi $count and line is $line"
+        #echo "mstr1 is $mstr1"
+	echo "spec[$pnsindex]=\"$specvalue\"">>"$file34"
+	echo "value[$pnsindex]=\"$valuevalue\"">>"$file34"
+	echo "tag[$pnsindex]=\"$tagvalue\"">>"$file34"
+   fi
+   #`echo "$line">>"$file34"`
+   else
+    echo "$line">>"$file34"
+   fi
+
+done <$file1
+
+echo "count is $count"
+}
 
 #fix1
 #fix2
-sortit
-fix3
-sortit
-fix4
+#sortit
+#fix3
+#sortit
+#fix4
+fix5
