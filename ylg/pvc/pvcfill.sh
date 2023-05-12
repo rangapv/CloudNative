@@ -8,21 +8,14 @@ source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.s
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 
 #Entries that need no user input bcasue they are labels before the spec section
-#it is being referenced in pvfill(chkspec1) 
-
-
-#Entries that need no user input bcasue they are labels before the spec section
 #it is being referenced in pvfill(chkspec1)
-skippm=(type )
+skippm=(type annotations)
 #skippm=(metadata labels type )
 #array values that needs to be skipped fromt eh database in the spec section
 #referenced in findp1 , pvfill(pvspec1)
 skippv=(capacity nfs)
-#currently not referenced in this file pvfill.sh
-#skippv1=(metadata labels spec capacity accessModes nfs resources requests)
-#entries that need be present in the YAML but no value needed like kind of heading
-#referenced in pvcallagain(pvspec1)
-#skippv2=(spec resources accessModes requests)
+
+
 
 sortit() {
 readarray -t sorted < <(for l in "${!spec[@]}"
@@ -74,13 +67,14 @@ p13=$(echo "$chind" |sed 's/[^0-9]//g')
 p1=${#p13}
 p2=`echo "scale=${p1}; $chind" | bc -l`
 #echo "p13 is $p13 p1 is $p1 and p2 is $p2"
+newarray=(${skippm[@]} + ${skippv[@]})
 for ((c=1;c<"$p1";c++))
 do
 ab="${p2:0:-1}"
 #echo "inside ab is ${spec[$ab]} and ab is $ab"
 
 #rightsift "$a2"
-for p in ${skippv[@]}
+for p in ${newarray[@]}
 do
 #	echo "inside for p is $p and spec is ${spec[$ab]} and ab is $ab"
 if [[ "${spec[$ab]}" == "$p:" ]]
@@ -101,8 +95,6 @@ p2="$ab2"
 #echo "p13 is $p13 p1 is $p1 and p2 is $p2"
 done
 }
-
-
 
 
 chkspec1() {
@@ -127,7 +119,6 @@ done
 		maskflag=1
 	fi
 }
-
 
 
 pvspec1() {
@@ -200,7 +191,8 @@ while read -r line; do
        count1=0
          if [[ ( ! -z "$lined1" ) ]]
          then
-            for i1 in "${lined1[@]}"
+         rgenylg "$f" "${spec[$f]} " "$fileo"
+         for i1 in "${lined1[@]}"
             do
                         #echo "array is $i1"
                         ((count1+=1))
@@ -272,8 +264,9 @@ chknsln=`echo "$chknsln-$marraylen" | bc -l`
 for f in "${sorted[@]}"
 do
 rflag=0
-
-if [[ (( "$f" < "4" )) ]]
+val=`echo "$f<3.9" | bc -l`
+     #echo "val is $val"
+if [[ (( "$val" > "0" )) ]]
 then
 chkspec1 "${spec[$f]:0:-1}" "$f" "${skippm[@]}"
 if [[ (( "$maskflag" -eq "0" )) ]]
@@ -348,7 +341,7 @@ fi
 fi
 done
 
- ind1="5"
+ind1="5"
 pvspec1 "$ind1" "funecho" "$pvfln" "$pvrfln" "${skippv[@]}"
 
 }
