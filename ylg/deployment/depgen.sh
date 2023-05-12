@@ -102,13 +102,14 @@ p13=$(echo "$chind" |sed 's/[^0-9]//g')
 p1=${#p13}
 p2=`echo "scale=${p1}; $chind" | bc -l`
 #echo "p13 is $p13 p1 is $p1 and p2 is $p2"
+newarray=(${skippv[@]} + ${skippm[@]})
 for ((c=1;c<"$p1";c++))
 do
 ab="${p2:0:-1}"
 #echo "inside ab is ${spec[$ab]} and ab is $ab"
 
 #rightsift "$a2"
-for p in ${skippv[@]}
+for p in ${newarray[@]}
 do
 #	echo "inside for p is $p and spec is ${spec[$ab]} and ab is $ab"
 if [[ "${spec[$ab]}" == "$p:" ]]
