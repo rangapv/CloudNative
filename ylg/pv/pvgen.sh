@@ -11,7 +11,7 @@ source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/
 
 #array values that needs to be skipped in the top section befor spec no entries means no values to skipp all present
 #it is being called at checkspec in the pvgen function
-skippm=( )
+skippm=(annotations )
 #array values that needs to be skipped fromt eh database in the spec section
 #it is being called at function findp, pvfilyl(pvspec11) , pvfill(pvgen)
 skippv=(resources)
@@ -77,7 +77,9 @@ chknsln=`echo "$chknsln-$marraylen" | bc -l`
 #echo "chksln is $chknsln"
 for a in "${sorted[@]}"
 do 
-    if [[ (( "$pcount" < "$chknsln" )) ]]
+    val=`echo "$a<3.9" | bc -l`
+     #echo "val is $val"
+    if [[ (( "$val" > "0" )) ]]
     then
         chkspec "${spec[$a]:0:-1}" "$a" "${skippm[@]}"
         if [[ (( "$maskflag" -eq "0" )) ]]
@@ -100,13 +102,14 @@ p13=$(echo "$chind" |sed 's/[^0-9]//g')
 p1=${#p13}
 p2=`echo "scale=${p1}; $chind" | bc -l`
 #echo "p13 is $p13 p1 is $p1 and p2 is $p2"
+newarray=(${skippv[@]} + ${skippm[@]})
 for ((c=1;c<"$p1";c++))
 do
 ab="${p2:0:-1}"
 #echo "inside ab is ${spec[$ab]} and ab is $ab"
 
 #rightsift "$a2"
-for p in ${skippv[@]}
+for p in ${newarray[@]}
 do
 #	echo "inside for p is $p and spec is ${spec[$ab]} and ab is $ab"
 if [[ "${spec[$ab]}" == "$p:" ]]
@@ -221,7 +224,7 @@ pvfilyl() {
 
 fln="$pvvfile"
 flnc=`> "$fln"`
-chknsln="6"
+chknsln="8"
 pcount=0
 
 marraylen="${#skippm[@]}"
@@ -229,7 +232,10 @@ chknsln=`echo "$chknsln-$marraylen" | bc -l`
 
 for a in "${sorted[@]}"
 do
-    if [[ (( "$a" < "4" )) ]]
+#	`echo "$a < "3.62" | bc -l`
+    val=`echo "$a<3.9" | bc -l`
+     #echo "val is $val"
+    if [[ (( "$val" > "0" )) ]]
     then
     if [[ (( "$pcount" < "$chknsln" )) ]]
     then
