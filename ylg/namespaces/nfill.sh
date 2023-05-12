@@ -1,28 +1,21 @@
 #!/bin/bash
 #author: rangapv@yahoo.com 07-05-23
-#This file gets called in the ngen.sh script for filling the skeletal nsr.yaml file with the filled nsv.yaml file that the user populates.
+#USUAGE: ./ngen.sh gen (will generate the Skeletal YAML nsr.yaml and nsv.yaml a human readable file to fill values)
+#USUAGE: ./ngen.sh (SAME as above ....will generate the Skeletal YAML nsr.yaml and nsv.yaml a human readable file to fill values)
+#USUAGE: ./ngen.sh fill (The program takes the FILLED nsv.yaml file generated ealier from above step and popluates the Skeletal nsr.yaml with namespace values)
 
 set -E
 source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh) >>/dev/null 2>&1
 #source "./ylgdb.sh"
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 
-#Entries that need no user input bcasue they are labels before the spec section
-#it is being referenced in pvfill(chkspec1) 
-
-
-#Entries that need no user input bcasue they are labels before the spec section
-#it is being referenced in pvfill(chkspec1)
-skippm=(namespace labels )
-#skippm=(metadata labels type )
+#array values that needs to be skipped in the top section befor spec no entries means no values to skipp all present
+#it is being called at checkspec in the pvgen function
+skippm=(namespace labels annotations)
 #array values that needs to be skipped fromt eh database in the spec section
-skippv=(namespace labels )
-#referenced in findp1 , pvfill(pvspec1)
-#currently not referenced in this file pvfill.sh
-skippv1=(metadata )
-#entries that need be present in the YAML but no value needed like kind of heading
-#referenced in pvcallagain(pvspec1)
-skippv2=(metadata)
+#it is being called at function findp, pvfilyl(pvspec11) , pvfill(pvgen)
+skippv=( )
+
 
 sortit() {
 readarray -t sorted < <(for l in "${!spec[@]}"
@@ -74,13 +67,14 @@ p13=$(echo "$chind" |sed 's/[^0-9]//g')
 p1=${#p13}
 p2=`echo "scale=${p1}; $chind" | bc -l`
 #echo "p13 is $p13 p1 is $p1 and p2 is $p2"
+newarray=(${skippm[@]} + ${skippv[@]})
 for ((c=1;c<"$p1";c++))
 do
 ab="${p2:0:-1}"
 #echo "inside ab is ${spec[$ab]} and ab is $ab"
 
 #rightsift "$a2"
-for p in ${skippv[@]}
+for p in ${newarray[@]}
 do
 #	echo "inside for p is $p and spec is ${spec[$ab]} and ab is $ab"
 if [[ "${spec[$ab]}" == "$p:" ]]
@@ -101,8 +95,6 @@ p2="$ab2"
 #echo "p13 is $p13 p1 is $p1 and p2 is $p2"
 done
 }
-
-
 
 
 chkspec1() {
@@ -129,7 +121,6 @@ done
 }
 
 
-
 pvspec1() {
 ind1="$1"
 shift
@@ -153,8 +144,15 @@ do
           chkspec1 "${spec[$a]:0:-1}" "$a" "${skarray[@]}"
           if [[ (( $maskflag -eq 0 )) ]]
           then
-                  pvcallagain "${spec[$a]:0:-1}" "$a" "$pvrfile" "${skippv2[@]}"
+		  if [[ (( "${tag[$a]}" == "0" )) ]]
+		  then
+			  #indent "$a"
+			  rgenylg "$a" "${spec[$a]}" "$pvrfile"
+		  else
+                  pvcallagain "${spec[$a]:0:-1}" "$a" "$pvrfile"
+                  #pvcallagain "${spec[$a]:0:-1}" "$a" "$pvrfile" "${skippv2[@]}"
 		  #"$func1" "$a" "$pvfile"
+		  fi
           fi
 	fi
 done
@@ -166,19 +164,19 @@ shift
 item3="$1"
 shift
 fileo="$1"
-shift
-item2="$@"
+#shift
+#item2="$@"
 rflag=0
-for g in ${item2[@]};
-do
-if [[ (( "$rflag" -eq "0" )) ]]
-then
-if [[ "$item1" == "$g" ]]
-then
-      rgenylg "$item3" "${spec[$item3]}" "$fileo"
-      rflag=1 
+#for g in ${item2[@]};
+#do
+#if [[ (( "$rflag" -eq "0" )) ]]
+#then
+#if [[ "$item1" == "$g" ]]
+#then
+#      rgenylg "$item3" "${spec[$item3]}" "$fileo"
+#      rflag=1 
   #    	echo "${spec[$a]}" >> "$fileo"
-else
+#else
 f="$item3"
 while read -r line; do
  
@@ -193,7 +191,8 @@ while read -r line; do
        count1=0
          if [[ ( ! -z "$lined1" ) ]]
          then
-            for i1 in "${lined1[@]}"
+         rgenylg "$f" "${spec[$f]} " "$fileo"
+         for i1 in "${lined1[@]}"
             do
                         #echo "array is $i1"
                         ((count1+=1))
@@ -240,9 +239,9 @@ done <$pvfln
 #then
  #    rgenylg "$f" "${spec[$f]}"
 #fi
-fi
-fi
-done
+#fi
+#fi
+#done
 }
 
 pvfill() {
@@ -265,8 +264,9 @@ chknsln=`echo "$chknsln-$marraylen" | bc -l`
 for f in "${sorted[@]}"
 do
 rflag=0
-
-if [[ (( "$f" < "4" )) ]]
+val=`echo "$f<3.9" | bc -l`
+     #echo "val is $val"
+if [[ (( "$val" > "0" )) ]]
 then
 chkspec1 "${spec[$f]:0:-1}" "$f" "${skippm[@]}"
 if [[ (( "$maskflag" -eq "0" )) ]]
@@ -341,7 +341,7 @@ fi
 fi
 done
 
- ind1="5"
+ind1="5"
 #pvspec1 "$ind1" "funecho" "$pvfln" "$pvrfln" "${skippv[@]}"
 
 }

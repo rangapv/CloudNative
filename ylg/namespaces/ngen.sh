@@ -11,16 +11,10 @@ source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/
 
 #array values that needs to be skipped in the top section befor spec no entries means no values to skipp all present
 #it is being called at checkspec in the pvgen function
-skippm=(namespace labels )
+skippm=(namespace labels annotations)
 #array values that needs to be skipped fromt eh database in the spec section
 #it is being called at function findp, pvfilyl(pvspec11) , pvfill(pvgen)
-skippv=(namespace labels )
-#it is being references in pvfilyl(chkspec)
-#entries that dont need USer values this is referenced by the values file in the function pvfilyl(chkspec)
-skippv1=(metadata )
-#entries that need be present in the YAML but no value needed like kind of heading
-#it is being referenced in pvspec11(chkspec)
-skippv2=(metadata)
+skippv=( )
 
 sortit() {
 readarray -t sorted < <(for l in "${!spec[@]}"
@@ -63,9 +57,7 @@ fileo="$2"
 
 echo "${value[$input1]}:" >>"$fileo"
 #echo "${value[$a]}:" >>"$fln"
-
 }
-
 
 
 pvgen() {
@@ -84,10 +76,10 @@ marraylen="${#skippm[@]}"
 chknsln=`echo "$chknsln-$marraylen" | bc -l`
 #echo "chksln is $chknsln"
 for a in "${sorted[@]}"
-do
-   if [[ (( "$a" < "4" )) ]]	
-   then
-    if [[ (( "$pcount" < "$chknsln" )) ]]
+do 
+    val=`echo "$a<3.9" | bc -l`
+     #echo "val is $val"
+    if [[ (( "$val" > "0" )) ]]
     then
         chkspec "${spec[$a]:0:-1}" "$a" "${skippm[@]}"
         if [[ (( "$maskflag" -eq "0" )) ]]
@@ -96,7 +88,6 @@ do
 	"$fun1" "$a" "$nsfile"
 	fi
     fi
-   fi
 done
 #pvspec "$indx" "$fun1" "$nsfile" "${skar[@]}" 
 }
@@ -106,18 +97,19 @@ findp() {
 
 chind="$@"
 skip1=0
-echo "chind is $chind"
+#echo "chind is $chind"
 p13=$(echo "$chind" |sed 's/[^0-9]//g')
 p1=${#p13}
 p2=`echo "scale=${p1}; $chind" | bc -l`
 #echo "p13 is $p13 p1 is $p1 and p2 is $p2"
+newarray=(${skippv[@]} + ${skippm[@]})
 for ((c=1;c<"$p1";c++))
 do
 ab="${p2:0:-1}"
 #echo "inside ab is ${spec[$ab]} and ab is $ab"
 
 #rightsift "$a2"
-for p in ${skippv[@]}
+for p in ${newarray[@]}
 do
 #	echo "inside for p is $p and spec is ${spec[$ab]} and ab is $ab"
 if [[ "${spec[$ab]}" == "$p:" ]]
@@ -149,8 +141,10 @@ maskflag=0
 for b in ${chspeck[@]};
 do
         #echo "in the for ch1 is $ch1 and b is $b "
-	if [[ "$ch1" == "$b" ]]
+	if [[ ( "$ch1" == "$b" ) ]]
 	then
+
+        #echo "in the for ch1 is $ch1 and b is $b "
 	   #echo "in the if ch1 is $ch1 and b is $b "
  	   maskflag=1
 	   break
@@ -212,9 +206,11 @@ do
           chkspec "${spec[$a]:0:-1}" "$a" "${skarray[@]}"
           if [[ (( $maskflag -eq 0 )) ]]
           then
-		chkspec "${spec[$a]:0:-1}" "$a" "${skippv2[@]}"
-		if [[ (( $maskflag -eq 0 )) ]]
+                if [[ (( "${tag[$a]}" -eq "1" )) ]]
 		then
+		#chkspec "${spec[$a]:0:-1}" "$a" "${skippv2[@]}"
+	#	if [[ (( $maskflag -eq 0 )) ]]
+#		then
 		  "$func1" "$a" "$pvfile"
 	        fi
           fi
@@ -228,25 +224,31 @@ pvfilyl() {
 
 fln="$pvvfile"
 flnc=`> "$fln"`
-chknsln="6"
+chknsln="8"
 pcount=0
 
 marraylen="${#skippm[@]}"
 chknsln=`echo "$chknsln-$marraylen" | bc -l`
-newarray=(${skippm[@]} + ${skippv1[@]})
+
 for a in "${sorted[@]}"
 do
-    if [[ (( "$a" < "4" )) ]]
+#	`echo "$a < "3.62" | bc -l`
+    val=`echo "$a<3.9" | bc -l`
+     #echo "val is $val"
+    if [[ (( "$val" > "0" )) ]]
     then
     if [[ (( "$pcount" < "$chknsln" )) ]]
     then
 	#chkspec "${spec[$a]:0:-1}" "$a" "${skippv1[@]}"
 	maskflag=1
-        chkspec "${spec[$a]:0:-1}" "$a" "${newarray[@]}"
+        chkspec "${spec[$a]:0:-1}" "$a" "${skippm[@]}"
 	if [[ (( $maskflag -eq 0 )) ]]
 	then
+		if [[ ( "${tag[$a]}" == "1" ) ]]
+		then
                 ((pcount+=1))
 	        echo "${value[$a]}:" >>"$fln"
+		fi
        fi
     fi
     fi
