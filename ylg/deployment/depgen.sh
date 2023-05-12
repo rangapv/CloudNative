@@ -1,8 +1,8 @@
 #!/bin/bash
 #author: rangapv@yahoo.com 09-05-23
-#USUAGE: ./depgen.sh gen (will generate the Skeletal YAML pvr.yaml and pvv.yaml a human readable file to fill values)
-#USUAGE: ./depgen.sh (SAME as above ....will generate the Skeletal YAML pvr.yaml and pvv.yaml a human readable file to fill values)
-#USUAGE: ./depgen.sh fill (The program takes the FILLED pvv.yaml file generated ealier from above step and popluates the Skeletal dr.yaml with pv claim values)
+#USUAGE: ./depgen.sh gen (will generate the Skeletal YAML dgr.yaml and dgv.yaml a human readable file to fill values)
+#USUAGE: ./depgen.sh (SAME as above ....will generate the Skeletal YAML dgr.yaml and dgv.yaml a human readable file to fill values)
+#USUAGE: ./depgen.sh fill (The program takes the FILLED dgv.yaml file generated ealier from above step and popluates the Skeletal dgr.yaml with dgv values)
 
 set -E
 source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh) >>/dev/null 2>&1
@@ -11,7 +11,7 @@ source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/
 
 #array values that needs to be skipped in the top section befor spec no entries means no values to skipp all present
 #it is being called at checkspec in the pvgen function
-skippm=(type  )
+skippm=(type annotations )
 #array values that needs to be skipped fromt eh database in the spec section
 #it is being called at function findp, pvfilyl(pvspec11) , pvfill(pvgen)
 skippv=( )
@@ -77,7 +77,9 @@ chknsln=`echo "$chknsln-$marraylen" | bc -l`
 #echo "chksln is $chknsln"
 for a in "${sorted[@]}"
 do 
-    if [[ (( "$pcount" < "$chknsln" )) ]]
+    val=`echo "$a<3.9" | bc -l`
+     #echo "val is $val"
+    if [[ (( "$val" > "0" )) ]]
     then
         chkspec "${spec[$a]:0:-1}" "$a" "${skippm[@]}"
         if [[ (( "$maskflag" -eq "0" )) ]]
@@ -230,7 +232,7 @@ chknsln=`echo "$chknsln-$marraylen" | bc -l`
 for a in "${sorted[@]}"
 do
 #	`echo "$a < "3.62" | bc -l`
-    val=`echo "$a<3.63" | bc -l`
+    val=`echo "$a<3.9" | bc -l`
      #echo "val is $val"
     if [[ (( "$val" > "0" )) ]]
     then

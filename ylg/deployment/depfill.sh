@@ -1,6 +1,6 @@
 #!/bin/bash
 #author: rangapv@yahoo.com 09-05-23
-#This file gets called in the pvcgen.sh script for filling the skeletal pvr.yaml file with the filled pvv.yaml file that the user populates.
+#This file gets called in the depgen.sh script for filling the skeletal dgr.yaml file with the filled dgv.yaml file that the user populates.
 
 set -E
 source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh) >>/dev/null 2>&1
@@ -9,7 +9,7 @@ source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/
 
 #Entries that need no user input bcasue they are labels before the spec section
 #it is being referenced in pvfill(chkspec1)
-skippm=(type  )
+skippm=(type annotations )
 #skippm=(metadata labels type )
 #array values that needs to be skipped fromt eh database in the spec section
 #referenced in findp1 , pvfill(pvspec1)
@@ -261,7 +261,7 @@ chknsln=`echo "$chknsln-$marraylen" | bc -l`
 for f in "${sorted[@]}"
 do
 rflag=0
-val=`echo "$f<3.63" | bc -l`
+val=`echo "$f<3.9" | bc -l`
      #echo "val is $val"
 if [[ (( "$val" > "0" )) ]]
 then
