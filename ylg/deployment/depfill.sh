@@ -180,8 +180,11 @@ while read -r line; do
  
    line1=$(echo "$line" | awk '{split($0,f1,":"); print f1[1]}')
    line10=$(echo "$line1" | awk '{$1=$1;print}')
-   linec2=$(echo "$line" | grep ",")
+  # linec2=$(echo "$line" | grep ",")
    #echo "line2c is $line2c"
+   line3=$(echo "$line" | awk '{split($0,f1,":"); print f1[2]}')
+   line30=$(echo "$line3" | awk '{$1=$1;print}')
+   linec2=$(echo "$line30" | grep ",")
    if [[ ("${value[$f]}" == "$line10") && ( ! -z "$linec2") ]]
    then
        lined=$(echo "$line" | awk '{split($0,f1,":"); print f1[2]}')
@@ -270,14 +273,15 @@ chkspec1 "${spec[$f]:0:-1}" "$f" "${skippm[@]}"
 if [[ (( "$maskflag" -eq "0" )) ]]
 then
 
-if [[ (( "$fcount" < "$chklen" )) ]]
-then
 while read -r line; do
    donef=0
    line1=$(echo "$line" | awk '{split($0,f1,":"); print f1[1]}')
    line10=$(echo "$line1" | awk '{$1=$1;print}')
-   linec2=$(echo "$line" | grep ",")
+   #linec2=$(echo "$line" | grep ",")
    #echo "line2c is $line2c"
+   line3=$(echo "$line" | awk '{split($0,f1,":"); print f1[2]}')
+   line30=$(echo "$line3" | awk '{$1=$1;print}')
+   linec2=$(echo "$line30" | grep ",")
    if [[ ("${value[$f]}" == "$line10") && ( ! -z "$linec2") ]]
    then
    #echo "in the while line10 is $line10 and line2c is $line2c" 
@@ -334,7 +338,6 @@ done <$pvfln
      rgenylg "$f" "${spec[$f]}" "$pvrfln"
      ((fcount+=1))
    fi
-fi
 fi
 fi
 done
