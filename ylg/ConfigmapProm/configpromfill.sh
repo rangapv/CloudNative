@@ -4,7 +4,7 @@
 
 set -E
 source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh) >>/dev/null 2>&1
-#source "./ylgdb.sh"
+#source "../ylgdb.sh"
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 
 #array values that needs to be skipped in the top section befor spec no entries means no values to skipp all present
@@ -130,7 +130,7 @@ pvrfile="$1"
 shift
 skarray="$@"
 ul=`echo "$ind1+1" | bc -l`
-echo "ul is $ul"
+#echo "ul is $ul"
 for a in "${sorted[@]}";
 do
 	a11=$(echo "$a" |sed 's/[^0-9]//g')
@@ -180,8 +180,11 @@ while read -r line; do
  
    line1=$(echo "$line" | awk '{split($0,f1,":"); print f1[1]}')
    line10=$(echo "$line1" | awk '{$1=$1;print}')
-   linec2=$(echo "$line" | grep ",")
+   #linec2=$(echo "$line" | grep ",")
    #echo "line2c is $line2c"
+   line3=$(echo "$line" | awk '{split($0,f1,":"); print f1[2]}')
+   line30=$(echo "$line3" | awk '{$1=$1;print}')
+   linec2=$(echo "$line30" | grep ",")
    if [[ ("${value[$f]}" == "$line10") && ( ! -z "$linec2") ]]
    then
        lined=$(echo "$line" | awk '{split($0,f1,":"); print f1[2]}')
@@ -276,7 +279,9 @@ while read -r line; do
    donef=0
    line1=$(echo "$line" | awk '{split($0,f1,":"); print f1[1]}')
    line10=$(echo "$line1" | awk '{$1=$1;print}')
-   linec2=$(echo "$line" | grep ",")
+   line3=$(echo "$line" | awk '{split($0,f1,":"); print f1[2]}')
+   line30=$(echo "$line3" | awk '{$1=$1;print}')
+   linec2=$(echo "$line30" | grep ",")
    #echo "line2c is $line2c"
    if [[ ("${value[$f]}" == "$line10") && ( ! -z "$linec2") ]]
    then

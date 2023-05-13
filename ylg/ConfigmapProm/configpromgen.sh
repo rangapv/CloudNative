@@ -7,7 +7,7 @@
 
 set -E
 source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh) >>/dev/null 2>&1
-#source "./ylgdb.sh"
+#source "../ylgdb.sh"
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 
 #array values that needs to be skipped in the top section befor spec no entries means no values to skipp all present
