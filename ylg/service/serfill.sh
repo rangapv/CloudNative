@@ -279,14 +279,22 @@ while read -r line; do
    line10=$(echo "$line1" | awk '{$1=$1;print}')
    #linec2=$(echo "$line" | grep ",")
    #echo "line2c is $line2c"
-   line3=$(echo "$line" | awk '{split($0,f1,":"); print f1[2]}')
-   line30=$(echo "$line3" | awk '{$1=$1;print}')
-   linec2=$(echo "$line30" | grep ",")
+   #line3=$(echo "$line" | awk '{split($0,f1,":"); print f1[2]}')
+   #line30=$(echo "$line3" | awk '{$1=$1;print}')
+   #echo "line3 is $line3"
+   #echo "line30 is $line30"
+   linec2=$(echo "$line" | grep ",")
+   #echo "line is $line and linec2 is $linec2"
    if [[ ("${value[$f]}" == "$line10") && ( ! -z "$linec2") ]]
    then
    #echo "in the while line10 is $line10 and line2c is $line2c" 
-       lined=$(echo "$line" | awk '{split($0,f1,":"); print f1[2]}')
-       lined1=($(echo "$lined" | awk '{ld=split($0,fd1,","); for (i=1;i<=ld;i++) {print fd1[i]} }'))
+      # rgenylg "$num143" "$lined2" "$pvrfln"
+       rgenylg "$f" "${spec[$f]}" "$pvrfln"
+       echo "line is $line"
+       lined=($(echo "$line" | awk '{ad=split($0,f1,":"); for(i=2;i<=ad;i++); {print f1[i]} }'))
+       echo "lined is $lined"
+       lined1=($(echo "$lined" | awk '{ld=split($0,fd1,","); for(i=1;i<=ld;i++) {print fd1[i]} }'))
+       echo "lined1 is $lined1"
        count1=0
          if [[ ( ! -z "$lined1" ) ]]
 	 then
