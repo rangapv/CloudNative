@@ -9,4 +9,4 @@ The static config header:
 The target value header:
 The rules file value:# - "example-file.yml"
 The name of the job:'prometheus'
-The Host:Port detail: ['localhost:9090']
+The Host,Port detail:['localhost:9090']
