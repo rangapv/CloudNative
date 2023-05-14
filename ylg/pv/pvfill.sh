@@ -147,7 +147,8 @@ do
 			  #indent "$a"
 			  rgenylg "$a" "${spec[$a]}" "$pvrfile"
 		  else
-                  pvcallagain "${spec[$a]:0:-1}" "$a" "$pvrfile"
+			  fillcall "$a" "$pvrfln" "$pvfile"
+                  #pvcallagain "${spec[$a]:0:-1}" "$a" "$pvrfile"
                   #pvcallagain "${spec[$a]:0:-1}" "$a" "$pvrfile" "${skippv2[@]}"
 		  #"$func1" "$a" "$pvfile"
 		  fi
@@ -156,94 +157,6 @@ do
 done
 }
 
-pvcallagain() {
-item1="$1"
-shift
-item3="$1"
-shift
-fileo="$1"
-#shift
-#item2="$@"
-rflag=0
-#for g in ${item2[@]};
-#do
-#if [[ (( "$rflag" -eq "0" )) ]]
-#then
-#if [[ "$item1" == "$g" ]]
-#then
-#      rgenylg "$item3" "${spec[$item3]}" "$fileo"
-#      rflag=1 
-  #    	echo "${spec[$a]}" >> "$fileo"
-#else
-f="$item3"
-while read -r line; do
- 
-   line1=$(echo "$line" | awk '{split($0,f1,":"); print f1[1]}')
-   line10=$(echo "$line1" | awk '{$1=$1;print}')
-   #linec2=$(echo "$line" | grep ",")
-   #echo "line2c is $line2c"
-   line3=$(echo "$line" | awk '{split($0,f1,":"); print f1[2]}')
-   line30=$(echo "$line3" | awk '{$1=$1;print}')
-   linec2=$(echo "$line30" | grep ",")
-   if [[ ("${value[$f]}" == "$line10") && ( ! -z "$linec2") ]]
-   then
-       lined=$(echo "$line" | awk '{split($0,f1,":"); print f1[2]}')
-       lined1=($(echo "$lined" | awk '{ld=split($0,fd1,","); for (i=1;i<=ld;i++) {print fd1[i]} }'))
-       count1=0
-         if [[ ( ! -z "$lined1" ) ]]
-         then
-         rgenylg "$f" "${spec[$f]} " "$fileo"
-         for i1 in "${lined1[@]}"
-            do
-                        #echo "array is $i1"
-                        ((count1+=1))
-
-             lined2="- \"$i1\""
-             num11=$(echo "$f" |sed  's/[^0-9]//g')
-             num12=${#num11}
-             #echo "num12 is $num12"
-             num14="1"
-                   for (( b=1; b <= $num12; b++))
-                   do
-                     num14=$((num14*10))
-                   done
-             #echo "num14 is $num14"
-             num141="$num12"
-             #echo "num141 is $num141"
-             num5="$count1"
-             num142=`echo "scale=${num141}; $num5/$num14" | bc -l`
-             #echo "num142 is $num142"
-             num143=`echo "scale=${num141}; $num142+$f" | bc -l`
-             # echo "count1 is $count1"
-#echo "num143 is $num143"
-             rgenylg "$num143" "$lined2" "$fileo"
-             ((fcount+=1))
-             done
-            rflag=1
-         fi
-   fi
-   if [[ ("${value[$f]}" == "$line10") && ( -z "$linec2") ]]
-   then
-     v1=$(echo "$line" | awk '{l=index($0,":"); print substr($0,l+1)}')
-     v11=$(echo $v1 | awk '{$1=$1;print}')
-     v2="${spec[$f]}"
-     v3="${v2} ${v11}"
-#            sudo sed -i "s/${v2}/${v2} ${v11}/" $line
-     rgenylg "$f" "$v3" "$fileo"
-     rflag=1
-     ((fcount+=1))
-   fi
-#for while read
-done <$pvfln
-#for f loop
-#if [[ (( $rflag -eq 0 )) ]]
-#then
- #    rgenylg "$f" "${spec[$f]}"
-#fi
-#fi
-#fi
-#done
-}
 
 pvfill() {
 
@@ -273,19 +186,48 @@ chkspec1 "${spec[$f]:0:-1}" "$f" "${skippm[@]}"
 if [[ (( "$maskflag" -eq "0" )) ]]
 then
 
-if [[ (( "$fcount" < "$chklen" )) ]]
-then
+   fillcall "$f" "$pvrfln" "$pvfln"
+
+   if [[ (( $rflag -eq 0 )) ]]
+   then
+     rgenylg "$f" "${spec[$f]}" "$pvrfln"
+     ((fcount+=1))
+   fi
+fi
+fi
+done
+
+ ind1="5"
+pvspec1 "$ind1" "funecho" "$pvfln" "$pvrfln" "${skippv[@]}"
+
+}
+
+
+fillcall() {
+fg="$1"
+pvrfln="$2"
+pvfln="$3"
 while read -r line; do
    donef=0
    line1=$(echo "$line" | awk '{split($0,f1,":"); print f1[1]}')
    line10=$(echo "$line1" | awk '{$1=$1;print}')
-   linec2=$(echo "$line" | grep ",")
+   #linec2=$(echo "$line" | grep ",")
    #echo "line2c is $line2c"
-   if [[ ("${value[$f]}" == "$line10") && ( ! -z "$linec2") ]]
+   #line3=$(echo "$line" | awk '{split($0,f1,":"); print f1[2]}')
+   #line30=$(echo "$line3" | awk '{$1=$1;print}')
+   #echo "line3 is $line3"
+   #echo "line30 is $line30"
+   linec2=$(echo "$line" | grep ",")
+   #echo "line is $line and linec2 is $linec2"
+   if [[ ("${value[$fg]}" == "$line10") && ( ! -z "$linec2") ]]
    then
    #echo "in the while line10 is $line10 and line2c is $line2c" 
-       lined=$(echo "$line" | awk '{split($0,f1,":"); print f1[2]}')
-       lined1=($(echo "$lined" | awk '{ld=split($0,fd1,","); for (i=1;i<=ld;i++) {print fd1[i]} }'))
+      # rgenylg "$num143" "$lined2" "$pvrfln"
+       rgenylg "$fg" "${spec[$fg]}" "$pvrfln"
+       #lined=$(echo "$line" | awk '{ad=split($0,f1,",");for(i=1;i<=ad;i++) print f1[i] }')
+       lined="$(cut -d ':' -f 2- <<< "$line")"
+       #double braces is for store the value as associative array
+       lined1=($(echo "$lined" | awk '{ld=split($0,fd1,","); for (i = 1; i <= ld; i++) print fd1[i];}'))
        count1=0
          if [[ ( ! -z "$lined1" ) ]]
 	 then
@@ -293,9 +235,8 @@ while read -r line; do
             do
                         #echo "array is $i1"
                         ((count1+=1))
-
              lined2="- \"$i1\""
-             num11=$(echo "$f" |sed  's/[^0-9]//g')
+             num11=$(echo "$fg" |sed  's/[^0-9]//g')
              num12=${#num11}
              #echo "num12 is $num12"
              num14="1"
@@ -318,32 +259,20 @@ while read -r line; do
 	 fi
              rflag=1
    fi
-   if [[ ("${value[$f]}" == "$line10") && ( -z "$linec2") ]]
+   if [[ ("${value[$fg]}" == "$line10") && ( -z "$linec2") ]]
    then
      v1=$(echo "$line" | awk '{l=index($0,":"); print substr($0,l+1)}')
      v11=$(echo $v1 | awk '{$1=$1;print}')
-     v2="${spec[$f]}"
+     v2="${spec[$fg]}"
      v3="${v2} ${v11}"
 #            sudo sed -i "s/${v2}/${v2} ${v11}/" $line
-     rgenylg "$f" "$v3" "$pvrfln"
+     rgenylg "$fg" "$v3" "$pvrfln"
      rflag=1
      ((fcount+=1))
    fi
 #for while read
 done <$pvfln
 #for f loop
-   if [[ (( $rflag -eq 0 )) ]]
-   then
-     rgenylg "$f" "${spec[$f]}" "$pvrfln"
-     ((fcount+=1))
-   fi
-fi
-fi
-fi
-done
-
-ind1="5"
-pvspec1 "$ind1" "funecho" "$pvfln" "$pvrfln" "${skippv[@]}"
 
 }
 
