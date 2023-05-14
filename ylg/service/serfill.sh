@@ -290,11 +290,10 @@ while read -r line; do
    #echo "in the while line10 is $line10 and line2c is $line2c" 
       # rgenylg "$num143" "$lined2" "$pvrfln"
        rgenylg "$f" "${spec[$f]}" "$pvrfln"
-       echo "line is $line"
-       lined=($(echo "$line" | awk '{ad=split($0,f1,":"); for(i=2;i<=ad;i++); {print f1[i]} }'))
-       echo "lined is $lined"
-       lined1=($(echo "$lined" | awk '{ld=split($0,fd1,","); for(i=1;i<=ld;i++) {print fd1[i]} }'))
-       echo "lined1 is $lined1"
+       #lined=$(echo "$line" | awk '{ad=split($0,f1,",");for(i=1;i<=ad;i++) print f1[i] }')
+       lined="$(cut -d ':' -f 2- <<< "$line")"
+       #double braces is for store the value as associative array
+       lined1=($(echo "$lined" | awk '{ld=split($0,fd1,","); for (i = 1; i <= ld; i++) print fd1[i];}'))
        count1=0
          if [[ ( ! -z "$lined1" ) ]]
 	 then
@@ -302,7 +301,6 @@ while read -r line; do
             do
                         #echo "array is $i1"
                         ((count1+=1))
-
              lined2="- \"$i1\""
              num11=$(echo "$f" |sed  's/[^0-9]//g')
              num12=${#num11}
