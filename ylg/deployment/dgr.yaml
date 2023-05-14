@@ -15,7 +15,7 @@ spec:
       containers:
         - name: prometheus
           image: v2.1.0
-          args: 
+          args:
             - "--config.file=/etc/prometheus/prometheus.yml"
             - "--storage.tsdb.path=/prometheus/"
           ports:
