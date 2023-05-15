@@ -15,11 +15,11 @@ myindx="4"
 
 if [[ "$1" == "gen" ]]
 then
-	source "../gen.sh" "gen" "$pvfile" "$pvvfile" "$myindx"
+	source "../../gen.sh" "gen" "$pvfile" "$pvvfile" "$myindx"
 
 elif [[ "$1" == "fill" ]]
 then
-	source "../gen.sh" "fill" "$pvfile" "$pvvfile" "$myindx"
+	source "../../gen.sh" "fill" "$pvfile" "$pvvfile" "$myindx"
 else
 	echo "usuage: deployment-generator.sh gen/fill"
 
