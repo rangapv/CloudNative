@@ -270,7 +270,7 @@ fi
 
 
 pvfill(){
-source "../fill.sh" "$pvvfile" "$pvfile" "$spxind"
+source "../../fill.sh" "$pvvfile" "$pvfile" "$spxind"
 }
 
 #pvfile="svr.yaml"
