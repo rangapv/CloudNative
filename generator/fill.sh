@@ -4,7 +4,7 @@
 
 set -E
 source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh) >>/dev/null 2>&1
-#source "../ylgdb.sh"
+#source "../../../ylg/ylgdb.sh"
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 
 #Entries that need no user input bcasue they are labels before the spec section
@@ -139,14 +139,17 @@ do
 	#echo "a ia $a2 ind1 is $ind1 ul is $ul"
 	if ( (( $(echo "$a2 >= $ind1" | bc -l) )) && (( $(echo "$a2 < $ul" | bc -l) )) )
 	then
+		#echo "before chkspec1 is $a"
           chkspec1 "${spec[$a]:0:-1}" "$a" "${skarray[@]}"
           if [[ (( $maskflag -eq 0 )) ]]
           then
 		  if [[ (( "${tag[$a]}" == "0" )) ]]
 		  then
 			  #indent "$a"
+                #          echo "calling rgenylg a is $a"
 			  rgenylg "$a" "${spec[$a]}" "$pvrfile"
 		  else
+	#		  echo "calling fillcall a is $a" 
 			  fillcall "$a" "$pvrfln" "$pvfile"
                   #pvcallagain "${spec[$a]:0:-1}" "$a" "$pvrfile"
                   #pvcallagain "${spec[$a]:0:-1}" "$a" "$pvrfile" "${skippv2[@]}"
@@ -199,10 +202,18 @@ fi
 done
 
  ind1="$mdx1"
- if [[ (( "$ind1" -gt 0 )) ]]
- then
- pvspec1 "$ind1" "funecho" "$pvfln" "$pvrfln" "${skippv[@]}"
- fi
+ if [[ (("$ind1" -gt "0")) ]]
+then
+#       echo "inside and inx is $indx"
+#pvspec "$indx" "$fun1" "$nsfile" "${skar[@]}"
+a1=($(echo "$ind1" | awk '{lg=split($0,fd2,","); for (i = 1; i <= lg; i++) print fd2[i];}'))
+a1len="${#a1[@]}"
+#echo "the lenth is ${#a1[@]}"
+for ((c1=0;c1<"$a1len";c1++))
+do
+pvspec1 "${a1[$c1]}" "funecho" "$pvfln" "$pvrfln" "${skippv[@]}"
+done
+fi
 
 }
 

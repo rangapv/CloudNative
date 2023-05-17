@@ -7,7 +7,7 @@
 
 set -E
 source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh) >>/dev/null 2>&1
-#source "../ylgdb.sh"
+#source "../../../ylg/ylgdb.sh"
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 
 #array values that needs to be skipped in the top section befor spec no entries means no values to skipp all present
@@ -92,7 +92,16 @@ do
 done
 if [[ (("$indx" -gt "0")) ]]
 then
-pvspec "$indx" "$fun1" "$nsfile" "${skar[@]}" 
+#	echo "inside and inx is $indx"
+#pvspec "$indx" "$fun1" "$nsfile" "${skar[@]}" 
+a1=($(echo "$indx" | awk '{lg=split($0,fd2,","); for (i = 1; i <= lg; i++) print fd2[i];}'))
+a1len="${#a1[@]}"
+#echo "the lenth is ${#a1[@]}"
+for ((c1=0;c1<"$a1len";c1++))
+do
+#echo "a1 is ${a1[$c1]}"
+pvspec "${a1[$c1]}" "$fun1" "$nsfile" "${skar[@]}" 
+done
 fi
 }
 
@@ -262,10 +271,20 @@ done
 
 ind1="$ind2"
 
-if [[ (( "$ind1" -gt "0" )) ]]
+if [[ (("$ind1" -gt "0")) ]]
 then
-pvspec11 "$ind1" "funecho" "$fln" "${skippv[@]}" 
+#       echo "inside and inx is $indx"
+#pvspec "$indx" "$fun1" "$nsfile" "${skar[@]}"
+a1=($(echo "$ind1" | awk '{lg=split($0,fd2,","); for (i = 1; i <= lg; i++) print fd2[i];}'))
+a1len="${#a1[@]}"
+#echo "the lenth is ${#a1[@]}"
+for ((c1=0;c1<"$a1len";c1++))
+do
+#echo "a1 is ${a1[$c1]}"
+pvspec11 "${a1[$c1]}" "funecho" "$fln" "${skippv[@]}" 
+done
 fi
+
 }
 
 
@@ -299,7 +318,6 @@ then
  fun2call="indent"
  specind="$spxind"
  pvgen "$nsfile" "$chknsln" "$fun2call" "$specind" "${skippv[@]}"
- #pvgen "$nsfile" "$chknsln" "$fun2call" "$specind" "${skippv[@]}" "${skippm[@]}" 
   if [[ ! -z "$pvvfile" ]]
   then
 #     echo "todo"
