@@ -159,7 +159,7 @@ do
                 mm2=$(echo "$a" | bc)
 	        #=$(echo "$mm2 + $m1" | bc)
 		#newindx=$(echo "$a + $m1" | bc)
-		s1=`echo "spec\["$mm2"\]"`
+		s1=`echo "spec\["$mm2"\]="`
 		echo "s1 is $s1"
 		s2=`echo "spec\["$mm3"\]="`
                 suc=`sudo sed -i "s|$s1|$s2|g" "$file2"`
