@@ -133,17 +133,60 @@ done
 }
 
 
+
+
+fix41() {
+#This function increment the index inside a particluar range so new features can be added
+sortit
+file1="./ylgdb.sh"
+file2="./tgb.sh"
+index1=5.5
+index2=6
+m1=0.2
+`> ./$file2`
+`cp $file1 $file2`
+for a in "${sorted[@]}"
+do
+	#echo "a is $a"
+        mm2=$(echo "$a" | bc)
+	mm3=$(echo "$mm2 + $m1" | bc)
+	#echo "mm3 is $mm3"
+	#$mm21=$(((mm2+m1)| bc))
+        #echo "m2 is $mm2 and mm21 is $mm3"
+	if (( $(echo "$mm2 $index1" | awk '{print ($1 >= $2)}') )) && (( $(echo "$mm2 $index2" | awk '{print ($1 < $2)}') ))
+	#	if (( $(echo "$result1 $result2" | awk '{print ($1 > $2)}') ))
+	then
+                mm2=$(echo "$a" | bc)
+	        #=$(echo "$mm2 + $m1" | bc)
+		#newindx=$(echo "$a + $m1" | bc)
+		s1=`echo "spec\["$mm2"\]"`
+		echo "s1 is $s1"
+		s2=`echo "spec\["$mm3"\]="`
+                suc=`sudo sed -i "s|$s1|$s2|g" "$file2"`
+		s1=`echo "value\["$mm2"\]="`
+		s2=`echo "value\["$mm3"\]="`
+                suc=`sudo sed -i "s|$s1|$s2|g" "$file2"`
+		s1=`echo "tag\["$mm2"\]="`
+		s2=`echo "tag\["$mm3"\]="`
+                suc=`sudo sed -i "s|$s1|$s2|g" "$file2"`
+
+	fi
+done
+}
+
+
 fix5() {
 
 sortag
-file1="./ylgdb.sh"
+file1="./tgb.sh"
+#file1="./ylgdb.sh"
 file34="./thb.sh"
 `> $file34`
 count=0
-insindex="3.62"
-pnsindex="3.7"
-specvalue="annotations"
-valuevalue="The list of annotations for this kind"
+insindex="5.5"
+pnsindex="5.51"
+specvalue="driver:"
+valuevalue="The Driver details for the Storage"
 tagvalue="1"
 
 while read -r line; do
@@ -218,5 +261,6 @@ sudo sed -i "s|${str22}|${str23}|" $filename
 #fix3
 #sortit
 #fix4
-#fix5
-fix6
+fix5
+#fix6
+#fix41
