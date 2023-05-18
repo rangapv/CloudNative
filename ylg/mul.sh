@@ -189,10 +189,34 @@ done <$file1
 echo "count is $count"
 }
 
+
+fix6() {
+filename="./thv1.sh"
+`> $filename`
+c2=`cp ./ylgdb.sh ./thv1.sh`
+nx1="4.3111512"
+nx2="4.3111511"
+str1="spec\[$nx1\]"
+str2="spec\[$nx2\]"
+str11="value\[$nx1\]"
+str21="value\[$nx2\]"
+str22="tag\[$nx1\]"
+str23="tag\[$nx2\]"
+
+
+sudo sed -i "s|${str1}|${str2}|" $filename
+sudo sed -i "s|${str11}|${str21}|" $filename
+sudo sed -i "s|${str22}|${str23}|" $filename
+
+}
+
+
+
 #fix1
 #fix2
 #sortit
 #fix3
 #sortit
 #fix4
-fix5
+#fix5
+fix6
