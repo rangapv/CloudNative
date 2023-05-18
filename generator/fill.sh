@@ -5,6 +5,7 @@
 set -E
 source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh) >>/dev/null 2>&1
 #source "../../../ylg/ylgdb.sh"
+#source "../../../ylg/thv1.sh"
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 
 #Entries that need no user input bcasue they are labels before the spec section
@@ -238,7 +239,7 @@ while read -r line; do
    then
    #echo "in the while line10 is $line10 and line2c is $line2c" 
       # rgenylg "$num143" "$lined2" "$pvrfln"
-       rgenylg "$fg" "${spec[$fg]}" "$pvrfln"
+       #rgenylg "$fg" "${spec[$fg]}" "$pvrfln"
        #lined=$(echo "$line" | awk '{ad=split($0,f1,",");for(i=1;i<=ad;i++) print f1[i] }')
        lined="$(cut -d ':' -f 2- <<< "$line")"
        #double braces is for store the value as associative array
@@ -248,6 +249,28 @@ while read -r line; do
 	 then
             for i1 in "${lined1[@]}"
             do
+		    v14=$(echo "$i1" | grep ";")
+	    if [[ ( ! -z "$v14" ) ]] 
+	    then
+
+	    v13=($(echo "$i1" | awk '{ld=split($0,fd1,";"); for (i = 1; i <= ld; i++) print fd1[i];}'))
+            v2="${spec[$fg]}"
+#            echo "the length of v13 is ${#v13[@]}"
+            v3="${v2} ${v13[0]}"
+            rgenylg "$fg" "$v3" "$pvrfln"
+            for k in "${!sorted[@]}";
+            do
+            if [[ "${sorted[$k]}" = "${fg}" ]];
+            then
+            index=$k
+            newindex="${sorted[$k+1]}"
+#            echo "newindex is $newindex"
+            fi
+            done
+            v2="${spec[$newindex]}"
+            v3="${v2} ${v13[1]}"
+            rgenylg "$newindex" "$v3" "$pvrfln"
+             else
                         #echo "array is $i1"
                         ((count1+=1))
              lined2="- \"$i1\""
@@ -270,6 +293,7 @@ while read -r line; do
              #echo "num143 is $num143"
              rgenylg "$num143" "$lined2" "$pvrfln"
              ((fcount+=1))
+	     fi
              done
 	 fi
              rflag=1
@@ -278,10 +302,32 @@ while read -r line; do
    then
      v1=$(echo "$line" | awk '{l=index($0,":"); print substr($0,l+1)}')
      v11=$(echo $v1 | awk '{$1=$1;print}')
+     v12=$(echo $v11 | grep ";")  
+     if [[ ( ! -z "$v12" ) ]]
+     then
+       v13=($(echo "$v12" | awk '{ld=split($0,fd1,";"); for (i = 1; i <= ld; i++) print fd1[i];}'))
+       v2="${spec[$fg]}"
+#       echo "the length of v13 is ${#v13[@]}"
+       v3="${v2} ${v13[0]}"
+       rgenylg "$fg" "$v3" "$pvrfln"
+       for k in "${!sorted[@]}";
+       do
+       if [[ "${sorted[$k]}" = "${fg}" ]];
+       then
+        index=$k
+        newindex="${sorted[$k+1]}"
+#	echo "newindex is $newindex"
+       fi
+       done
+       v2="${spec[$newindex]}"
+       v3="${v2} ${v13[1]}"
+       rgenylg "$newindex" "$v3" "$pvrfln"
+     else
      v2="${spec[$fg]}"
      v3="${v2} ${v11}"
 #            sudo sed -i "s/${v2}/${v2} ${v11}/" $line
      rgenylg "$fg" "$v3" "$pvrfln"
+     fi
      rflag=1
      ((fcount+=1))
    fi
