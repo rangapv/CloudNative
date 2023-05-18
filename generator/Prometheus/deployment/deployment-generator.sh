@@ -7,7 +7,7 @@ set -E
 skippm=(type annotations )
 #array values that needs to be skipped fromt eh database in the spec section
 #it is being called at function findp, pvfilyl(pvspec11) , pvfill(pvgen)
-skippv=( )
+skippv=(mountPath defaultMode )
 
 pvfile="dgr.yaml"
 pvvfile="dgv.yaml"
