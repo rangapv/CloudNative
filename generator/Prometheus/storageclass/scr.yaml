@@ -1,8 +1,8 @@
 apiVersion: storage.k8s.io/v1
-kind: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: slow
-  namespace: 
+  namespace: monitoring
   annotations: 
 provisioner: kubernetes.io/aws-ebs
 parameters:

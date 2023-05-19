@@ -1,10 +1,10 @@
 Version:  v1
 kind: PersistentVolume
-Name for this kind:  pvc-nfs-data
+Name for this kind:  pv-csi-data
 Namespaces that you want this kind to be deployed: monitoring
 type definitions: csi 
 app name to be referenced: prometheus-deployment
 The Access Modes Value needs to be mentioned Read/Write/ReadWrite etc: ReadWriteMany
-User defined Name for the Storage Class: managed-nfs
-Mention the amount of Storage details:  1Gi
+User defined Name for the Storage Class: slow 
+Mention the amount of Storage details:  10Gi
 The Driver details for the Storage:ebs.csi.aws.com

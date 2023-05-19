@@ -1,8 +1,8 @@
-Version:
-kind:
-Name for this kind:
-Namespaces that you want this kind to be deployed:
-app name to be referenced:
-User defined Name for the Storage Class:
-The Access Modes Value needs to be mentioned Read/Write/ReadWrite etc:
-The storage Details(Mb/Gb):
+Version: v1
+kind: PersistentVolumeClaim
+Name for this kind: pvc-csi2-data
+Namespaces that you want this kind to be deployed: monitoring
+app name to be referenced: prometheus-deployment 
+User defined Name for the Storage Class: slow 
+The Access Modes Value needs to be mentioned Read/Write/ReadWrite etc: ReadWriteMany
+The storage Details(Mb/Gb): 5Gi
