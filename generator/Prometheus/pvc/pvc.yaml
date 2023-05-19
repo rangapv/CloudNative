@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-csi2-data
+  name: pvc-csi-data
   namespace: monitoring
   labels:
     app: prometheus-deployment
 spec:
-  storageClassName: slow
+  storageClassName: sc-prom
   accessModes:
     - ReadWriteMany
   resources:

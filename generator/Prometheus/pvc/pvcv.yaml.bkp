@@ -1,8 +1,8 @@
 Version: v1
 kind: PersistentVolumeClaim
-Name for this kind: pvc-nfs-data
+Name for this kind: pvc-csi-data
 Namespaces that you want this kind to be deployed: monitoring
 app name to be referenced: prometheus-deployment 
-User defined Name for the Storage Class: managed-nfs
+User defined Name for the Storage Class: sc-prom 
 The Access Modes Value needs to be mentioned Read/Write/ReadWrite etc: ReadWriteMany
-The storage Details(Mb/Gb): 500Mi
+The storage Details(Mb/Gb): 5Gi
