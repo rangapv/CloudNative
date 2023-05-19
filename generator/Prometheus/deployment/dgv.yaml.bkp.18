@@ -1,0 +1,14 @@
+Version:  extensions/v1beta1
+kind: Deployment
+Name for this kind: prometheus
+Namespaces that you want this kind to be deployed:  monitoring
+app name to be referenced: prometheus
+Replicas: 1
+app name for the container:prometheus-server
+Name of this Container:prometheusprometheus
+image tag: v2.1.0
+args that may be needed to for the container to start/run:  --config.file=/etc/prometheus/prometheus.yml,--storage.tsdb.path=/prometheus/, --config.file=/etc/prometheus/prometheus.yml,--storage.tsdb.path=/prometheus/
+containerports:9090
+Name of the container mount points;mountpath:prometheus-config-volume;/etc/prometheus/,prometheus-config-volume;/etc/prometheus/
+Name of the Volume(configMapName):prometheus-config-volume
+Name fo this Configmap;DefaultMode:prometheus-server-conf;420

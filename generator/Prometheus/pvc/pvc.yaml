@@ -1,14 +1,14 @@
-apiVersion: v1
-kind: PersistentVolumeClaim
+apiVersion:
+kind:
 metadata:
-  name: pvc-nfs-data
-  namespace: monitoring
+  name:
+  namespace:
   labels:
-    app: prometheus-deployment
+    app:
 spec:
-  storageClassName: managed-nfs
+  storageClassName:
   accessModes:
-    - ReadWriteMany
+    -
   resources:
     requests:
-      storage: 500Mi
+      storage:
