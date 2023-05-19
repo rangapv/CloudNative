@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: prometheus
-          image: prom/prometheus
+          image: prom/prometheus:v2.44.0
           args:
             - "--storage.tsdb.retention=6h"
             - "--storage.tsdb.path=/prometheus"
@@ -30,15 +30,15 @@ spec:
           ports:
             - containerPort: 9090
           volumeMounts:
-            - name: prometheus-config-volume
+            - name: prometheus-config
               mountPath: /etc/prometheus
-            - name: prometheus-storage-volume
+            - name: prometheus-storage
               mountPath: /prometheus
       volumes:
-        - name: prometheus-config-volume
+        - name: prometheus-config
           configMap:
             name: prometheus-config
             defaultMode: 420
-        - name: prometheus-storage-volume
+        - name: prometheus-storage
           persistentVolumeClaim:
-            claimName: pvc-nfs-data
+            claimName: pvc-csi2-data
