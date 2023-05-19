@@ -239,7 +239,11 @@ while read -r line; do
    then
    #echo "in the while line10 is $line10 and line2c is $line2c" 
       # rgenylg "$num143" "$lined2" "$pvrfln"
-       #rgenylg "$fg" "${spec[$fg]}" "$pvrfln"
+      v15=$(echo "$line" | grep ";")
+      if [[ ( -z "$v15" ) ]]
+      then
+       rgenylg "$fg" "${spec[$fg]}" "$pvrfln"
+      fi
        #lined=$(echo "$line" | awk '{ad=split($0,f1,",");for(i=1;i<=ad;i++) print f1[i] }')
        lined="$(cut -d ':' -f 2- <<< "$line")"
        #double braces is for store the value as associative array
@@ -271,6 +275,7 @@ while read -r line; do
             v3="${v2} ${v13[1]}"
             rgenylg "$newindex" "$v3" "$pvrfln"
              else
+            #rgenylg "$fg" "${spec[$fg]}" "$pvrfln"
                         #echo "array is $i1"
                         ((count1+=1))
              lined2="- \"$i1\""
