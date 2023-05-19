@@ -1,7 +1,7 @@
 Version: storage.k8s.io/v1
 kind: StorageClass
-Name for this kind: slow
+Name for this kind: sc-prom 
 Namespaces that you want this kind to be deployed: monitoring
 The list of annotations for this kind:
-The kind of provisioner for aws/gcp/azure:kubernetes.io/aws-ebs
+The kind of provisioner for aws/gcp/azure:ebs.csi.aws.com
 The storage type for aws/gcp/azure:gp2

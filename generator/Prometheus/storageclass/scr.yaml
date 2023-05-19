@@ -4,6 +4,6 @@ metadata:
   name: sc-prom
   namespace: monitoring
   annotations: 
-provisioner: kubernetes.io/aws-ebs
+provisioner: ebs.csi.aws.com
 parameters:
   type: gp2
