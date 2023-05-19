@@ -140,9 +140,9 @@ fix41() {
 sortit
 file1="./ylgdb.sh"
 file2="./tgb.sh"
-index1=5.5
-index2=6
-m1=0.2
+index1=4.2
+index2=5
+m1=0.4
 `> ./$file2`
 `cp $file1 $file2`
 for a in "${sorted[@]}"
@@ -175,6 +175,24 @@ done
 }
 
 
+callfix5(){
+
+
+	fix5 "4.1" "4.3" "selector:" "The selector details for the Pod if any" "0"
+	fix5 "4.3" "4.31" "matchLabels:" "The labels for the Pod to match" "0"
+	fix5 "4.31" "4.311" "app:" "The app name for the Pod to match" "1"
+	fix5 "4.311" "4.5" "strategy:" "The container deployment strategy for the Pod" "0"
+	fix5 "4.5" "4.51" "rollingUpdate:" "The update details for the Pod " "0"
+	fix5 "4.51" "4.511" "maxSurge:" "The max surge number for the Pod" "1"
+	fix5 "4.511" "4.512" "maxUnavailable:" "The max Unavailabe details for the Pod" "1"
+	fix5 "4.512" "4.52" "type:" "The strategy type for the Pod" "1"
+	#fix5 "4.712112" "4.7122" "- name:" "Name of the Volume(PersistentVolumeClaim)" "1"
+	#fix5 "4.7122" "4.71221" "persistentVolumeClaim:" "Header of the Volume(PersistentVolumeClaim)" "0"
+	#fix5 "4.71221" "4.712211" "claimName:" "The Claim name of PersistentVolumeClaim" "1"
+
+
+}
+
 fix5() {
 
 sortag
@@ -183,11 +201,20 @@ file1="./tgb.sh"
 file34="./thb.sh"
 `> $file34`
 count=0
-insindex="5.5"
-pnsindex="5.51"
-specvalue="driver:"
-valuevalue="The Driver details for the Storage"
-tagvalue="1"
+
+insindex="$1"
+pnsindex="$2"
+specvalue="$3"
+valuevalue="$4"
+tagvalue="$5"
+
+
+
+#insindex="4.1"
+#pnsindex="4.3"
+#specvalue="selector:"
+#valuevalue="The selector details for the Pod if any"
+#tagvalue="0"
 
 while read -r line; do
 
@@ -230,6 +257,7 @@ while read -r line; do
 done <$file1
 
 echo "count is $count"
+`cp ./thb.sh ./tgb.sh`
 }
 
 
@@ -261,6 +289,7 @@ sudo sed -i "s|${str22}|${str23}|" $filename
 #fix3
 #sortit
 #fix4
-fix5
+#fix5
 #fix6
 #fix41
+callfix5
