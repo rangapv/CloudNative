@@ -140,9 +140,9 @@ fix41() {
 sortit
 file1="./ylgdb.sh"
 file2="./tgb.sh"
-index1=4.2
+index1=4.711
 index2=5
-m1=0.4
+m1=0.2
 `> ./$file2`
 `cp $file1 $file2`
 for a in "${sorted[@]}"
@@ -177,15 +177,22 @@ done
 
 callfix5(){
 
+	fix5 "4.71" "4.711" "initContainers:" "The init container details for the Pod if any" "0"
+	fix5 "4.711" "4.811" "- name:" "The name for the init container" "1"
+	fix5 "4.811" "4.8111" "image:" "The init container image" "1"
+	fix5 "4.8111" "4.8112" "command:" "The command to be executed for the init container" "1"
+	fix5 "4.8112" "4.8113" "volumeMounts:" "The volume mounts for the init container" "0"
+	fix5 "4.8113" "4.8114" "- name:" "The name for the volume mount in init container" "1"
+	fix5 "4.8114" "4.81141" "mountPath:" "The mountpath for the volume mount of init container" "1"
 
-	fix5 "4.1" "4.3" "selector:" "The selector details for the Pod if any" "0"
-	fix5 "4.3" "4.31" "matchLabels:" "The labels for the Pod to match" "0"
-	fix5 "4.31" "4.311" "app:" "The app name for the Pod to match" "1"
-	fix5 "4.311" "4.5" "strategy:" "The container deployment strategy for the Pod" "0"
-	fix5 "4.5" "4.51" "rollingUpdate:" "The update details for the Pod " "0"
-	fix5 "4.51" "4.511" "maxSurge:" "The max surge number for the Pod" "1"
-	fix5 "4.511" "4.512" "maxUnavailable:" "The max Unavailabe details for the Pod" "1"
-	fix5 "4.512" "4.52" "type:" "The strategy type for the Pod" "1"
+	#fix5 "4.1" "4.3" "selector:" "The selector details for the Pod if any" "0"
+	#fix5 "4.3" "4.31" "matchLabels:" "The labels for the Pod to match" "0"
+	#fix5 "4.31" "4.311" "app:" "The app name for the Pod to match" "1"
+	#fix5 "4.311" "4.5" "strategy:" "The container deployment strategy for the Pod" "0"
+	#fix5 "4.5" "4.51" "rollingUpdate:" "The update details for the Pod " "0"
+	#fix5 "4.51" "4.511" "maxSurge:" "The max surge number for the Pod" "1"
+	#fix5 "4.511" "4.512" "maxUnavailable:" "The max Unavailabe details for the Pod" "1"
+	#fix5 "4.512" "4.52" "type:" "The strategy type for the Pod" "1"
 	#fix5 "4.712112" "4.7122" "- name:" "Name of the Volume(PersistentVolumeClaim)" "1"
 	#fix5 "4.7122" "4.71221" "persistentVolumeClaim:" "Header of the Volume(PersistentVolumeClaim)" "0"
 	#fix5 "4.71221" "4.712211" "claimName:" "The Claim name of PersistentVolumeClaim" "1"
