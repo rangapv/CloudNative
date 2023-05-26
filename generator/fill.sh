@@ -235,7 +235,8 @@ while read -r line; do
    #echo "line30 is $line30"
    linec2=$(echo "$line" | grep ",")
    #echo "line is $line and linec2 is $linec2"
-   if [[ ("${value[$fg]}" == "$line10") && ( ! -z "$linec2") ]]
+    linec3=$(echo "$line" | grep "\[") 
+   if [[ ("${value[$fg]}" == "$line10") && ( ! -z "$linec2") && ( -z "$linec3" ) ]]
    then
    #echo "in the while line10 is $line10 and line2c is $line2c" 
       # rgenylg "$num143" "$lined2" "$pvrfln"
@@ -336,6 +337,25 @@ while read -r line; do
      rflag=1
      ((fcount+=1))
    fi
+#ADDES
+
+   if [[ ("${value[$fg]}" == "$line10") && ( ! -z "$linec2")  && ( ! -z "$linec3" ) ]]
+   then
+     v1=$(echo "$line" | awk '{l=index($0,":"); print substr($0,l+1)}')
+     v11=$(echo $v1 | awk '{$1=$1;print}')
+     #v12=$(echo $v11 | grep ";")
+     #v121=$(echo $v11 | grep ",")
+     if [[ ( ! -z "$v11" ) ]]
+     then
+       #rgenylg "$fg" "$v3" "$pvrfln"
+       v2="${spec[$fg]}"
+       v3="${v2} $v11"
+       rgenylg "$fg" "$v3" "$pvrfln"
+       rflag=1
+     fi
+  fi
+#ADDED
+
 #for while read
 done <$pvfln
 #for f loop

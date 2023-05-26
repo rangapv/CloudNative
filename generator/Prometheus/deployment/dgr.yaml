@@ -23,11 +23,7 @@ spec:
       initContainers:
       - name: prom-busy-bos-set-permis
         image: busybox
-        command:
-          - "["/bin/chmod""
-          - ""-R""
-          - ""777""
-          - ""/prometheus"]"
+        command: ["/bin/chmod","-R","777", "/prometheus"]
         volumeMounts:
         - name: /prometheus
       containers:

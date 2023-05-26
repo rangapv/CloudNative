@@ -8,7 +8,7 @@ metadata:
 spec:
   storageClassName: sc-prom
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
+      storage: 15Gi

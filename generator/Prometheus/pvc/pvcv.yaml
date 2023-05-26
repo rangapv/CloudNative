@@ -4,5 +4,5 @@ Name for this kind: pvc-csi-data
 Namespaces that you want this kind to be deployed: monitoring
 app name to be referenced: prometheus-deployment 
 User defined Name for the Storage Class: sc-prom 
-The Access Modes Value needs to be mentioned Read/Write/ReadWrite etc: ReadWriteMany
-The storage Details(Mb/Gb): 5Gi
+The Access Modes Value needs to be mentioned Read/Write/ReadWrite etc: ReadWriteOnce
+The storage Details(Mb/Gb): 15Gi
