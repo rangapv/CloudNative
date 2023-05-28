@@ -1,11 +1,11 @@
 Version:  v1
 kind: PersistentVolume
-Name for this kind:  pv-csi-data
+Name for this kind:  pv-yes-csi-data
 Namespaces that you want this kind to be deployed: monitoring
-type definitions: csi 
+type definitions: csi
 app name to be referenced: prometheus-deployment
 The Access Modes Value needs to be mentioned Read/Write/ReadWrite etc: ReadWriteMany
-User defined Name for the Storage Class: sc-prom 
+User defined Name for the Storage Class: yes-prom 
 Mention the amount of Storage details:  10Gi
 The Driver details for the Storage:ebs.csi.aws.com
 The volume handle details for the Storage(mandatory):csihandle
