@@ -232,6 +232,7 @@ while read -r line; do
    linec2=$(echo "$line1" | grep ",")
    #echo "line is $line and linec2 is $linec2"
     linec3=$(echo "$line1" | grep "\[") 
+   #echo THIS IF is for values with comma and in one below the other
    if [[ ("${value[$fg]}" == "$line10") && ( ! -z "$linec2") && ( -z "$linec3" ) ]]
    then
    #echo "in the while line10 is $line10 and line2c is $line2c" 
@@ -241,15 +242,6 @@ while read -r line; do
       then
        rgenylg "$fg" "${spec[$fg]}" "$pvrfln"
       fi
-       #lined=$(echo "$line" | awk '{ad=split($0,f1,",");for(i=1;i<=ad;i++) print f1[i] }')
-      # lined="$(cut -d ':' -f 2- <<< "$line")"
-       #double braces is for store the value as associative array
-       #echo "line1  1 is $line1"
-       #lined1=($(echo "$line1" | cut -d "," -f 2))
-       #lined1=($(echo "$line1" | awk -F:"," '{print $0}'))
-       #echo "lined1  1 is $lined1"
-       #lined1=($(echo "$line1" | tr , '\n'))
-       #lined1=($(echo "$line1" | awk -F:"," '{print $0}'))
        #lined1=($(echo "$line1" | awk '{ld=split($0,fd1,","); for (i = 1; i <= ld; i++) print fd1[i];}'))
        lined="$(cut -d ':' -f 2- <<< "$line")"
        #double braces is for store the value as associative array
@@ -287,6 +279,9 @@ while read -r line; do
                        #echo "array is $i1"
                         ((count1+=1))
              lined23=$(echo "$i1" | awk '{$1=$1;print}')
+             lined24=$(echo "$lined23" | grep ":")
+	     if [[ ( -z "$lined24") ]]
+	     then
 	     lined2="- \"$lined23\""
              num11=$(echo "$fg" |sed  's/[^0-9]//g')
              num12=${#num11}
@@ -306,12 +301,37 @@ while read -r line; do
              # echo "count1 is $count1"
              #echo "num143 is $num143"
        	     rgenylg "$num143" "$lined2" "$pvrfln"
+             fi
+	     if [[ ( ! -z "$lined24" ) ]]
+	     then
+              lined23="$lined24"
+              lined2=" $lined23"
+              num11=$(echo "$fg" |sed  's/[^0-9]//g')
+              num12=${#num11}
+              #echo "num12 is $num12"
+              num14="1"
+                   for (( b=1; b <= $num12; b++))
+                   do
+                     num14=$((num14*10))
+                   done
+              #echo "num14 is $num14"
+              num141="$num12"
+              #echo "num141 is $num141"
+              num5="$count1"
+              num142=`echo "scale=${num141}; $num5/$num14" | bc -l`
+              #echo "num142 is $num142"
+              num143=`echo "scale=${num141}; $num142+$f" | bc -l`
+              # echo "count1 is $count1"
+              #echo "num143 is $num143"
+              rgenylg "$num143" "$lined2" "$pvrfln"
+	     fi
              ((fcount+=1))
 	     fi
              done
 	 fi
              rflag=1
    fi
+   #echo THIS IF for value without comma basically just one value types like replicas either 1 or 10 types / apiversions 
    if [[ ("${value[$fg]}" == "$line10") && ( -z "$linec2") && ( -z "$linec3" ) ]]
    then
    #echo "line1 2 is $line1"
@@ -351,7 +371,7 @@ while read -r line; do
      ((fcount+=1))
    fi
 #ADDES
-
+   #echo This IF is for command line args but has comma and still comes in one line and NOT below each other 
    if [[ ("${value[$fg]}" == "$line10") && ( ! -z "$linec2")  && ( ! -z "$linec3" ) ]]
    then
    #echo "line1 3 is $line1"
