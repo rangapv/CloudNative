@@ -23,9 +23,10 @@ spec:
       initContainers:
       - name: prom-busy-bos-set-permis
         image: busybox
-        command: ["/bin/chmod","-R","777", "/prometheus"]
+        command: ["/bin/chmod","-R","777","/prometheus"]
         volumeMounts:
-        - name: /prometheus
+        - name: prometheus-storage
+          mountPath: /prometheus
       containers:
         - name: prometheus
           image: prom/prometheus:v2.44.0
@@ -47,4 +48,4 @@ spec:
             defaultMode: 420
         - name: prometheus-storage
           persistentVolumeClaim:
-            claimName: pv-csi-data
+            claimName: pvc1-data

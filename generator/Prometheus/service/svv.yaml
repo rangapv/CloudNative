@@ -1,4 +1,4 @@
-Version:    v1
+Version:v1
 kind:Service
 Name for this kind:prometheus-service
 Namespaces that you want this kind to be deployed:monitoring
@@ -7,4 +7,4 @@ App name for the selector for the kind Service:prometheus
 Type for the kind Service(ClusterIP/NodePort):NodePort
 Port mapping details for the Service:8080
 The traget Port Number for the Service:9090
-The NodePort number for the Service:30000
+The NodePort number for the Service:30999

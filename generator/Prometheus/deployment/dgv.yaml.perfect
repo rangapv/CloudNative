@@ -12,7 +12,8 @@ app name for the container:prometheus
 The name for the init container:prom-busy-bos-set-permis
 The init container image:busybox
 The command to be executed for the init container:["/bin/chmod","-R","777","/prometheus"]
-Name of the volume mount in init container in the format mountpoints;mountpath :prometheus-storage;/prometheus
+The name for the volume mount in init container:prometheus-storage
+The mountpath for the volume mount of init container:/prometheus
 Name of this Container:prometheus
 image tag:prom/prometheus:v2.44.0
 args that may be needed to for the container to start/run:--storage.tsdb.retention=6h,--storage.tsdb.path=/prometheus,--config.file=/etc/prometheus/prometheus.yml
