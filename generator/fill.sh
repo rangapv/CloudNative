@@ -171,7 +171,7 @@ gfln=`> "$pvrfln"`
 #genylg
 chklen="8"
 fcount=0
-
+rflag=0
 if [[ (-z $pvfln) ]]
 then
     echo "File $pvfln not there or EMPTY"
@@ -182,22 +182,25 @@ chknsln=`echo "$chknsln-$marraylen" | bc -l`
 
 for f in "${sorted[@]}"
 do
-rflag=0
 val=`echo "$f<3.9" | bc -l`
      #echo "val is $val"
 if [[ (( "$val" > "0" )) ]]
 then
-chkspec1 "${spec[$f]:0:-1}" "$f" "${skippm[@]}"
-if [[ (( "$maskflag" -eq "0" )) ]]
-then
+
+#pvspec1  "${spec[$f]:0:-1}" "funecho" "$pvfln" "$pvrfln" "${skippm[@]}"	
+	
+	chkspec1 "${spec[$f]:0:-1}" "$f" "${skippm[@]}"
+	if [[ (( "$maskflag" -eq "0" )) && ( "${tag[$f]}" == "1" ) ]]
+ then
 
    fillcall "$f" "$pvrfln" "$pvfln"
-
-   if [[ (( $rflag -eq 0 )) ]]
-   then
+elif [[ (( "$maskflag" -eq "0" )) && ( "${tag[$f]}" == "0" ) ]]
+then
+  # if [[ (( $rflag -eq 0 )) ]]
+  # then
      rgenylg "$f" "${spec[$f]}" "$pvrfln"
      ((fcount+=1))
-   fi
+  # fi
 fi
 fi
 done
@@ -225,6 +228,7 @@ pvrfln="$2"
 pvfln="$3"
 while read -r line; do
    donef=0
+  # rflag=0
    #line1=($(echo "$line" | awk '{ld=split($0,fd1,":"); for (i = 1; i <= ld; i++) print fd1[i];}'))
    line1=$(echo "$line" | awk '{l=index($0,":"); print substr($0,l+1)}')
    line10=$(echo "$line" | awk '{split($0,f1,":"); print f1[1]}')
@@ -238,7 +242,7 @@ while read -r line; do
    #echo "in the while line10 is $line10 and line2c is $line2c" 
       # rgenylg "$num143" "$lined2" "$pvrfln"
       v15=$(echo "$line1" | grep ";")
-      if [[ ( -z "$v15" ) ]]
+      if [[ ( -z "$v15" ) && ( "${tag[$fg]}" == "1" ) ]]
       then
        rgenylg "$fg" "${spec[$fg]}" "$pvrfln"
       fi
@@ -255,13 +259,13 @@ while read -r line; do
 		    v14=$(echo "$i1" | grep ";")
 	    if [[ ( ! -z "$v14" ) ]] 
 	    then
-	    v13=($(echo "$i1" | awk '{ld=split($0,fd1,";"); for (i = 1; i <= ld; i++) print fd1[i];}'))
+	    v13=($(echo "$i1" | awk '{ld=split($0,fd1,";"); for (i = 1; i <= ld; i++) print fd1[i]}'))
             v2="${spec[$fg]}"
-#            echo "the length of v13 is ${#v13[@]}"
+            echo "the length of v13 is ${#v13[@]}"
             lined22=$(echo "${v13[0]}" | awk '{$1=$1;print}')
             v3="${v2} $lined22"
             rgenylg "$fg" "$v3" "$pvrfln"
-              for k in "${!sorted[@]}";
+  	      for k in "${!sorted[@]}";
               do
               if [[ "${sorted[$k]}" = "${fg}" ]];
               then
@@ -274,7 +278,7 @@ while read -r line; do
               lined22=$(echo "${v13[1]}" | awk '{$1=$1;print}')
               v3="${v2} $lined22"
               rgenylg "$newindex" "$v3" "$pvrfln"
-            else
+        else
             #rgenylg "$fg" "${spec[$fg]}" "$pvrfln"
                        #echo "array is $i1"
                         ((count1+=1))
@@ -301,9 +305,9 @@ while read -r line; do
              # echo "count1 is $count1"
              #echo "num143 is $num143"
        	     rgenylg "$num143" "$lined2" "$pvrfln"
-             fi
-	     if [[ ( ! -z "$lined24" ) ]]
-	     then
+             else 
+	    # if [[ ( ! -z "$lined24" ) ]]
+	     #then
               lined23="$lined24"
               lined2=" $lined23"
               num11=$(echo "$fg" |sed  's/[^0-9]//g')
@@ -321,15 +325,14 @@ while read -r line; do
               num142=`echo "scale=${num141}; $num5/$num14" | bc -l`
               #echo "num142 is $num142"
               num143=`echo "scale=${num141}; $num142+$f" | bc -l`
-              # echo "count1 is $count1"
-              #echo "num143 is $num143"
-              rgenylg "$num143" "$lined2" "$pvrfln"
+	      rgenylg "$num143" "$lined2" "$pvrfln"
 	     fi
              ((fcount+=1))
 	     fi
              done
 	 fi
              rflag=1
+             donef=1
    fi
    #echo THIS IF for value without comma basically just one value types like replicas either 1 or 10 types / apiversions 
    if [[ ("${value[$fg]}" == "$line10") && ( -z "$linec2") && ( -z "$linec3" ) ]]
@@ -368,6 +371,7 @@ while read -r line; do
      rgenylg "$fg" "$v3" "$pvrfln"
      fi
      rflag=1
+     donef=1 
      ((fcount+=1))
    fi
 #ADDES
@@ -388,10 +392,30 @@ while read -r line; do
        v3="${v2} $lined22"
        rgenylg "$fg" "$v3" "$pvrfln"
        rflag=1
+       donef=1
      fi
   fi
 #ADDED
-
+  #For all other user cases
+  if [[ ("${value[$fg]}" == "$line10") && (( $donef -eq 0 )) ]]
+   then
+   #echo "line1 3 is $line1"
+     # v1=$(echo "$line" | awk '{l=index($0,":"); print substr($0,l+1)}')
+     #v11=$(echo $v1 | awk '{$1=$1;print}')
+     v11="$line1"
+     #v12=$(echo $v11 | grep ";")
+     #v121=$(echo $v11 | grep ",")
+     if [[ ( ! -z "$v11" ) ]]
+     then
+       #rgenylg "$fg" "$v3" "$pvrfln"
+       v2="${spec[$fg]}"
+       lined22=$(echo "$v11" | awk '{$1=$1;print}')
+       v3="${v2} $lined22"
+       rgenylg "$fg" "$v3" "$pvrfln"
+       rflag=1
+       donef=1
+     fi
+  fi
 #for while read
 done <$pvfln
 #for f loop
