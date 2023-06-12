@@ -261,7 +261,7 @@ while read -r line; do
 	    then
 	    v13=($(echo "$i1" | awk '{ld=split($0,fd1,";"); for (i = 1; i <= ld; i++) print fd1[i]}'))
             v2="${spec[$fg]}"
-            echo "the length of v13 is ${#v13[@]}"
+            #echo "the length of v13 is ${#v13[@]}"
             lined22=$(echo "${v13[0]}" | awk '{$1=$1;print}')
             v3="${v2} $lined22"
             rgenylg "$fg" "$v3" "$pvrfln"
