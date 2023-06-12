@@ -254,8 +254,8 @@ while read -r line; do
         
          if [[ ( ! -z "$lined1" ) ]]
 	 then
-            for i1 in "${lined1[@]}"
-            do
+          for i1 in "${lined1[@]}"
+          do
 		    v14=$(echo "$i1" | grep ";")
 	    if [[ ( ! -z "$v14" ) ]] 
 	    then
@@ -278,7 +278,7 @@ while read -r line; do
               lined22=$(echo "${v13[1]}" | awk '{$1=$1;print}')
               v3="${v2} $lined22"
               rgenylg "$newindex" "$v3" "$pvrfln"
-        else
+            else
             #rgenylg "$fg" "${spec[$fg]}" "$pvrfln"
                        #echo "array is $i1"
                         ((count1+=1))
@@ -308,8 +308,16 @@ while read -r line; do
              else 
 	    # if [[ ( ! -z "$lined24" ) ]]
 	     #then
-              lined23="$lined24"
-              lined2=" $lined23"
+            #function to check for annotations 
+             lined25=$(echo "$i1" | grep ":")
+	     if [[ ( ! -z "$lined25" ) ]]
+	     then
+             v19=($(echo "$i1" | awk '{ld=split($0,fd1,":"); for (i = 1; i <= ld; i++) print fd1[i]}'))
+	     v191=$(echo "${v19[0]}" | awk '{$1=$1;print}') 
+             v192=$(echo "${v19[1]}" | awk '{$1=$1;print}')
+	     lined2=" $v191: $v192"
+            #  lined23="$lined24"
+            #  lined2=" $lined23"
               num11=$(echo "$fg" |sed  's/[^0-9]//g')
               num12=${#num11}
               #echo "num12 is $num12"
@@ -326,6 +334,7 @@ while read -r line; do
               #echo "num142 is $num142"
               num143=`echo "scale=${num141}; $num142+$f" | bc -l`
 	      rgenylg "$num143" "$lined2" "$pvrfln"
+	     fi
 	     fi
              ((fcount+=1))
 	     fi
