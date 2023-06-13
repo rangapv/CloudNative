@@ -288,6 +288,35 @@ sudo sed -i "s|${str22}|${str23}|" $filename
 
 }
 
+dbdetails() {
+sortit
+for a in "${sorted[@]}"
+do
+	d0=`echo "$a" | grep "\."`
+        if [[ ( -z $d0 ) ]]
+	then
+               echo "${value[$a]}   Begins at index $a"
+	fi
+
+#	d1=(echo "$a" |bc -l)
+
+
+done
+}
+
+
+if [[ ("$#" -eq "") ]]
+then
+	echo "need a function name to execute"
+	exit
+elif [[ ("$#" -gt "1") ]]
+then
+       echo "input only one function name to execute"
+       exit
+else
+	$1
+fi
+
 
 
 #fix1
@@ -299,4 +328,4 @@ sudo sed -i "s|${str22}|${str23}|" $filename
 #fix5
 #fix6
 #fix41
-callfix5
+#callfix5
