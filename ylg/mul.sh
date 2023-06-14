@@ -12,6 +12,8 @@ tago=(spec metadata labels capacity accessModes nfs resources requests selector 
 
 tag1=(args )
 
+
+#this function just increments a particlar index with the value in m
 fix1() {
 file1="./ylgdb.sh"
 file34="./tb.sh"
@@ -34,6 +36,7 @@ done <$file1
 `mv "$file34" "$file1"`
 }
 
+#sort the database with respect to spec 
 sortit() {
 source "./ylgdb.sh"
 readarray -t sorted < <(for l in "${!spec[@]}"
@@ -42,6 +45,7 @@ do
 done | sort -n)
 }
 
+#sort the database with respect to tag
 sortag() {
 source "./ylgdb.sh"
 readarray -t sortg < <(for l in "${!tag[@]}"
@@ -51,6 +55,7 @@ done | sort -n)
 }
 
 
+#this function again adds tag as a entry to the Database
 fix2() {
 file1="./ylgdb.sh"
 file34="./thb.sh"
@@ -86,7 +91,7 @@ mm2=$(((m+m1)| bc))
 echo "m2 is $mm2" 
 }
 
-
+#this function is to change the elements in the array tago() values of tag to "0" or can be used for vice-versa
 fix3() {
 
 sortit
@@ -110,6 +115,8 @@ done
 }
 
 
+
+#this function was added to insert tag as an element to all the entries in the Database which initally had only spec and value entries
 fix4() {
 
 sortit
@@ -135,8 +142,8 @@ done
 
 
 
-fix41() {
 #This function increment the index inside a particluar range so new features can be added
+fix41() {
 sortit
 file1="./ylgdb.sh"
 file2="./tgb.sh"
@@ -175,6 +182,9 @@ done
 }
 
 
+
+
+#this function is for serial value addition to the Database
 callfix5(){
 
 	fix5 "4.71" "4.711" "initContainers:" "The init container details for the Pod if any" "0"
@@ -200,6 +210,9 @@ callfix5(){
 
 }
 
+
+
+#this function is for inserting va new value into the Database
 fix5() {
 
 sortag
@@ -267,7 +280,7 @@ echo "count is $count"
 `cp ./thb.sh ./tgb.sh`
 }
 
-
+#this particular function is to replace a particlar index with a new index
 fix6() {
 filename="./thv1.sh"
 `> $filename`
@@ -288,6 +301,81 @@ sudo sed -i "s|${str22}|${str23}|" $filename
 
 }
 
+
+#this function is for replacing a value into the Database
+fix7() {
+
+if [[ ("$#" -eq "") ]]
+then
+	echo "need a index-value and the value-defintion ( like 4.5 "Spec for gtf" etc) "
+        exit
+elif [[ ("$#" -eq "1") ]]
+then
+       echo "need a value-defintion ( like 4.5 "Spec for gtf" etc) "
+       exit
+else
+       echo "executing "
+fi
+
+sortag
+#file1="./tgb.sh"
+file1="./ylgdb.sh"
+file34="./thb.sh"
+`> $file34`
+count=0
+
+insindex="$1"
+str="$*"
+dfr="$(cut -d ' ' -f 2- <<< $str)"
+valuevalue="$dfr"
+
+while read -r line; do
+
+  if [[ ("$line" =~ ^"spec") ]]
+  then
+       echo "$line">>"$file34"
+  elif [[ ("$line" =~ ^"value") ]]
+   then
+   #echo "line os $line and mstr1 is $mstr11 and a is $a"
+   dig1=`echo "$line" | awk '{split($0,a,"="); print a[1]}'`
+   #echo "dig1 is $dig1"
+   mstr1=`grep -o "[(0-9)(.)(0-9)]*" <<< $dig1`
+   #echo "mstr1 is $mstr1"
+  # mstr1=`grep -o "[0-9.]*" <<< $line`
+   num1=$(echo "$mstr1" | sed 's/[^0-9]//g')
+  # mstr11=${#num1}
+   mstr2=${#num1}
+   #echo "mstr2 is $mstr2 and num1 is $num1"
+   #echo "hi mstr1 $mstr1 and mstr2 is $mstr2 line is $line"
+  # echo "num1 is $num1"
+   if [[ ("$insindex"  == "$mstr1") ]]
+   then
+        #`echo "$line">>"$file34"`
+        ((count+=1))
+        #echo "hi $count and line is $line"
+        #echo "mstr1 is $mstr1"
+        echo "value[$insindex]=\"$valuevalue\"">>"$file34"
+   else
+        echo "$line">>"$file34"
+   fi
+   #`echo "$line">>"$file34"`
+  elif [[ ("$line" =~ ^"tag") ]]
+  then
+       echo "$line">>"$file34"
+   else
+    echo "$line">>"$file34"
+   fi
+
+done <$file1
+
+echo "count is $count"
+echo "The modified database is in the file $file34; kindly checkit once and rename it as ylgdb.sh and uplaod to the git repo"
+#`cp ./thb.sh ./tgb.sh`
+}
+
+
+
+#This function is to display the Database starting index of various resource YAML
 dbdetails() {
 sortit
 for a in "${sorted[@]}"
@@ -309,12 +397,8 @@ if [[ ("$#" -eq "") ]]
 then
 	echo "need a function name to execute"
 	exit
-elif [[ ("$#" -gt "1") ]]
-then
-       echo "input only one function name to execute"
-       exit
 else
-	$1
+	$@
 fi
 
 
