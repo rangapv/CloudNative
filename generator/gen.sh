@@ -290,7 +290,7 @@ fi
 
 
 pvfill(){
-source "../../fill.sh" "$pvvfile" "$pvfile" "$spxind"
+	source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/generator/fill.sh) "$pvvfile" "$pvfile" "$spxind"
 }
 
 #pvfile="svr.yaml"
