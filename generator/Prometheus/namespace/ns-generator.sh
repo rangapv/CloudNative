@@ -15,11 +15,11 @@ myindx="0"
 
 if [[ "$1" == "gen" ]]
 then
-	source "../../gen.sh" "gen" "$pvfile" "$pvvfile" "$myindx"
+	source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/generator/gen.sh) "gen" "$pvfile" "$pvvfile" "$myindx"
 
 elif [[ "$1" == "fill" ]]
 then
-	source "../../gen.sh" "fill" "$pvfile" "$pvvfile" "$myindx"
+	source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/generator/gen.sh) "fill" "$pvfile" "$pvvfile" "$myindx"
 else
 	echo "usuage: ns-generator.sh gen/fill"
 
