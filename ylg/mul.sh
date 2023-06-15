@@ -6,7 +6,7 @@
 
 set -E
 
-source "./ylgdb.sh"
+source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh)
 
 tago=(spec metadata labels capacity accessModes nfs resources requests selector annotations template containers ports volumeMounts volumes configMap persistentVolumeClaim volumes) 
 
