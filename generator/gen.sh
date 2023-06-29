@@ -33,7 +33,16 @@ ifile="$2"
         num1=$(echo "$ai" |sed  's/[^0-9]//g')
         num2=${#num1}
         num3=$((num2-=1))
-       if [[ (($num3 -eq 0)) ]]
+	checknum=$(echo "$ai" | grep "\.")
+        #echo "ai  is $ai"
+        #echo "checknum is $checknum"
+if [[ ( -z $checknum ) ]]
+then
+        echo "${spec[$ai]}"  >>"$ifile"
+fi
+if [[ ( ! -z $checknum ) ]]
+then
+	if [[ (($num3 -eq 0)) ]]
        then
                echo "${spec[$ai]}"  >>"$ifile"
        elif [[ (($num3 -eq 1)) ]]
@@ -50,6 +59,7 @@ ifile="$2"
                echo "  "
        fi
     #echo "in the indent fun and writing ${spec[$ai]}"
+fi
 }
 
 
@@ -290,6 +300,7 @@ fi
 
 
 pvfill(){
+	#source /home/ubuntu/cn/generator/fill.sh "$pvvfile" "$pvfile" "$spxind"
 	source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/generator/fill.sh) "$pvvfile" "$pvfile" "$spxind"
 }
 

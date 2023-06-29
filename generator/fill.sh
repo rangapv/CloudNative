@@ -37,7 +37,17 @@ fi
 num1=$(echo "$ind" |sed  's/[^0-9]//g')
 num2=${#num1}
 num3=$((num2-=1))
-       if [[ (($num3 -eq 0)) ]]
+
+checknum=$(echo "$ind" | grep "\.")
+
+if [[ ( -z $checknum ) ]]
+then
+        echo "$argr1"  >>"$cln"
+fi
+if [[ ( ! -z $checknum ) ]]
+then
+
+      if [[ (($num3 -eq 0)) ]]
        then
                echo "$argr1"  >>"$cln"
        elif [[ (($num3 -eq 1)) ]]
@@ -54,6 +64,7 @@ num3=$((num2-=1))
        else
                echo "  "
        fi
+fi
 }
 
 
