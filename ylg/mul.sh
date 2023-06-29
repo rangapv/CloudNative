@@ -216,8 +216,8 @@ callfix5(){
 fix5() {
 
 sortag
-file1="./tgb.sh"
-#file1="./ylgdb.sh"
+#file1="./tgb.sh"
+file1="./ylgdb.sh"
 file34="./thb.sh"
 `> $file34`
 count=0
@@ -277,7 +277,7 @@ while read -r line; do
 done <$file1
 
 echo "count is $count"
-`cp ./thb.sh ./tgb.sh`
+`cp $file34 $file1`
 }
 
 #this particular function is to replace a particlar index with a new index
@@ -301,6 +301,30 @@ sudo sed -i "s|${str22}|${str23}|" $filename
 
 }
 
+
+fix61() {
+#file1="./ylgdb.sh"
+#file2="./bkpylgdb"
+file3="./data.text"
+#cp1=`cp ${file1 $file2`
+
+while read line; do
+        echo "line ois $line"
+	#insa=($(line.split(",")))
+	#insa=($(echo $line | tr "," "\n"))
+	#insa=($(echo $line | awk '{len=split($0,a,",");for(i=1;i<=len;i++) print a[i];}'))
+	#insa=($(echo $line | cut -d "," -f 1-5 --output-delimiter=' '))
+
+	#insa=($(echo $line | awk '{len=split($0,a,"/");for(i=1;i<=len;i++) cut -d ',' -f 1-2print a[i];}'))
+#	insa=($(echo $line | cut -f 1 -d ','))
+        IFS=',' read -r -a insa <<< "$line"
+	echo "the length of array is ${#insa[@]}"
+	echo "${insa[0]}" "${insa[1]}" "${insa[2]}" "${insa[3]}" "${insa[4]}"
+        fix5 "${insa[0]}" "${insa[1]}" "${insa[2]}" "${insa[3]}" "${insa[4]}"
+
+done <$file3
+
+}
 
 #this function is for replacing a value into the Database
 fix7() {
