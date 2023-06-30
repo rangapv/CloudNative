@@ -31,7 +31,7 @@ ai="$1"
 ifile="$2"
 #echo "inside indent $ai"
         num1=$(echo "$ai" |sed  's/[^0-9]//g')
-        num2=${#num1}
+	num2=${#num1}
         num3=$((num2-=1))
 	checknum=$(echo "$ai" | grep "\.")
         #echo "ai  is $ai"
@@ -42,7 +42,9 @@ then
 fi
 if [[ ( ! -z $checknum ) ]]
 then
-	if [[ (($num3 -eq 0)) ]]
+       IFS='.' read -r -a ary <<< "$ai"
+       num3=${#ary[1]}
+       if [[ (($num3 -eq 0)) ]]
        then
                echo "${spec[$ai]}"  >>"$ifile"
        elif [[ (($num3 -eq 1)) ]]

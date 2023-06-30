@@ -46,7 +46,8 @@ then
 fi
 if [[ ( ! -z $checknum ) ]]
 then
-
+      IFS='.' read -r -a ary <<< "$ind"
+      num3=${#ary[1]}
       if [[ (($num3 -eq 0)) ]]
        then
                echo "$argr1"  >>"$cln"
