@@ -1,0 +1,7 @@
+{
+	len = split($0, a, ",")
+	for (i = 1; i <= len; i++) {
+		print a[i]
+	}
+}
+
