@@ -9,8 +9,11 @@ skippm=(labels type app annotations)
 #it is being called at function findp, pvfilyl(pvspec11) , pvfill(pvgen)
 skippv=( )
 
+#The YAMl file name for this resource ; this can be changed
 pvfile="sr.yaml"
+#The Values file name for this resource ; this can be changed
 pvvfile="sv.yaml"
+#The starting Index in the database(ylgdb.sh) for this resource ; this CANNOT be changed
 myindx="10"
 
 if [[ "$1" == "gen" ]]

@@ -9,9 +9,11 @@ skippm=(labels )
 #it is being called at function findp, pvfilyl(pvspec11) , pvfill(pvgen)
 skippv=( )
 
-
+#The YAMl file name for this resource ; this can be changed
 pvfile="scr.yaml"
+#The Values file name for this resource ; this can be changed
 pvvfile="scv.yaml"
+#The starting Index in the database(ylgdb.sh) for this resource ; this CANNOT be changed;the spec is across 2 indexes hence comma seperated
 myindx="8,9"
 
 if [[ "$1" == "gen" ]]
@@ -22,7 +24,7 @@ elif [[ "$1" == "fill" ]]
 then
 	source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/generator/gen.sh) "fill" "$pvfile" "$pvvfile" "$myindx"
 else
-	echo "usuage: service-generator.sh gen/fill"
+	echo "usuage: storageclass.sh gen/fill"
 
 fi
 
