@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc1-store
+  namespace: monitoring
+  labels:
+    app: grafana-deployment
+spec:
+  storageClassName: prom1
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi

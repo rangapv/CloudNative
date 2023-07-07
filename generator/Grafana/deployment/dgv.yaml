@@ -1,0 +1,24 @@
+Version:
+kind:
+Name for this kind:
+Namespaces that you want this kind to be deployed:
+app name to be referenced:
+Replicas:
+The app name for the Pod to match:
+The max surge number for the Pod:
+The max Unavailabe details for the Pod:
+The strategy type for the Pod:
+app name for the container:
+The name for the init container:
+The init container image:
+The command to be executed for the init container:
+Name of the volume mount in init container in the format mountpoints;mountpath :
+Name of this Container:
+image tag:
+args that may be needed to for the container to start/run:
+containerports:
+Name of the container mount points;mountpath:
+Name of the Volume(configMapName):
+Name fo this Configmap;DefaultMode:
+Name of the Volume(PersistentVolumeClaim):
+The Claim name of PersistentVolumeClaim:

@@ -1,0 +1,42 @@
+apiVersion:
+kind:
+metadata:
+  name:
+  namespace:
+  labels:
+    app:
+spec:
+  replicas:
+  selector:
+    matchLabels:
+      app:
+  strategy:
+    rollingUpdate:
+      maxSurge:
+      maxUnavailable:
+    type:
+  template:
+    metadata:
+      labels:
+        app:
+    spec:
+      - name:
+        image:
+        command:
+        volumeMounts:
+        - name:
+      containers:
+        - name:
+          image:
+          args:
+          ports:
+            - containerPort:
+          volumeMounts:
+            - name:
+      volumes:
+        - name:
+          configMap:
+            name:
+        - name:
+          persistentVolumeClaim:
+            claimName:
