@@ -167,8 +167,8 @@ chspeck="$@"
 maskflag=0
 for b in ${chspeck[@]};
 do
-        #echo "in the for ch1 is $ch1 and b is $b "
-	if [[ ( "$ch1" == "$b" ) ]]
+        echo "in the for ch1 is $ch1 and b is $b "
+        if [[ ( "$ch1" == "$b" ) ]]
 	then
 
         #echo "in the for ch1 is $ch1 and b is $b "

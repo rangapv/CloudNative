@@ -20,10 +20,12 @@ myindx="4"
 
 if [[ "$1" == "gen" ]]
 then
+        #source /home/ubuntu/cn/generator/gen.sh "gen" "$pvfile" "$pvvfile" "$myindx"
 	source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/generator/gen.sh) "gen" "$pvfile" "$pvvfile" "$myindx"
 
 elif [[ "$1" == "fill" ]]
 then
+	#source /home/ubuntu/cn/generator/gen.sh "fill" "$pvfile" "$pvvfile" "$myindx"
 	source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/generator/gen.sh) "fill" "$pvfile" "$pvvfile" "$myindx"
 else
 	echo "usuage: deployment-generator.sh gen/fill"
