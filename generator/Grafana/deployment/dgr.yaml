@@ -20,11 +20,6 @@ spec:
       labels:
         app:
     spec:
-      - name:
-        image:
-        command:
-        volumeMounts:
-        - name:
       containers:
         - name:
           image:
