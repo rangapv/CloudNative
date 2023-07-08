@@ -8,7 +8,7 @@ skippm=(type annotations )
 #array values that needs to be skipped fromt eh database in the spec section
 #it is being called at function findp, pvfilyl(pvspec11) , pvfill(pvgen)
 #NOTE in the below skippv array I have included defaultMode even though the Deployment needs this value! since while parsing I am entering the user values as pairs seperated by";" in the ConfigMap name Itself (check the filled dgv.yaml values file sample in the folder), hence do not have to repeat it. This is One-off
-skippv=(initContainers mountPath defaultMode )
+skippv=(strategy mountPath defaultMode )
 
 
 #The YAMl file name for this resource ; this can be changed

@@ -1,0 +1,8 @@
+apiVersion:
+kind:
+metadata:
+  name:
+  namespace:
+  annotations:
+data:
+  prometheus.yml: |

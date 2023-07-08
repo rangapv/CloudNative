@@ -1,0 +1,4 @@
+Version: v1
+kind:ConfigMap
+Name for this kind:grafana-config
+Namespaces that you want this kind to be deployed:monitoring

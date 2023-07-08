@@ -1,20 +1,21 @@
-Version:
-kind:
-Name for this kind:
-Namespaces that you want this kind to be deployed:
-app name to be referenced:
-Replicas:
-The app name for the Pod to match:
-The max surge number for the Pod:
-The max Unavailabe details for the Pod:
-The strategy type for the Pod:
-app name for the container:
-Name of this Container:
-image tag:
-args that may be needed to for the container to start/run:
-containerports:
-Name of the container mount points;mountpath:
-Name of the Volume(configMapName):
-Name fo this Configmap;DefaultMode:
-Name of the Volume(PersistentVolumeClaim):
-The Claim name of PersistentVolumeClaim:
+Version: apps/v1 
+kind: Deployment
+Name for this kind: grafana 
+Namespaces that you want this kind to be deployed: monitoring
+app name to be referenced: grafana
+Replicas: 1
+The app name for the Pod to match: grafana
+app name for the container: grafana 
+The name for the init container:prom-busy-bos-set-permis
+The init container image:busybox
+The command to be executed for the init container:["/bin/chmod","-R","777","/var/lib/grafana"]
+Name of the volume mount in init container in the format mountpoints;mountpath :grafana-storage;/var/lib/grafana
+Name of this Container: grafana 
+image tag: grafana/grafana:latest 
+args that may be needed to for the container to start/run: 
+containerports: 3000
+Name of the container mount points;mountpath: grafana-storage;/var/lib/grafana,grafana-config;/etc/grafana/provisioning/datasources
+Name of the Volume(configMapName):grafana-config
+Name fo this Configmap;DefaultMode:grafana-config;420
+Name of the Volume(PersistentVolumeClaim):grafana-storage
+The Claim name of PersistentVolumeClaim:pvc1-store
