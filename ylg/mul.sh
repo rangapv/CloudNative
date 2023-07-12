@@ -36,6 +36,144 @@ done <$file1
 `mv "$file34" "$file1"`
 }
 
+#file to move and copy ; this needs more work to be done
+fix11(){
+file1="./ylgdb.sh"
+file34="./thb.sh"
+file3="./ch.txt"
+`> $file34`
+
+while read -r line1; do
+
+IFS=',' read -r -a insa <<< "$line1"
+echo "${insa[0]}" "${insa[1]}"
+t2="${insa[1]}"
+while read -r line; do
+
+	#echo "line is $line"
+	#if [[ ("$line" =~ ^"tag") ]]
+        sflag="0"	
+	if [[ ("$line" =~ ^"spec") || ("$line" =~ ^"value") ]]
+        then
+	#echo "line is $line"
+        mstr1=`grep -o "[(0-9)(.)(0-9)]*" <<< $line`
+        #mstr2=$(echo "$mstr1 + $m" | bc)
+        #echo "mstr1 is $mstr1 mstr2 is $mstr2"
+        lin1=$(echo "$line" | awk '{split($0,a,"[");print a[1]}')
+        lin3=$(echo "$line" | awk '{split($0,a,"]");print a[2]}')
+        #echo "$lin1[$mstr2]$lin3"
+	if [[ ("$mstr1" == "${insa[0]}") ]]
+	then
+         #echo "Inside match1 $mstr1 ${insa[0]} and line is $line" 
+	`echo "$lin1[$t2]$lin3">>"$file34"`
+        else
+	`echo "$line">>"$file34"`
+	fi
+	sflag="1"
+  else
+	mstr4=`echo "$line" | grep -o ^"tag"`
+        mstr4s="$?"
+        if [[ ("$mstr4s" -eq "0") ]]
+        then
+        #echo "mstr4 is $mstr4"
+        sflag="1"
+	lin1=$(echo "$line" | awk '{split($0,a,"[");print a[1]}')
+        lin3=$(echo "$line" | awk '{split($0,a,"]");print a[2]}')
+        #echo "$lin1[${insa[1]}]$lin3"
+         if [[ ("$mstr1" == "${insa[0]}") ]]
+         then
+         #echo "Inside match1 $mstr1 ${insa[0]} and line is $line"
+         `echo "$lin1[$t2]$lin3">>"$file34"`
+         else
+         `echo "$line">>"$file34"`
+         fi
+        fi
+	if [[ (("$sflag" -ne "1" )) ]]
+	then
+           `echo "$line">>"$file34"`
+	fi
+  fi
+done <$file1
+`cp "$file34" "$file1"`
+
+done<$file3
+
+}
+
+
+
+
+#This takes an input file to-index 2 new-index on existing db values
+fix13(){
+
+file1="./ylgdb.sh"
+file34="./thb.sh"
+file3="./ch.txt"
+`> $file34`
+
+while read -r line1; do
+
+IFS=',' read -r -a insa <<< "$line1"
+echo "${insa[0]}" "${insa[1]}"
+t2="${insa[1]}"
+
+in1="${insa[0]}"
+in2="${insa[1]}"
+echo "in1 is $in1"
+sudo sed -i "s|\[${in1}\]|\[${in2}\]|g" "$file1" 
+
+
+#`cp "$file34" "$file1"`
+
+done<$file3
+
+}
+
+#This takes an input file and sorts the array[] , just copy the top part of the Database 
+fix14(){
+
+file1="./ylgdb.sh"
+file34="./thb.sh"
+file3="./ch.txt"
+`> $file34`
+sortit
+
+for k in "${sorted[@]}"
+do
+	while read -r line;do 
+         g1=`echo "$line" | grep "\[$k\]"`
+         g1s="$?"
+         #echo "g1 is $g1"
+	 if [[ ("$g1s" -eq "0") ]]
+	 then
+		`echo "$line">>"$file34"`
+	 fi
+	done<$file1
+done
+
+}
+
+
+#to print unique index number into a file , which can be used to do further manipulation such as changinf the new index etc
+
+fix12(){
+inp1="4.912"
+inp2="4.912211"
+newfile="./ch.txt"
+`> $newfile`
+sortit
+
+for k in "${sorted[@]}"
+do
+	#echo "k is $k"
+        if ( (( $(echo "$k >= $inp1" | bc -l) )) && (( $(echo "$k <= $inp2" | bc -l) )) )
+        then
+		`echo "$k">>"$newfile"`
+	fi
+done
+
+}
+
 #sort the database with respect to spec 
 sortit() {
 source "./ylgdb.sh"
@@ -305,7 +443,8 @@ sudo sed -i "s|${str22}|${str23}|" $filename
 fix61() {
 #file1="./ylgdb.sh"
 #file2="./bkpylgdb"
-file3="./data.text"
+file3="./data1.text"
+#file3="./data.text"
 #cp1=`cp ${file1 $file2`
 
 while read line; do
