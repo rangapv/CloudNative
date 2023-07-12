@@ -1,37 +1,43 @@
-apiVersion:
-kind:
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name:
-  namespace:
+  name: grafana
+  namespace: monitoring
   labels:
-    app:
+    app: grafana
 spec:
-  replicas:
+  replicas: 1
   selector:
     matchLabels:
-      app:
-  strategy:
-    rollingUpdate:
-      maxSurge:
-      maxUnavailable:
-    type:
+      app: grafana
   template:
     metadata:
       labels:
-        app:
+        app: grafana
     spec:
-      containers:
-        - name:
-          image:
-          args:
-          ports:
-            - containerPort:
+      initContainers:
+        - name: prom-busy-bos-set-permis
+          image: busybox
+          command: ["/bin/chmod","-R","777","/var/lib/grafana"]
           volumeMounts:
-            - name:
+          - name: grafana-storage
+            mountPath: /var/lib/grafana
+      containers:
+        - name: grafana
+          image: grafana/grafana:latest
+          args: 
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: grafana-storage
+              mountPath: /var/lib/grafana
+            - name: grafana-config
+              mountPath: /etc/grafana/provisioning/datasources
       volumes:
-        - name:
+        - name: grafana-config
           configMap:
-            name:
-        - name:
+            name: grafana-config
+            defaultMode: 420
+        - name: grafana-storage
           persistentVolumeClaim:
-            claimName:
+            claimName: pvc1-store

@@ -7,12 +7,12 @@ set -E
 skippm=(labels )
 #array values that needs to be skipped fromt eh database in the spec section
 #it is being called at function findp, pvfilyl(pvspec11) , pvfill(pvgen)
-skippv=( )
+skippv=(global alerting scrape_configs rule_files)
 
 #The YAMl file name for this resource ; this can be changed
-pvfile="configmap-promth.yaml"
+pvfile="configmap-grafa.yaml"
 #The Values file name for this resource ; this can be changed
-pvvfile="configmap-promth-value.yaml"
+pvvfile="configmap-grafa-value.yaml"
 #The starting Index in the database(ylgdb.sh) for this resource ; this CANNOT be changed
 myindx="7"
 

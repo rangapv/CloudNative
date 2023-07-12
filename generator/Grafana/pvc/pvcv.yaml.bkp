@@ -1,8 +1,8 @@
-Version:v1
-kind:PersistentVolumeClaim
-Name for this kind:pvc1-store
-Namespaces that you want this kind to be deployed:monitoring
-app name to be referenced:grafana-deployment
+Version: v1
+kind: PersistentVolumeClaim
+Name for this kind:pvc1-store 
+Namespaces that you want this kind to be deployed: monitoring
+app name to be referenced: grafana-deployment
 User defined Name for the Storage Class:prom1
 The Access Modes Value needs to be mentioned Read/Write/ReadWrite etc:ReadWriteOnce
 The storage Details(Mb/Gb):2Gi
