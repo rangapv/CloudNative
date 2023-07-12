@@ -16,7 +16,7 @@ pvfile="dgr.yaml"
 #The Values file name for this resource ; this can be changed
 pvvfile="dgv.yaml"
 #The starting Index in the database(ylgdb.sh) for this resource ; this CANNOT be changed
-myindx="4"
+myindx="4,11"
 
 if [[ "$1" == "gen" ]]
 then
