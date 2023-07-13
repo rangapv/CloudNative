@@ -1,0 +1,3 @@
+4.7,revisionHistoryLimit:,Enter number of old ReplicaSets to retain to allow rollback(default is 10),1
+4.8,minReadySeconds:,Minimum number of seconds for it to be considered available,1
+4.9,progressDeadlineSeconds:,maximum time (defaults 600s) for a deployment before it is considered to be failed,1

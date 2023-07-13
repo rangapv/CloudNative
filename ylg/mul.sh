@@ -134,7 +134,6 @@ fix14(){
 
 file1="./ylgdb.sh"
 file34="./thb.sh"
-file3="./ch.txt"
 `> $file34`
 sortit
 
@@ -349,6 +348,27 @@ callfix5(){
 }
 
 
+#reads entries in file3 to add to database
+fix51() {
+file1="./ylgdb.sh"
+file34="./thb.sh"
+file3="data2.text"
+`> $file34`
+`cp $file1 $file34`
+count=0
+
+while read line; do
+        echo "line ois $line"
+        IFS=',' read -r -a insa <<< "$line"
+        echo "the length of array is ${#insa[@]}"
+        #echo "${insa[0]}" "${insa[1]}" "${insa[2]}" "${insa[3]}" 
+        echo "spec[${insa[0]}]=\"${insa[1]}\"">>"$file34"
+        echo "value[${insa[0]}]=\"${insa[2]}\"">>"$file34"
+        echo "tag[${insa[0]}]=\"${insa[3]}\"">>"$file34"
+done <$file3
+
+
+}
 
 #this function is for inserting va new value into the Database
 fix5() {
@@ -439,7 +459,7 @@ sudo sed -i "s|${str22}|${str23}|" $filename
 
 }
 
-
+#this function reads the file in file3 and adds entries to the database(ylgdb.sh)
 fix61() {
 #file1="./ylgdb.sh"
 #file2="./bkpylgdb"
