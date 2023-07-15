@@ -32,7 +32,7 @@ are expanded using the previously defined environment variables in the container
 configMapKeyRef key to select:
 configMapKeyRef Name of the referent:
 Specify whether the ConfigMap or its key must be defined(Boolean):
-Selects a field of the pod(supports metadata.name/metadata.namespace/metadata.labels['<KEY>']/metadata.annotations['<KEY>']/spec.nodeName/spec.serviceAccountName/status.hostIP/status.podIP/status.podIPs):
+Selects a field of the pod(supports metadata.name/metadata.namespace/metadata.labels/status.podIPs):
 Selects a resource of the container(linits Request are supported):
 key of the secret to select from:
 Name of the referent of secretKeyRef:
@@ -43,6 +43,7 @@ SecretEnvSource name:
 Specify whether the Secret must be defined(Boolean):
 Port number to expose on the pods IP address(o-65536):
 host IP to bind the external port to.:
+port number to expose on the host(If HostNetwork is specified:
 Each named port in a pod must have a unique name:
 Protocol for port. (UDP/TCP/SCTP Defaults to TCP):
 NAme of the Volume:

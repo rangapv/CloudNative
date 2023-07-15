@@ -35,46 +35,47 @@ spec:
           command:
           volumeMounts:
           - name:
-      name:
-      image:
-      imagePullPolicy:
-      command:
-      args:
-      workingDir:
-      env:
-        name:
-        value:
-        valueFrom:
-          configMapKeyRef:
-            key:
+      containers:
+      - name:
+        image:
+        imagePullPolicy:
+        command:
+        args:
+        workingDir:
+        env:
+          name:
+          value:
+          valueFrom:
+            configMapKeyRef:
+              key:
+              name:
+              optional:
+            fieldRef:
+            resourceFieldRef:
+            secretKeyRef:
+              key:
+              name:
+              optional:
+        envFrom:
+          configMapRef:
             name:
             optional:
-          fieldRef:
-          resourceFieldRef:
-          secretKeyRef:
-            key:
+          prefix:
+          secretRef:
             name:
             optional:
-      envFrom:
-        configMapRef:
+        ports:
+          containerPort:
+          hostIP:
+          hostPort:
           name:
-          optional:
-        prefix:
-        secretRef:
+          protocol:
+        volumeMounts:
           name:
-          optional:
-      ports:
-        containerPort:
-        hostIP:
-        hostPort:
-        name:
-        protocol:
-      volumeMounts:
-        name:
-        mountPropagation
-        readOnly:
-        subPath:
-        subPathExpr:
-      volumeDevices:
-        devicePath:
-        name:
+          mountPropagation:
+          readOnly:
+          subPath:
+          subPathExpr:
+        volumeDevices:
+          devicePath:
+          name:

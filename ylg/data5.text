@@ -30,14 +30,14 @@
 26.1018,ports:,List of ports to expose from the container,0
 26.10181,containerPort:,Port number to expose on the pods IP address(o-65536),1
 26.10182,hostIP:,host IP to bind the external port to.,1
-26.10183,hostPort:,port number to expose on the host(If HostNetwork is specified, this must match ContainerPort. Most containers do not need this),1
+26.10183,hostPort:,port number to expose on the host(If HostNetwork is specified this must match ContainerPort. Most containers do not need this),1
 26.10184,name:,Each named port in a pod must have a unique name,1
 26.10185,protocol:,Protocol for port. (UDP/TCP/SCTP Defaults to TCP),1
 26.1019,volumeMounts:,Pod volumes to mount into the container's filesystem,0
 26.10191,mountPath:,Path within the container at which the volume should be mounted. Must not contain colon,1
 26.10192,name:,NAme of the Volume,1
 26.10193,mountPropagation:,determines how mounts are propagated from the host to container and the other way around,1
-26.10194,readOnly:,Mount volume value read-only if true, read-write otherwise (false or unspecified). Defaults to false.,1
+26.10194,readOnly:,Mount volume value read-only if true read-write otherwise (false or unspecified). Defaults to false.,1
 26.10195,subPath:,Path within the volume from which the container's volume should be mounted.(Default to toor),1
 26.10196,subPathExpr:,Expanded path within the volume from which the container's volume should be mounted.,1
 26.1020,volumeDevices:,volumeDevices is the list of block devices to be used by the container.,0
