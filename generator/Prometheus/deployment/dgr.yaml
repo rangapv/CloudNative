@@ -1,51 +1,80 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion:
+kind:
 metadata:
-  name: prometheus
-  namespace: monitoring
+  name:
+  namespace:
   labels:
-    app: prometheus
+    app:
 spec:
-  replicas: 1
+  replicas:
   selector:
     matchLabels:
-      app: prometheus
+      app:
   strategy:
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-    type: RollingUpdate
+      maxSurge:
+      maxUnavailable:
+    type:
   template:
     metadata:
       labels:
-        app: prometheus
+        app:
+  revisionHistoryLimit:
+  minReadySeconds:
+  progressDeadlineSeconds:
+    metadata:
+      labels:
+        app:
     spec:
+      nodeSelector:
+      nodeName:
+      restartPolicy:
       initContainers:
-      - name: prom-busy-bos-set-permis
-        image: busybox
-        command: ["/bin/chmod","-R","777","/prometheus"]
-        volumeMounts:
-        - name: prometheus-storage
-          mountPath: /prometheus
-      containers:
-        - name: prometheus
-          image: prom/prometheus:v2.44.0
-          args:
-            - "--storage.tsdb.retention=6h"
-            - "--storage.tsdb.path=/prometheus"
-            - "--config.file=/etc/prometheus/prometheus.yml"
-          ports:
-            - containerPort: 9090
+        - name:
+          image:
+          command:
           volumeMounts:
-            - name: prometheus-config
-              mountPath: /etc/prometheus
-            - name: prometheus-storage
-              mountPath: /prometheus
-      volumes:
-        - name: prometheus-config
-          configMap:
-            name: prometheus-config
-            defaultMode: 420
-        - name: prometheus-storage
-          persistentVolumeClaim:
-            claimName: pvc1-data
+          - name:
+      name:
+      image:
+      imagePullPolicy:
+      command:
+      args:
+      workingDir:
+      env:
+        name:
+        value:
+        valueFrom:
+          configMapKeyRef:
+            key:
+            name:
+            optional:
+          fieldRef:
+          resourceFieldRef:
+          secretKeyRef:
+            key:
+            name:
+            optional:
+      envFrom:
+        configMapRef:
+          name:
+          optional:
+        prefix:
+        secretRef:
+          name:
+          optional:
+      ports:
+        containerPort:
+        hostIP:
+        hostPort:
+        name:
+        protocol:
+      volumeMounts:
+        name:
+        mountPropagation
+        readOnly:
+        subPath:
+        subPathExpr:
+      volumeDevices:
+        devicePath:
+        name:

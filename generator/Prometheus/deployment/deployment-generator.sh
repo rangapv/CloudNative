@@ -16,12 +16,12 @@ pvfile="dgr.yaml"
 #The Values file name for this resource ; this can be changed
 pvvfile="dgv.yaml"
 #The starting Index in the database(ylgdb.sh) for this resource ; this CANNOT be changed
-myindx="4,11"
+myindx="4,20,25,26"
 
 if [[ "$1" == "gen" ]]
 then
-        #source /home/ubuntu/cn/generator/gen.sh "gen" "$pvfile" "$pvvfile" "$myindx"
-	source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/generator/gen.sh) "gen" "$pvfile" "$pvvfile" "$myindx"
+        source /home/ubuntu/cn/generator/gen.sh "gen" "$pvfile" "$pvvfile" "$myindx"
+	#source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/generator/gen.sh) "gen" "$pvfile" "$pvvfile" "$myindx"
 
 elif [[ "$1" == "fill" ]]
 then

@@ -1,24 +1,53 @@
-Version:apps/v1
-kind:Deployment
-Name for this kind:prometheus
-Namespaces that you want this kind to be deployed:monitoring
-app name to be referenced:prometheus
-Replicas:1
-The app name for the Pod to match:prometheus
-The max surge number for the Pod:1
-The max Unavailabe details for the Pod:1
-The strategy type for the Pod:RollingUpdate
-app name for the container:prometheus
-The name for the init container:prom-busy-bos-set-permis
-The init container image:busybox
-The command to be executed for the init container:["/bin/chmod","-R","777","/prometheus"]
-Name of the volume mount in init container in the format mountpoints;mountpath :prometheus-storage;/prometheus
-Name of this Container:prometheus
-image tag:prom/prometheus:v2.44.0
-args that may be needed to for the container to start/run:--storage.tsdb.retention=6h,--storage.tsdb.path=/prometheus,--config.file=/etc/prometheus/prometheus.yml
-containerports:9090
-Name of the container mount points;mountpath:prometheus-config;/etc/prometheus,prometheus-storage;/prometheus
-Name of the Volume(configMapName):prometheus-config
-Name fo this Configmap;DefaultMode:prometheus-config;420
-Name of the Volume(PersistentVolumeClaim):prometheus-storage
-The Claim name of PersistentVolumeClaim:pvc1-data
+Version:
+kind:
+Name for this kind:
+Namespaces that you want this kind to be deployed:
+app name to be referenced:
+Replicas:
+The app name for the Pod to match:
+The max surge number for the Pod:
+The max Unavailabe details for the Pod:
+The strategy type for the Pod:
+app name for the container:
+Enter number of old ReplicaSets to retain to allow rollback(default is 10):
+Minimum number of seconds for it to be considered available:
+maximum time (defaults 600s) for a deployment before it is considered to be failed:
+The label for the Pod if any:
+The app name for the Pod if any:
+Selector which must match a node's labels for the pod to be scheduled on that node:
+that node assuming that it fits resource requirements:
+Restart policy for all containers within the pod(Always/OnFailure/Never):
+The name for the init container:
+The init container image:
+The command to be executed for the init container:
+The volume mounts for the init container:
+Name of the volume mount in init container in the format mountpoints;mountpath:
+Name of the container:
+Container image name:
+Entrypoint array. Not executed within a shell. The container image's ENTRYPOINT is used if this is not provided:
+Arguments to the entrypoint. The container image's CMD is used if this is not provided:
+Container's working directory.(Default-the container runtime's default will be used):
+Name of the environment variable:
+are expanded using the previously defined environment variables in the container and any service environment variables:
+configMapKeyRef key to select:
+configMapKeyRef Name of the referent:
+Specify whether the ConfigMap or its key must be defined(Boolean):
+Selects a field of the pod(supports metadata.name/metadata.namespace/metadata.labels['<KEY>']/metadata.annotations['<KEY>']/spec.nodeName/spec.serviceAccountName/status.hostIP/status.podIP/status.podIPs):
+Selects a resource of the container(linits Request are supported):
+key of the secret to select from:
+Name of the referent of secretKeyRef:
+Specify whether secretKeyRef's Secret or its key must be defined:
+ConfigMap name to select from:
+Specify whether the ConfigMap must be defined(Boolean):
+SecretEnvSource name:
+Specify whether the Secret must be defined(Boolean):
+Port number to expose on the pods IP address(o-65536):
+host IP to bind the external port to.:
+Each named port in a pod must have a unique name:
+Protocol for port. (UDP/TCP/SCTP Defaults to TCP):
+NAme of the Volume:
+determines how mounts are propagated from the host to container and the other way around:
+Path within the volume from which the container's volume should be mounted.(Default to toor):
+Expanded path within the volume from which the container's volume should be mounted.:
+devicePath is the path inside of the container that the device will be mapped to:
+name must match the name of a persistentVolumeClaim in the pod:
