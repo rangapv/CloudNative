@@ -1,0 +1,38 @@
+27.1021,resources:,Compute Resources required by this container,0
+27.10211,claims:,Claims lists the names of resources defined in spec.resourceClaims that are used by this container,0
+27.102111,name:,Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used,1
+27.10212,limits:,Limits describes the maximum amount of compute resources allowed,0
+27.10213,requests:,Requests describes the minimum amount of compute resources required,0
+27.1022,resizePolicy:,Resources resize policy for the container,0
+27.10221,resourceName:,Name of the resource to which this resource resize policy applies(cpu/memory),1
+27.10222,restartPolicy:,Restart policy to apply when specified resource is resized,1
+27.1023,lifecycle:,Lifecycle describes actions that the management system should take in response to container lifecycle events,0
+27.10231,postStart:,PostStart is called immediately after a container is created. If the handler fails the container is terminated and restarted according to its restart policy,0
+27.10232,preStop:,PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure,0
+27.1024,terminationMessagePath:,Path at which the file to which the container's termination message will be written is mounted into the container's filesystem,1
+27.1205,terminationMessagePolicy:,Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure.,1
+27.1026,livenessProbe:,Periodic probe of container liveness,1
+27.1027,readinessProbe:,Periodic probe of container service readiness,1
+27.1028,startupProbe:,StartupProbe indicates that the Pod has successfully initialized. If specified then no other probes are executed until this completes successfully,1
+27.1029,securityContext:,SecurityContext holds security configuration that will be applied to a container.,0
+27.10291,runAsUser:,The UID to run the entrypoint of the container process,1
+27.10292,runAsNonRoot:,Indicates that the container must run as a non-root user(Boolean),1
+27.10293,runAsGroup:,GID to run the entrypoint of the container process(int),1
+27.10294,readOnlyRootFilesystem:,Whether this container has a read-only root filesystem(Boolean),1
+27.10295,procMount:,type of proc mount to use for the containers(string),1
+27.10296,privileged:,Run container in privileged mode(priviliged),1
+27.10297,allowPrivilegeEscalation:,AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process(Boolean),1
+27.10298,capabilities:,Adds and removes POSIX capabilities from running containers.,0
+27.102981,add:,Adds POSIX capabilities,1
+27.102982,drop:,remove POSIX capabilities,1
+27.10299,seccompProfile:,SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set,0
+27.102991,type:,type indicates which kind of seccomp profile will be applied(localhost/RuntimeDefault/Unconfined),1
+27.102992,localhostProfile:,localhostProfile indicates a profile defined in a file on the node should be used,1
+27.10300,seLinuxOptions:,SELinux context to be applied to the container,0
+27.103001,level:,Level is SELinux level label that applies to the container(string),1
+27.103002,role:,Role is a SELinux role label that applies to the container(string),1
+27.103003,type:,Type is a SELinux type label that applies to the container(string),1
+27.103004,user:,User is a SELinux user label that applies to the container(string),1
+27.10301,windowsOptions:,WindowsSecurityContextOptions contain Windows-specific options and credentials,1
+27.103011,hostProcess:,HostProcess determines if a container should be run as a 'Host Process' container(Boolean),1
+27.103012,runAsUserName:,UserName in Windows to run the entrypoint of the container process(string),1

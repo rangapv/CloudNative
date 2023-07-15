@@ -1,0 +1,7 @@
+25.101,initContainers:,The init container details for the Pod if any,0
+25.1011,- name:,The name for the init container,1
+25.10111,image:,The init container image,1
+25.10112,command:,The command to be executed for the init container,1
+25.10113,volumeMounts:,The volume mounts for the init container,1
+25.10114,- name:,Name of the volume mount in init container in the format mountpoints;mountpath,1
+25.101141,mountPath:,The mountpath for the volume mount of init container,0

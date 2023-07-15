@@ -1,0 +1,51 @@
+20.10,metadata:,The Pod metadata like labesl,app,0
+20.101,labels:,The label for the Pod if any,1
+20.1011,app:,The app name for the Pod if any,1
+20.20,spec:,The Pod spec section beigns from here,0
+20.301,nodeSelector:,Selector which must match a node's labels for the pod to be scheduled on that node,1
+20.302,nodeName:,that node assuming that it fits resource requirements,1
+20.303,restartPolicy:,Restart policy for all containers within the pod(Always/OnFailure/Never),1
+29.100,volumes:,List of volumes that can be mounted by containers belonging to the pod,0
+29.101,- name:,The name to refer for this volume,1
+29.1011,gitRepo:,The gitRepo details,0
+29.10111,repository:,The git repo is a string,1
+29.10112,revision:,The revision is a string,1
+29.1012,hostPath:,A hostPath volume mounts a file or directory from the host node's filesystem into your Pod,0
+29.10121,path:,The valid path of the localhost,1
+29.10122,type:,The valid entries are(File/Directory/socket/BlockDevice/charDevice/FilelOrCreate/DirectoryOrCreate/empty),1
+29.1013,nfs:,NFS server running with the share exported,0
+29.10131,server:,The nfs server details,1
+29.10132,path:,The nfs path,1
+29.10133,readOnly:The boolean value,1
+29.1014,persistentVolumeClaim:,The persistenVolumeCalim that was created,0
+29.10141,claimName:,The claim name,1
+29.1015,configMap:,The ConfigMap details,0
+29.10151,name:,The configmap name,1
+29.10152,defaultMode:,The mode of access,1
+29.1016,csi:,The out-of-tree csi driver details,0
+29.10161,driver:,A string value that specifies the name of the volume driver to use,1
+29.10162,volumeAttributes:,A map of string to string that specifies static properties of a volume,1
+29.10163,volumeHandle:,A string value that uniquely identifies the volume,1
+29.10164,fsType:,If the PV's VolumeMode is Filesystem then this field may be used to specify,1
+29.10165,nodePublishSecretRef:,A reference to the secret object containing sensitive information to pass,1
+29.10166,nodeStageSecretRef: A reference to the secret object containing sensitive information to pass to the CSI driver,1
+29.1017,cephfs:,The cephfs deatils,0
+29.10171,monitors:,The ip adress details in here,1
+29.10172,user:,The authorized user login,1
+29.10173,secretFile:,The path of the cephfs secret file,1
+29.10174,readOnly:,The boolean value for read,1
+29.1018,rbd:,The raw block device details,0
+29.10181,monitors:,The ip adress details in here,1
+29.10182,pool:,The pool details,1
+29.10183,image:,The os image details,1
+29.10184,fsType:,The file system type,1
+29.10185,readOnly:,The access rights for the raw block volume,1
+29.10186,user:,The authorized user login,1
+29.10187,keyring:,The key ring path,1
+29.10188,imageformat:,The image format numerical vale,1
+29.10189,imagefeatures:,The image feature(layering etc),1
+29.1019,fc:,The fiber channel details,0
+29.10191,targetWWNs:,The WWNs deatils,1
+29.10192,lun:,The lun details,1
+29.10193,fsType:,The file system type,1
+29.10194,readOnly:,The boolean value for readonly,1
