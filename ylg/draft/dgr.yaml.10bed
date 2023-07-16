@@ -1,0 +1,61 @@
+apiVersion:
+kind:
+metadata:
+  name:
+  namespace:
+  labels:
+    app:
+spec:
+  replicas:
+  selector:
+    matchLabels:
+      app:
+  strategy:
+    rollingUpdate:
+      maxSurge:
+      maxUnavailable:
+    type:
+  revisionHistoryLimit:
+  minReadySeconds:
+  progressDeadlineSeconds:
+  template:
+    metadata:
+      labels:
+        app:
+    spec:
+      nodeSelector:
+      nodeName:
+      restartPolicy:
+      initContainers:
+        - name:
+          image:
+          command:
+          volumeMounts:
+          - name:
+      containers:
+      - name:
+        image:
+        imagePullPolicy:
+        command:
+        args:
+        workingDir:
+        env:
+          name:
+          value:
+        ports:
+          - containerPort:
+            hostIP:
+            name:
+            protocol:
+        volumeMounts:
+          - name:
+            mountPropagation:
+            readOnly:
+            subPath:
+            subPathExpr:
+      volumes:
+      - name:
+        persistentVolumeClaim:
+          claimName:
+        configMap:
+          name:
