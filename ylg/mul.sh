@@ -561,16 +561,20 @@ echo "The modified database is in the file $file34; kindly checkit once and rena
 #This function is to display the Database starting index of various resource YAML
 dbdetails() {
 sortit
+i1=0
+oldgt=-1
 for a in "${sorted[@]}"
 do
 	d0=`echo "$a" | grep "\."`
-        if [[ ( -z $d0 ) ]]
+        gt=$(echo $a | awk '{split($0,b,".");print b[1]}')
+        if [[ ("$oldgt" != "$gt") ]]
 	then
                echo "${value[$a]}   Begins at index $a"
+               oldgt=$gt
 	fi
-
-#	d1=(echo "$a" |bc -l)
-
+       	#echo "gt is $gt"
+	#echo "i1 is $i1 ${sorted[$i1]}"
+	((i1+=1))
 
 done
 }
