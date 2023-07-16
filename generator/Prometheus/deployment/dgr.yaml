@@ -15,67 +15,40 @@ spec:
       maxSurge:
       maxUnavailable:
     type:
+  revisionHistoryLimit:
+  minReadySeconds:
+  progressDeadlineSeconds:
   template:
     metadata:
       labels:
         app:
-  revisionHistoryLimit:
-  minReadySeconds:
-  progressDeadlineSeconds:
-    metadata:
-      labels:
-        app:
     spec:
-      nodeSelector:
-      nodeName:
       restartPolicy:
       initContainers:
         - name:
           image:
-          command:
           volumeMounts:
           - name:
       containers:
       - name:
         image:
         imagePullPolicy:
-        command:
         args:
-        workingDir:
-        env:
-          name:
-          value:
-          valueFrom:
-            configMapKeyRef:
-              key:
-              name:
-              optional:
-            fieldRef:
-            resourceFieldRef:
-            secretKeyRef:
-              key:
-              name:
-              optional:
-        envFrom:
-          configMapRef:
-            name:
-            optional:
-          prefix:
-          secretRef:
-            name:
-            optional:
         ports:
-          containerPort:
-          hostIP:
-          hostPort:
-          name:
-          protocol:
+          - containerPort:
+            hostIP:
+            name:
+            protocol:
         volumeMounts:
-          name:
-          mountPropagation:
-          readOnly:
-          subPath:
-          subPathExpr:
-        volumeDevices:
-          devicePath:
-          name:
+          - name:
+            mountPropagation:
+            readOnly:
+            subPath:
+            subPathExpr:
+      volumes:
+        - name:
+          persistentVolumeClaim:
+            claimName:
+        - name:
+          configMap:
+            name:

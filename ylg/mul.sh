@@ -37,7 +37,7 @@ done <$file1
 }
 
 #file to move and copy ; this needs more work to be done
-fix11(){
+fix11() {
 file1="./ylgdb.sh"
 file34="./thb.sh"
 file3="./ch.txt"
@@ -104,7 +104,7 @@ done<$file3
 
 
 #This takes an input file to-index 2 new-index on existing db values
-fix13(){
+fix13() {
 
 file1="./ylgdb.sh"
 file34="./thb.sh"
@@ -130,7 +130,7 @@ done<$file3
 }
 
 #This takes an input file and sorts the array[] , just copy the top part of the Database 
-fix14(){
+fix14() {
 
 file1="./ylgdb.sh"
 file34="./thb.sh"
@@ -155,7 +155,7 @@ done
 
 #to print unique index number into a file , which can be used to do further manipulation such as changinf the new index etc
 
-fix12(){
+fix12() {
 inp1="4.912"
 inp2="4.912211"
 newfile="./ch.txt"
@@ -322,7 +322,7 @@ done
 
 
 #this function is for serial value addition to the Database
-callfix5(){
+callfix5() {
 
 	fix5 "4.71" "4.711" "initContainers:" "The init container details for the Pod if any" "0"
 	fix5 "4.711" "4.811" "- name:" "The name for the init container" "1"
