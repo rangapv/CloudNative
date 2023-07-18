@@ -570,7 +570,7 @@ do
         gt=$(echo $a | awk '{split($0,b,".");print b[1]}')
         if [[ ("$oldgt" != "$gt") ]]
 	then
-               echo "${value[$a]}   Begins at index $a"
+               echo "${value[$a]}   Begins at index $gt"
                oldgt=$gt
 	fi
        	#echo "gt is $gt"
