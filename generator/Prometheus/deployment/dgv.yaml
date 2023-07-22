@@ -1,33 +1,37 @@
-Version:
-kind:
-Name for this kind:
-Namespaces that you want this kind to be deployed:
-app name to be referenced:
-Replicas:
-The app name for the Pod to match:
-The max surge number for the Pod:
-The max Unavailabe details for the Pod:
-The strategy type for the Pod:
-Enter number of old ReplicaSets to retain to allow rollback(default is 10):
+Version: apps/v1
+kind:Deployment
+Name for this kind:prometheus
+Namespaces that you want this kind to be deployed:monitoring
+app name to be referenced:prometheus
+Replicas:1
+The app name for the Pod to match:prometheus
+The max surge number for the Pod:1
+The max Unavailabe details for the Pod:1
+The strategy type for the Pod:RollingUpdate
+Enter number of old ReplicaSets to retain to allow rollback(default is 10):2
 Minimum number of seconds for it to be considered available:
 maximum time (defaults 600s) for a deployment before it is considered to be failed:
 The label for the Pod if any:
-The app name for the Pod if any:
-Restart policy for all containers within the pod(Always/OnFailure/Never):
-The name for the init container:
-The init container image:
-Name of the volume mount in init container in the format mountpoints;mountpath:
-Name of the container:
-Container image name:
-Arguments to the entrypoint. The container image's CMD is used if this is not provided:
-Port number to expose on the pods IP address(o-65536):
+The app name for the Pod if any:prometheus
+Restart policy for all containers within the pod(Always/OnFailure/Never):Always
+The name for the init container:prom-busy-bos-set-permis
+The init container image:busybox
+The command to be executed for the init container:["/bin/chmod","-R","777","/prometheus"]
+Name of the volume mount in init container in the format mountpoints;mountpath:prometheus-storage;/prometheus
+Name of the container:prometheus
+Container image name:prom/prometheus:v2.44.0
+Entrypoint array. Not executed within a shell. The container image's ENTRYPOINT is used if this is not provided:
+Arguments to the entrypoint. The container image's CMD is used if this is not provided:--storage.tsdb.retention=6h,--storage.tsdb.path=/prometheus,--config.file=/etc/prometheus/prometheus.yml
+Port number to expose on the pods IP address(o-65536):9090
 host IP to bind the external port to.:
-Each named port in a pod must have a unique name:
+Each named port in a pod must have a unique name:promport
 Protocol for port. (UDP/TCP/SCTP Defaults to TCP):
-Name of the Volume and the mount path enter value as name;path-of-mount here:
+Name of the Volume and the mount path enter value as name;path-of-mount here:prometheus-config;/etc/prometheus,prometheus-storage;/prometheus
 determines how mounts are propagated from the host to container and the other way around:
 Mount volume value read-only if true:
 Path within the volume from which the container's volume should be mounted.(Default to root):
 Expanded path within the volume from which the container's volume should be mounted.:
-The Persistent claim name:
-In the options you have chosen Configmap pls enter the value as name;defaultmode here:
+spec for  persistent Volume claim:prometheus-storage
+The Persistent claim name:pvc1-data
+spec for Volume Configmap Volume:prometheus-config
+In the options you have chosen Configmap pls enter the value as name;defaultmode here:prometheus-config;420

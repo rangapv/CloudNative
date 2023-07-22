@@ -10,7 +10,7 @@ skippm=(type annotations )
 #NOTE in the below skippv array I have included defaultMode even though the Deployment needs this value! since while parsing I am entering the user values as pairs seperated by";" in the ConfigMap name Itself (check the filled dgv.yaml values file sample in the folder), hence do not have to repeat it. This is One-off
 
 #skippv=(envFrom volumeDevices hostPort valueFrom gitRepo hostPath nfs csi cephfs rbd fc)
-skippv=(env command workingDir nodeSelector nodeName envFrom volumeDevices hostPort valueFrom mountPath defaultMode gitRepo hostpath)
+skippv=(env workingDir nodeSelector nodeName envFrom volumeDevices hostPort valueFrom mountPath defaultMode )
 
 #The YAMl file name for this resource ; this can be changed
 pvfile="dgr.yaml"
