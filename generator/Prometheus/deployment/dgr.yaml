@@ -1,63 +1,56 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion:
+kind:
 metadata:
-  name: prometheus
-  namespace: monitoring
+  name:
+  namespace:
   labels:
-    app: prometheus
+    app:
 spec:
-  replicas: 1
+  replicas:
   selector:
     matchLabels:
-      app: prometheus
+      app:
   strategy:
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-    type: RollingUpdate
-  revisionHistoryLimit: 2
-  minReadySeconds: 
-  progressDeadlineSeconds: 
+      maxSurge:
+      maxUnavailable:
+    type:
+  revisionHistoryLimit:
+  minReadySeconds:
+  progressDeadlineSeconds:
   template:
     metadata:
-      labels: 
-        app: prometheus
+      labels:
+        app:
     spec:
-      restartPolicy: Always
+      restartPolicy:
       initContainers:
-        - name: prom-busy-bos-set-permis
-          image: busybox
-          command: ["/bin/chmod","-R","777","/prometheus"]
+        - name:
+          image:
+          command:
           volumeMounts:
-          - name: prometheus-storage
-            mountPath: /prometheus
+          - name:
       containers:
-      - name: prometheus
-        image: prom/prometheus:v2.44.0
-        command: 
+      - name:
+        image:
+        imagePullPolicy:
+        command:
         args:
-            - "--storage.tsdb.retention=6h"
-            - "--storage.tsdb.path=/prometheus"
-            - "--config.file=/etc/prometheus/prometheus.yml"
         ports:
-          - containerPort: 9090
-            hostIP: 
-            name: promport
-            protocol: 
+          - containerPort:
+            hostIP:
+            name:
+            protocol:
         volumeMounts:
-          - name: prometheus-config
-            mountPath: /etc/prometheus
-          - name: prometheus-storage
-            mountPath: /prometheus
-            mountPropagation: 
-            readOnly: 
-            subPath: 
-            subPathExpr: 
+          - name:
+            mountPropagation:
+            readOnly:
+            subPath:
+            subPathExpr:
       volumes:
-        - name: prometheus-storage
+        - name:
           persistentVolumeClaim:
-            claimName: pvc1-data
-        - name: prometheus-config
+            claimName:
+        - name:
           configMap:
-            name: prometheus-config
-            defaultMode: 420
+            name:
