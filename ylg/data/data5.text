@@ -1,0 +1,45 @@
+26.100,containers:,Spec for containers,0
+26.101,- name:,Name of the container,1
+26.1011,image:,Container image name,1
+26.1012,imagePullPolicy:,Image pull policy(Always,Never,IfNotPresent.Defaults to Always if :latest tag is specified/IfNotPresent,1
+26.1013,command:,Entrypoint array. Not executed within a shell. The container image's ENTRYPOINT is used if this is not provided,1
+26.1014,args:,Arguments to the entrypoint. The container image's CMD is used if this is not provided,1
+26.1015,workingDir:,Container's working directory.(Default-the container runtime's default will be used),1
+26.1016,env:,List of environment variables to set in the container,0
+26.10161,name:,Name of the environment variable,1
+26.10162,value:,are expanded using the previously defined environment variables in the container and any service environment variables,1
+26.10163,valueFrom:,Source for the environment variable's value. Cannot be used if value is not empty.,0
+26.101631,configMapKeyRef:,Selects a key from a ConfigMap,0
+26.1016311,key:,configMapKeyRef key to select,1
+26.1016312,name:,configMapKeyRef Name of the referent,1
+26.1016313,optional:,Specify whether the ConfigMap or its key must be defined(Boolean),1
+26.101632,fieldRef:,Selects a field of the pod(supports metadata.name/metadata.namespace/metadata.labels/status.podIPs),1
+26.101633,resourceFieldRef:,Selects a resource of the container(linits Request are supported),1
+26.101634,secretKeyRef:,Selects a key of a secret in the pod's namespace,0
+26.1016341,key:,key of the secret to select from,1
+26.1016342,name:,Name of the referent of secretKeyRef,1
+26.1016343,optional:,Specify whether secretKeyRef's Secret or its key must be defined,1
+26.1017,envFrom:,EnvFromSource represents the source of a set of ConfigMap,0
+26.10171,configMapRef:,ConfigMap to select from,0
+26.101711,name:,ConfigMap name to select from,1
+26.101712,optional:,Specify whether the ConfigMap must be defined(Boolean),1
+26.10172,prefix:,An optional identifier to prepend to each key in the ConfigMap,0
+26.10173,secretRef:,*SecretEnvSource selects a Secret to populate the environment variables with.,0
+26.101731,name:,SecretEnvSource name,1
+26.101732,optional:,Specify whether the Secret must be defined(Boolean),1
+26.1018,ports:,List of ports to expose from the container,0
+26.10181,containerPort:,Port number to expose on the pods IP address(o-65536),1
+26.10182,hostIP:,host IP to bind the external port to.,1
+26.10183,hostPort:,port number to expose on the host(If HostNetwork is specified this must match ContainerPort. Most containers do not need this),1
+26.10184,name:,Each named port in a pod must have a unique name,1
+26.10185,protocol:,Protocol for port. (UDP/TCP/SCTP Defaults to TCP),1
+26.1019,volumeMounts:,Pod volumes to mount into the container's filesystem,0
+26.10191,mountPath:,Path within the container at which the volume should be mounted. Must not contain colon,1
+26.10192,name:,NAme of the Volume,1
+26.10193,mountPropagation:,determines how mounts are propagated from the host to container and the other way around,1
+26.10194,readOnly:,Mount volume value read-only if true read-write otherwise (false or unspecified). Defaults to false.,1
+26.10195,subPath:,Path within the volume from which the container's volume should be mounted.(Default to toor),1
+26.10196,subPathExpr:,Expanded path within the volume from which the container's volume should be mounted.,1
+26.1020,volumeDevices:,volumeDevices is the list of block devices to be used by the container.,0
+26.10201,devicePath:,devicePath is the path inside of the container that the device will be mapped to,1
+26.10202,name:,name must match the name of a persistentVolumeClaim in the pod,1
