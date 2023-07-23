@@ -5,7 +5,7 @@ set -E
 #array values that needs to be skipped in the top section befor spec no entries means no values to skipp all present
 #it is being called at checkspec in the pvgen function
 skippm=(labels )
-#array values that needs to be skipped fromt eh database in the spec section
+#array values that needs to be skipped from the database in the spec section
 #it is being called at function findp, pvfilyl(pvspec11) , pvfill(pvgen)
 skippv=( )
 
@@ -13,7 +13,7 @@ skippv=( )
 pvfile="scr.yaml"
 #The Values file name for this resource ; this can be changed
 pvvfile="scv.yaml"
-#The starting Index in the database(ylgdb.sh) for this resource ; this CANNOT be changed;the spec is across 2 indexes hence comma seperated
+#The starting Index in the database(ylgdb.sh) for this resource ; the spec is across 2 indexes hence comma seperated
 myindx="8,9"
 
 if [[ "$1" == "gen" ]]
