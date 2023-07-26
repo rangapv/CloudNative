@@ -10,11 +10,20 @@ spec:
   selector:
     matchLabels:
       app: grafana
+  strategy:
+    rollingUpdate:
+      maxSurge: 
+      maxUnavailable: 
+    type: 
+  revisionHistoryLimit: 
+  minReadySeconds: 
+  progressDeadlineSeconds: 
   template:
     metadata:
-      labels:
+      labels: 
         app: grafana
     spec:
+      restartPolicy: Always
       initContainers:
         - name: prom-busy-bos-set-permis
           image: busybox
@@ -23,21 +32,29 @@ spec:
           - name: grafana-storage
             mountPath: /var/lib/grafana
       containers:
-        - name: grafana
-          image: grafana/grafana:latest
-          args: 
-          ports:
-            - containerPort: 3000
-          volumeMounts:
-            - name: grafana-storage
-              mountPath: /var/lib/grafana
-            - name: grafana-config
-              mountPath: /etc/grafana/provisioning/datasources
+      - name: grafana
+        image: grafana/grafana:latest
+        command: 
+        args: 
+        ports:
+          - containerPort: 3000
+            hostIP: 
+            name: grafp
+            protocol: 
+        volumeMounts:
+          - name: grafana-storage
+            mountPath: /var/lib/grafana
+          - name: grafana-config
+            mountPath: /etc/grafana/provisioning/datasources
+            mountPropagation: 
+            readOnly: 
+            subPath: 
+            subPathExpr: 
       volumes:
+        - name: grafana-storage
+          persistentVolumeClaim:
+            claimName: pvc1-store
         - name: grafana-config
           configMap:
             name: grafana-config
             defaultMode: 420
-        - name: grafana-storage
-          persistentVolumeClaim:
-            claimName: pvc1-store
