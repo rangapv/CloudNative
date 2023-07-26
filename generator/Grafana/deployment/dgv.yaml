@@ -1,21 +1,37 @@
-Version: apps/v1 
-kind: Deployment
-Name for this kind: grafana 
-Namespaces that you want this kind to be deployed: monitoring
-app name to be referenced: grafana
-Replicas: 1
-The app name for the Pod to match: grafana
-app name for the container: grafana 
+Version:apps/v1
+kind:Deployment
+Name for this kind:grafana
+Namespaces that you want this kind to be deployed:monitoring
+app name to be referenced:grafana
+Replicas:1
+The app name for the Pod to match:grafana
+The max surge number for the Pod:
+The max Unavailabe details for the Pod:
+The strategy type for the Pod:
+Enter number of old ReplicaSets to retain to allow rollback(default is 10):
+Minimum number of seconds for it to be considered available:
+maximum time (defaults 600s) for a deployment before it is considered to be failed:
+The label for the Pod if any:
+The app name for the Pod if any: grafana
+Restart policy for all containers within the pod(Always/OnFailure/Never):Always
 The name for the init container:prom-busy-bos-set-permis
 The init container image:busybox
 The command to be executed for the init container:["/bin/chmod","-R","777","/var/lib/grafana"]
-Name of the volume mount in init container in the format mountpoints;mountpath :grafana-storage;/var/lib/grafana
-Name of this Container: grafana 
-image tag: grafana/grafana:latest 
-args that may be needed to for the container to start/run: 
-containerports: 3000
-Name of the container mount points;mountpath: grafana-storage;/var/lib/grafana,grafana-config;/etc/grafana/provisioning/datasources
-Name of the Volume(configMapName):grafana-config
-Name fo this Configmap;DefaultMode:grafana-config;420
-Name of the Volume(PersistentVolumeClaim):grafana-storage
-The Claim name of PersistentVolumeClaim:pvc1-store
+Name of the volume mount in init container in the format mountpoints;mountpath:grafana-storage;/var/lib/grafana
+Name of the container:grafana
+Container image name:grafana/grafana:latest
+Entrypoint array. Not executed within a shell. The container image's ENTRYPOINT is used if this is not provided:
+Arguments to the entrypoint. The container image's CMD is used if this is not provided:
+Port number to expose on the pods IP address(o-65536):3000
+host IP to bind the external port to.:
+Each named port in a pod must have a unique name:grafp
+Protocol for port. (UDP/TCP/SCTP Defaults to TCP):
+Name of the Volume and the mount path enter value as name;path-of-mount here:grafana-storage;/var/lib/grafana,grafana-config;/etc/grafana/provisioning/datasources
+determines how mounts are propagated from the host to container and the other way around:
+Mount volume value read-only if true:
+Path within the volume from which the container's volume should be mounted.(Default to root):
+Expanded path within the volume from which the container's volume should be mounted.:
+spec for  persistent Volume claim:grafana-storage
+The Persistent claim name:pvc1-store
+spec for Volume Configmap Volume:grafana-config
+In the options you have chosen Configmap pls enter the value as name;defaultmode here:grafana-config;420
