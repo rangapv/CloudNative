@@ -13,6 +13,8 @@ Minimum number of seconds for it to be considered available:
 maximum time (defaults 600s) for a deployment before it is considered to be failed:
 The label for the Pod if any:
 The app name for the Pod if any:
+Selector which must match a node's labels for the pod to be scheduled on that node:
+that node assuming that it fits resource requirements:
 Restart policy for all containers within the pod(Always/OnFailure/Never):
 The name for the init container:
 The init container image:
@@ -24,6 +26,7 @@ Entrypoint array. Not executed within a shell. The container image's ENTRYPOINT 
 Arguments to the entrypoint. The container image's CMD is used if this is not provided:
 Port number to expose on the pods IP address(o-65536):
 host IP to bind the external port to.:
+port number to expose on the host(If HostNetwork is specified:
 Each named port in a pod must have a unique name:
 Protocol for port. (UDP/TCP/SCTP Defaults to TCP):
 Name of the Volume and the mount path enter value as name;path-of-mount here:
@@ -33,5 +36,3 @@ Path within the volume from which the container's volume should be mounted.(Defa
 Expanded path within the volume from which the container's volume should be mounted.:
 spec for  persistent Volume claim:
 The Persistent claim name:
-spec for Volume Configmap Volume:
-In the options you have chosen Configmap pls enter the value as name;defaultmode here:
