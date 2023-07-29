@@ -8,13 +8,6 @@ source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.s
 #source "../../../ylg/thv1.sh"
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 
-#Entries that need no user input bcasue they are labels before the spec section
-#it is being referenced in pvfill(chkspec1)
-#skippm=(labels )
-#skippm=(metadata labels type )
-#array values that needs to be skipped fromt eh database in the spec section
-#referenced in findp1 , pvfill(pvspec1)
-#skippv=( )
 
 sortit() {
 readarray -t sorted < <(for l in "${!spec[@]}"
@@ -71,14 +64,19 @@ fi
 
 findp1() {
 
-chind="$@"
 skip1=0
+
+chind="$1"
+shift
+chspeck="$@"
+
 #echo "chind is $chind"
 p13=$(echo "$chind" |sed 's/[^0-9]//g')
 p1=${#p13}
 p2=`echo "scale=${p1}; $chind" | bc -l`
 #echo "p13 is $p13 p1 is $p1 and p2 is $p2"
-newarray=(${skippm[@]} + ${skippv[@]})
+newarray="${chspeck[@]}"
+#newarray=(${skippm[@]} + ${skippv[@]})
 for ((c=1;c<"$p1";c++))
 do
 ab="${p2:0:-1}"
@@ -124,7 +122,7 @@ do
  	   maskflag=1
         fi
 done
-        findp1 "$chid"
+        findp1 "$chid" "${chspeck[@]}"
         if  [[ (( "$skip1" -eq "1" )) ]]
 	then
 		maskflag=1
@@ -164,9 +162,6 @@ do
 		  else
 	#		  echo "calling fillcall a is $a" 
 			  fillcall "$a" "$pvrfln" "$pvfile"
-                  #pvcallagain "${spec[$a]:0:-1}" "$a" "$pvrfile"
-                  #pvcallagain "${spec[$a]:0:-1}" "$a" "$pvrfile" "${skippv2[@]}"
-		  #"$func1" "$a" "$pvfile"
 		  fi
           fi
 	fi
@@ -192,44 +187,27 @@ fi
 marraylen="${#skippm[@]}"
 chknsln=`echo "$chknsln-$marraylen" | bc -l`
 
-for f in "${sorted[@]}"
-do
-val=`echo "$f<3.9" | bc -l`
-     #echo "val is $val"
-if [[ (( "$val" > "0" )) ]]
-then
-
-#pvspec1  "${spec[$f]:0:-1}" "funecho" "$pvfln" "$pvrfln" "${skippm[@]}"	
-	
-	chkspec1 "${spec[$f]:0:-1}" "$f" "${skippm[@]}"
-	if [[ (( "$maskflag" -eq "0" )) && ( "${tag[$f]}" == "1" ) ]]
- then
-
-   fillcall "$f" "$pvrfln" "$pvfln"
-elif [[ (( "$maskflag" -eq "0" )) && ( "${tag[$f]}" == "0" ) ]]
-then
-  # if [[ (( $rflag -eq 0 )) ]]
-  # then
-     rgenylg "$f" "${spec[$f]}" "$pvrfln"
-     ((fcount+=1))
-  # fi
-fi
-fi
-done
-
- ind1="$mdx1"
- if [[ (("$ind1" -gt "0")) ]]
-then
-#       echo "inside and inx is $indx"
-#pvspec "$indx" "$fun1" "$nsfile" "${skar[@]}"
-a1=($(echo "$ind1" | awk '{lg=split($0,fd2,","); for (i = 1; i <= lg; i++) print fd2[i];}'))
-a1len="${#a1[@]}"
-#echo "the lenth is ${#a1[@]}"
+IFS=',' read -r -a insa <<< "$mdx1"
+a1len="${#insa[@]}"
 for ((c1=0;c1<"$a1len";c1++))
 do
-pvspec1 "${a1[$c1]}" "funecho" "$pvfln" "$pvrfln" "${skippv[@]}"
-done
+a1="${insa[$c1]}"
+fr1=`echo "$a1" | grep -E -o '^[0-9]+'`
+g1=`echo $a1 | grep '('`
+if [[ ( ! -z "$g1" ) ]]
+then
+        fr=`echo "$a1" | grep -o '([a-z].*'`
+        fr2="${fr:1:-1}"
+#fr=`echo "${a1[$c1]}" | cut -d'(' -f1-`
+#echo "fg is ${fr2[@]} length of fg is ${#fr2[@]}"
+skar="${fr2[@]}"
+else
+skar=""
 fi
+#echo "calling pvspec for $fr1 and skar is ${skar[@]}"
+
+pvspec1 "$fr1" "funecho" "$pvfln" "$pvrfln" "${skar[@]}"
+done
 
 }
 
@@ -263,11 +241,13 @@ while read -r line; do
        #double braces is for store the value as associative array
        lined1=($(echo "$lined" | awk '{ld=split($0,fd1,","); for (i = 1; i <= ld; i++) print fd1[i];}'))
        count1=0
-        
+         #entries which have commas 
          if [[ ( ! -z "$lined1" ) ]]
 	 then
           for i1 in "${lined1[@]}"
           do
+
+		  #entires which have ; inbetween them
 		    v14=$(echo "$i1" | grep ";")
 	    if [[ ( ! -z "$v14" ) ]] 
 	    then
@@ -296,25 +276,27 @@ while read -r line; do
                         ((count1+=1))
              lined23=$(echo "$i1" | awk '{$1=$1;print}')
              lined24=$(echo "$lined23" | grep ":")
+	     #echo "lined23 is $lined23 and lined24 is $lined24"
 	     if [[ ( -z "$lined24") ]]
 	     then
 	     lined2="- \"$lined23\""
              num11=$(echo "$fg" |sed  's/[^0-9]//g')
              num12=${#num11}
-             #echo "num12 is $num12"
-             num14="1"
+	     num12=$((num12-1))
+	     #echo "num12 is $num12"
+	     num14="1"
                    for (( b=1; b <= $num12; b++))
                    do
                      num14=$((num14*10))
                    done
-             #echo "num14 is $num14"
+            # echo "num14 is $num14"
              num141="$num12"
              #echo "num141 is $num141"
              num5="$count1"
              num142=`echo "scale=${num141}; $num5/$num14" | bc -l`
              #echo "num142 is $num142"
-             num143=`echo "scale=${num141}; $num142+$f" | bc -l`
-             # echo "count1 is $count1"
+             num143=`echo "scale=${num141}; $num142+$fg" | bc -l`
+              #echo "count1 is $count1"
              #echo "num143 is $num143"
        	     rgenylg "$num143" "$lined2" "$pvrfln"
              else 
@@ -344,7 +326,7 @@ while read -r line; do
               num5="$count1"
               num142=`echo "scale=${num141}; $num5/$num14" | bc -l`
               #echo "num142 is $num142"
-              num143=`echo "scale=${num141}; $num142+$f" | bc -l`
+              num143=`echo "scale=${num141}; $num142+$fg" | bc -l`
 	      rgenylg "$num143" "$lined2" "$pvrfln"
 	     fi
 	     fi
