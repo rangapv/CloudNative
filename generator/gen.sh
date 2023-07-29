@@ -11,12 +11,6 @@ source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.s
 #source "../../../ylg/ylgdb.sh"
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 
-#array values that needs to be skipped in the top section befor spec no entries means no values to skipp all present
-#it is being called at checkspec in the pvgen function
-#skippm=(labels )
-#array values that needs to be skipped fromt eh database in the spec section
-#it is being called at function findp, pvfilyl(pvspec11) , pvfill(pvgen)
-#skippv=( )
 
 sortit() {
 readarray -t sorted < <(for l in "${!spec[@]}"
@@ -235,9 +229,6 @@ do
           then
                 if [[ (( "${tag[$a]}" -eq "1" )) ]]
 		then
-		#chkspec "${spec[$a]:0:-1}" "$a" "${skippv2[@]}"
-	#	if [[ (( $maskflag -eq 0 )) ]]
-#		then
 		  "$func1" "$a" "$pvfile"
 	        fi
           fi
@@ -285,12 +276,10 @@ done
 
 
 pvfill(){
-	source /home/ubuntu/cn/generator/fill.sh "$pvvfile" "$pvfile" "$spxind"
-	#source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/generator/fill.sh) "$pvvfile" "$pvfile" "$spxind"
+	#source /home/ubuntu/cn/generator/fill.sh "$pvvfile" "$pvfile" "$spxind"
+	source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/generator/fill.sh) "$pvvfile" "$pvfile" "$spxind"
 }
 
-#pvfile="svr.yaml"
-#pvvfile="svv.yaml"
 
 sortit
 

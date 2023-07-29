@@ -1,58 +1,61 @@
-apiVersion:
-kind:
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name:
-  namespace:
+  name: prometheus
+  namespace: monitoring
   labels:
-    app:
+    app: prometheus
 spec:
-  replicas:
+  replicas: 1
   selector:
     matchLabels:
-      app:
+      app: prometheus
   strategy:
     rollingUpdate:
-      maxSurge:
-      maxUnavailable:
-    type:
-  revisionHistoryLimit:
-  minReadySeconds:
-  progressDeadlineSeconds:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  revisionHistoryLimit: 2
+  minReadySeconds: 
+  progressDeadlineSeconds: 
   template:
     metadata:
-      labels:
-        app:
+      labels: 
+        app: prometheus
     spec:
-      nodeSelector:
-      nodeName:
-      restartPolicy:
+      restartPolicy: Always
       initContainers:
-        - name:
-          image:
-          command:
+        - name: prom-busy-bos-set-permis
+          image: busybox
+          command: ["/bin/chmod","-R","777","/prometheus"]
           volumeMounts:
-          - name:
-            mountPath:
+          - name: prometheus-storage
+            mountPath: /prometheus
       containers:
-      - name:
-        image:
-        imagePullPolicy:
-        command:
+      - name: prometheus
+        image: prom/prometheus:v2.44.0
         args:
+          - "--storage.tsdb.retention=6h"
+          - "--storage.tsdb.path=/prometheus"
+          - "--config.file=/etc/prometheus/prometheus.yml"
         ports:
-          - containerPort:
-            hostIP:
-            hostPort:
-            name:
-            protocol:
+          - containerPort: 9090
+            hostIP: 
+            name: promport
         volumeMounts:
-          - name:
-            mountPath:
-            mountPropagation:
-            readOnly:
-            subPath:
-            subPathExpr:
+          - name: prometheus-config
+            mountPath: /etc/prometheus
+          - name: prometheus-storage
+            mountPath: /prometheus
+            mountPropagation: 
+            readOnly: 
+            subPath: 
+            subPathExpr: 
       volumes:
-        - name:
+        - name: prometheus-storage
           persistentVolumeClaim:
-            claimName:
+            claimName: pvc1-data
+        - name: prometheus-config
+          configMap:
+            name: prometheus-config
+            defaultMode: 420

@@ -162,9 +162,6 @@ do
 		  else
 	#		  echo "calling fillcall a is $a" 
 			  fillcall "$a" "$pvrfln" "$pvfile"
-                  #pvcallagain "${spec[$a]:0:-1}" "$a" "$pvrfile"
-                  #pvcallagain "${spec[$a]:0:-1}" "$a" "$pvrfile" "${skippv2[@]}"
-		  #"$func1" "$a" "$pvfile"
 		  fi
           fi
 	fi
@@ -232,7 +229,7 @@ while read -r line; do
    #echo THIS IF is for values with comma and in one below the other
    if [[ ("${value[$fg]}" == "$line10") && ( ! -z "$linec2") && ( -z "$linec3" ) ]]
    then
-   echo "in the while line10 is $line10 and line2c is $line2c" 
+   #echo "in the while line10 is $line10 and line2c is $line2c" 
       # rgenylg "$num143" "$lined2" "$pvrfln"
       v15=$(echo "$line1" | grep ";")
       if [[ ( -z "$v15" ) && ( "${tag[$fg]}" == "1" ) ]]
@@ -244,11 +241,13 @@ while read -r line; do
        #double braces is for store the value as associative array
        lined1=($(echo "$lined" | awk '{ld=split($0,fd1,","); for (i = 1; i <= ld; i++) print fd1[i];}'))
        count1=0
-        
+         #entries which have commas 
          if [[ ( ! -z "$lined1" ) ]]
 	 then
           for i1 in "${lined1[@]}"
           do
+
+		  #entires which have ; inbetween them
 		    v14=$(echo "$i1" | grep ";")
 	    if [[ ( ! -z "$v14" ) ]] 
 	    then
@@ -273,29 +272,31 @@ while read -r line; do
               rgenylg "$newindex" "$v3" "$pvrfln"
             else
             #rgenylg "$fg" "${spec[$fg]}" "$pvrfln"
-                       echo "array is $i1"
+                       #echo "array is $i1"
                         ((count1+=1))
              lined23=$(echo "$i1" | awk '{$1=$1;print}')
              lined24=$(echo "$lined23" | grep ":")
+	     #echo "lined23 is $lined23 and lined24 is $lined24"
 	     if [[ ( -z "$lined24") ]]
 	     then
 	     lined2="- \"$lined23\""
              num11=$(echo "$fg" |sed  's/[^0-9]//g')
              num12=${#num11}
-             #echo "num12 is $num12"
-             num14="1"
+	     num12=$((num12-1))
+	     #echo "num12 is $num12"
+	     num14="1"
                    for (( b=1; b <= $num12; b++))
                    do
                      num14=$((num14*10))
                    done
-             #echo "num14 is $num14"
+            # echo "num14 is $num14"
              num141="$num12"
              #echo "num141 is $num141"
              num5="$count1"
              num142=`echo "scale=${num141}; $num5/$num14" | bc -l`
              #echo "num142 is $num142"
-             num143=`echo "scale=${num141}; $num142+$f" | bc -l`
-             # echo "count1 is $count1"
+             num143=`echo "scale=${num141}; $num142+$fg" | bc -l`
+              #echo "count1 is $count1"
              #echo "num143 is $num143"
        	     rgenylg "$num143" "$lined2" "$pvrfln"
              else 
@@ -325,7 +326,7 @@ while read -r line; do
               num5="$count1"
               num142=`echo "scale=${num141}; $num5/$num14" | bc -l`
               #echo "num142 is $num142"
-              num143=`echo "scale=${num141}; $num142+$f" | bc -l`
+              num143=`echo "scale=${num141}; $num142+$fg" | bc -l`
 	      rgenylg "$num143" "$lined2" "$pvrfln"
 	     fi
 	     fi
