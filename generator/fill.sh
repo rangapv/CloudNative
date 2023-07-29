@@ -8,13 +8,6 @@ source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.s
 #source "../../../ylg/thv1.sh"
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 
-#Entries that need no user input bcasue they are labels before the spec section
-#it is being referenced in pvfill(chkspec1)
-#skippm=(labels )
-#skippm=(metadata labels type )
-#array values that needs to be skipped fromt eh database in the spec section
-#referenced in findp1 , pvfill(pvspec1)
-#skippv=( )
 
 sortit() {
 readarray -t sorted < <(for l in "${!spec[@]}"
@@ -71,14 +64,19 @@ fi
 
 findp1() {
 
-chind="$@"
 skip1=0
+
+chind="$1"
+shift
+chspeck="$@"
+
 #echo "chind is $chind"
 p13=$(echo "$chind" |sed 's/[^0-9]//g')
 p1=${#p13}
 p2=`echo "scale=${p1}; $chind" | bc -l`
 #echo "p13 is $p13 p1 is $p1 and p2 is $p2"
-newarray=(${skippm[@]} + ${skippv[@]})
+newarray="${chspeck[@]}"
+#newarray=(${skippm[@]} + ${skippv[@]})
 for ((c=1;c<"$p1";c++))
 do
 ab="${p2:0:-1}"
@@ -124,7 +122,7 @@ do
  	   maskflag=1
         fi
 done
-        findp1 "$chid"
+        findp1 "$chid" "${chspeck[@]}"
         if  [[ (( "$skip1" -eq "1" )) ]]
 	then
 		maskflag=1
@@ -192,44 +190,27 @@ fi
 marraylen="${#skippm[@]}"
 chknsln=`echo "$chknsln-$marraylen" | bc -l`
 
-for f in "${sorted[@]}"
-do
-val=`echo "$f<3.9" | bc -l`
-     #echo "val is $val"
-if [[ (( "$val" > "0" )) ]]
-then
-
-#pvspec1  "${spec[$f]:0:-1}" "funecho" "$pvfln" "$pvrfln" "${skippm[@]}"	
-	
-	chkspec1 "${spec[$f]:0:-1}" "$f" "${skippm[@]}"
-	if [[ (( "$maskflag" -eq "0" )) && ( "${tag[$f]}" == "1" ) ]]
- then
-
-   fillcall "$f" "$pvrfln" "$pvfln"
-elif [[ (( "$maskflag" -eq "0" )) && ( "${tag[$f]}" == "0" ) ]]
-then
-  # if [[ (( $rflag -eq 0 )) ]]
-  # then
-     rgenylg "$f" "${spec[$f]}" "$pvrfln"
-     ((fcount+=1))
-  # fi
-fi
-fi
-done
-
- ind1="$mdx1"
- if [[ (("$ind1" -gt "0")) ]]
-then
-#       echo "inside and inx is $indx"
-#pvspec "$indx" "$fun1" "$nsfile" "${skar[@]}"
-a1=($(echo "$ind1" | awk '{lg=split($0,fd2,","); for (i = 1; i <= lg; i++) print fd2[i];}'))
-a1len="${#a1[@]}"
-#echo "the lenth is ${#a1[@]}"
+IFS=',' read -r -a insa <<< "$mdx1"
+a1len="${#insa[@]}"
 for ((c1=0;c1<"$a1len";c1++))
 do
-pvspec1 "${a1[$c1]}" "funecho" "$pvfln" "$pvrfln" "${skippv[@]}"
-done
+a1="${insa[$c1]}"
+fr1=`echo "$a1" | grep -E -o '^[0-9]+'`
+g1=`echo $a1 | grep '('`
+if [[ ( ! -z "$g1" ) ]]
+then
+        fr=`echo "$a1" | grep -o '([a-z].*'`
+        fr2="${fr:1:-1}"
+#fr=`echo "${a1[$c1]}" | cut -d'(' -f1-`
+#echo "fg is ${fr2[@]} length of fg is ${#fr2[@]}"
+skar="${fr2[@]}"
+else
+skar=""
 fi
+#echo "calling pvspec for $fr1 and skar is ${skar[@]}"
+
+pvspec1 "$fr1" "funecho" "$pvfln" "$pvrfln" "${skar[@]}"
+done
 
 }
 
@@ -251,7 +232,7 @@ while read -r line; do
    #echo THIS IF is for values with comma and in one below the other
    if [[ ("${value[$fg]}" == "$line10") && ( ! -z "$linec2") && ( -z "$linec3" ) ]]
    then
-   #echo "in the while line10 is $line10 and line2c is $line2c" 
+   echo "in the while line10 is $line10 and line2c is $line2c" 
       # rgenylg "$num143" "$lined2" "$pvrfln"
       v15=$(echo "$line1" | grep ";")
       if [[ ( -z "$v15" ) && ( "${tag[$fg]}" == "1" ) ]]
@@ -292,7 +273,7 @@ while read -r line; do
               rgenylg "$newindex" "$v3" "$pvrfln"
             else
             #rgenylg "$fg" "${spec[$fg]}" "$pvrfln"
-                       #echo "array is $i1"
+                       echo "array is $i1"
                         ((count1+=1))
              lined23=$(echo "$i1" | awk '{$1=$1;print}')
              lined24=$(echo "$lined23" | grep ":")
