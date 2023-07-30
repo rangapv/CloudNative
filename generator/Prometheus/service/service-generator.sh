@@ -8,7 +8,7 @@ pvfile="svr.yaml"
 #The Values file name for this resource ; this can be changed
 pvvfile="svv.yaml"
 #The starting Index in the database(ylgdb.sh) for this resource ;
-myindx="1,2,3(labels type),6"
+myindx="1,2,3(labels),6"
 
 if [[ "$1" == "gen" ]]
 then

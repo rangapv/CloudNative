@@ -3,7 +3,6 @@ kind: StorageClass
 metadata:
   name: prom1
   namespace: monitoring
-  annotations: 
 provisioner: ebs.csi.aws.com
 parameters:
   type: gp3
