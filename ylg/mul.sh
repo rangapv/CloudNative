@@ -105,13 +105,14 @@ done<$file3
 
 
 #This takes an input file to-index 2 new-index on existing db values
+#this is used to later the index number for a particular entry
 fix13() {
 
-file1="./ylgdb.sh"
-file34="./thb.sh"
-file3="./ch.txt"
+file11="./ylgdb.sh"
+file1="./thb.sh"
+file3="./data/ch2.txt"
 `> $file34`
-
+`cp "$file11" "$file1"`
 while read -r line1; do
 
 IFS=',' read -r -a insa <<< "$line1"
@@ -124,7 +125,7 @@ echo "in1 is $in1"
 sudo sed -i "s|\[${in1}\]|\[${in2}\]|g" "$file1" 
 
 
-#`cp "$file34" "$file1"`
+#`cp "$file1" "$file11"`
 
 done<$file3
 
