@@ -2,19 +2,12 @@
 
 set -E
 
-#array values that needs to be skipped in the top section befor spec no entries means no values to skipp all present
-#it is being called at checkspec in the pvgen function
-skippm=(labels )
-#array values that needs to be skipped fromt eh database in the spec section
-#it is being called at function findp, pvfilyl(pvspec11) , pvfill(pvgen)
-skippv=(global alerting scrape_configs rule_files)
-
 #The YAMl file name for this resource ; this can be changed
 pvfile="configmap-grafa.yaml"
 #The Values file name for this resource ; this can be changed
 pvvfile="configmap-grafa-value.yaml"
 #The starting Index in the database(ylgdb.sh) for this resource ; this CANNOT be changed
-myindx="7"
+myindx="1,2,3(labels annotations),7(global alerting scrape_configs rule_files)"
 
 if [[ "$1" == "gen" ]]
 then

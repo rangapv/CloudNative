@@ -1,8 +1,21 @@
-apiVersion:
-kind:
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name:
-  namespace:
-  annotations:
+  name: grafana-config
+  namespace: monitoring
 data:
   prometheus.yml: |
+    {
+        "apiVersion": 1,
+        "datasources": [
+            {
+               "access":"proxy",
+                "editable": true,
+                "name": "prometheus",
+                "orgId": 1,
+                "type": "prometheus",
+                "url": "http://prometheus-service.monitoring.svc:8080",
+                "version": 1
+            }
+        ]
+    }

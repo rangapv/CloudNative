@@ -1,5 +1,4 @@
-Version:
-kind:
-Name for this kind:
-Namespaces that you want this kind to be deployed:
-The list of annotations for this kind:
+Version: v1
+kind:ConfigMap
+Name for this kind:grafana-config
+Namespaces that you want this kind to be deployed:monitoring
