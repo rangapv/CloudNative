@@ -565,15 +565,32 @@ dbdetails() {
 sortit
 i1=0
 oldgt=-1
+
+green='\033[0;32m'
+cyan='\033[0;36m'
+nc='\033[0m'
+fg=$green
+col="0"
 for a in "${sorted[@]}"
 do
 	d0=`echo "$a" | grep "\."`
         gt=$(echo $a | awk '{split($0,b,".");print b[1]}')
         if [[ ("$oldgt" != "$gt") ]]
 	then
-               echo "${value[$a]}   Begins at index $gt"
+		if [[ (( "$col" -eq 1 )) ]]
+		then
+		    	fg=$cyan
+			col="0"
+        	else
+			fg=$green
+			col="1"
+		fi	    
+               echo -e "${fg}${value[$a]}${nc}   Begins at index ${fg}$gt${nc}"
                oldgt=$gt
 	fi
+       
+
+	fg=$cyan
        	#echo "gt is $gt"
 	#echo "i1 is $i1 ${sorted[$i1]}"
 	((i1+=1))
