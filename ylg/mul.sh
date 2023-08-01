@@ -487,7 +487,86 @@ done <$file3
 
 }
 
-#this function is for replacing a value into the Database
+
+indent() {
+sortit
+ai="$1"
+ifile="$gh"
+#echo "inside indent $ai"
+        num1=$(echo "$ai" |sed  's/[^0-9]//g')
+	num2=${#num1}
+        num3=$((num2-=1))
+	checknum=$(echo "$ai" | grep "\.")
+        #echo "ai  is $ai"
+if [[ ( -z $checknum ) ]]
+then
+        echo "${spec[$ai]}" 
+fi
+if [[ ( ! -z $checknum ) ]]
+then
+       IFS='.' read -r -a ary <<< "$ai"
+       num3=${#ary[1]}
+       if [[ (($num3 -eq 0)) ]]
+       then
+               echo "${spec[$ai]}" 
+       elif [[ (($num3 -eq 1)) ]]
+       then
+               echo "  ${spec[$ai]}" 
+       elif [[ (($num3 -gt 1 )) ]]
+       then
+        for ((i=1; i <= $num3; i++));
+        do
+         echo -n "  " 
+        done
+        echo "${spec[$ai]}"
+       else
+               echo "  "
+       fi
+    #echo "in the indent fun and writing ${spec[$ai]}"
+fi
+}
+
+
+
+display1() {
+echo "enter the index for resouce and level to display eg: 25-1 to display initContainer level 1;"
+read rl
+rls=`echo "$rl" | grep "\-"`
+sortit
+if [[ ( ! -z "$rls" ) ]]
+then
+
+
+IFS='-' read -r -a insa <<< "$rl"
+inslen="${#insa}"
+#echo "inslen is $inslen"
+
+uk=$(echo "${insa[0]} + 1" | bc -l)
+#echo "$uk is uk  and insa is ${insa[0]}"
+for k in "${sorted[@]}"
+do
+
+	if ( (( $(echo "$k >= ${insa[0]}" | bc -l ) )) && (( $(echo "$k < $uk" | bc -l) )) )
+        then
+
+  	indent "$k" 
+
+	fi
+
+done
+
+
+else
+echo "format is for example initContainer 25-1 or 25-2"
+
+
+fi
+}
+
+
+
+
+#this function is for replacing a value in the Database
 fix7() {
 
 if [[ ("$#" -eq "") ]]
