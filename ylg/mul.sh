@@ -540,8 +540,12 @@ then
 IFS='-' read -r -a insa <<< "$rl"
 inslen="${#insa}"
 #echo "inslen is $inslen"
-
 uk=$(echo "${insa[0]} + 1" | bc -l)
+
+spn="${insa[1]}"
+
+parentspn=0
+
 #echo "$uk is uk  and insa is ${insa[0]}"
 for k in "${sorted[@]}"
 do
@@ -549,10 +553,28 @@ do
 	if ( (( $(echo "$k >= ${insa[0]}" | bc -l ) )) && (( $(echo "$k < $uk" | bc -l) )) )
         then
 
-  	indent "$k" 
+		if [[ (( $parentspn -eq 0 )) ]]
+		then
+			p13=$(echo "$k" |sed 's/[^0-9]//g')
+       			p1=${#p13}
+        		p2=`echo "scale=${p1}; $k" | bc -l`
+                        parentspn="$p1"
+			childspn=$(echo "$spn + $parentspn" | bc -l)
+			#echo "parent span is $parentspn and child spn is $childspn"
+		fi
+	
+	
+	
+	p13=$(echo "$k" |sed 's/[^0-9]//g')
+	p1=${#p13}
+	p2=`echo "scale=${p1}; $k" | bc -l`
+	#echo "p13 is $p13 and p1 is $p1 and p2 is $p2 and  parent spn is $parentspn childspn is $childspn"
+	if ( (( $(echo "$p1 >= $parentspn" | bc -l ) )) && (( $(echo "$p1 <= $childspn" | bc -l ) )) ) 
+	 then
+  		indent "$k" 
 
+	 fi
 	fi
-
 done
 
 
