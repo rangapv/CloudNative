@@ -664,16 +664,17 @@ do
 			fg=$green
 			col="1"
 
-
+		fi
+	echo -e "${fg}${value[$a]}${nc} Begins from index ${fg}$gt${nc}"
 	fg=$cyan
        	#echo "gt is $gt"
 	#echo "i1 is $i1 ${sorted[$i1]}"
 	((i1+=1))
+	oldgt="$gt"
 
+	fi
 done
 }
-
-
 
 
 if [[ ("$#" -eq "") ]]
