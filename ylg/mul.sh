@@ -663,11 +663,7 @@ do
         	else
 			fg=$green
 			col="1"
-		fi	    
-               echo -e "${fg}${value[$a]}${nc}   Begins at index ${fg}$gt${nc}"
-               oldgt=$gt
-	fi
-       
+
 
 	fg=$cyan
        	#echo "gt is $gt"
@@ -676,6 +672,8 @@ do
 
 done
 }
+
+
 
 
 if [[ ("$#" -eq "") ]]
