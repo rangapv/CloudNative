@@ -25,7 +25,7 @@
 28.101811,name:,ConfigMap name to select from,1
 28.101812,optional:,Specify whether the ConfigMap must be defined(Boolean),1
 28.10182,prefix:,An optional identifier to prepend to each key in the ConfigMap,0
-28.10183,secretRef:,*SecretEnvSource selects a Secret to populate the environment variables with.,0
+28.10183,secretRef:,SecretEnvSource selects a Secret to populate the environment variables with.,0
 28.101831,name:,SecretEnvSource name,1
 28.101832,optional:,Specify whether the Secret must be defined(Boolean),1
 28.1020,volumeMounts:,Pod volumes to mount into the container's filesystem,0
@@ -48,10 +48,10 @@
 28.10421,runAsUser:,UID to run the entrypoint of the container process,1
 28.10422,runAsNonRoot:,Indicates that the container must run as a non-root user,1
 28.10423,runAsGroup:,GID to run the entrypoint of the container process,1
-28.10424,readOnlyRootFilesystem:,Whether this container has a read-only root filesystem(boolean).1
+28.10424,readOnlyRootFilesystem:,Whether this container has a read-only root filesystem(boolean),1
 28.10425,procMount:,procMount denotes the type of proc mount to use for the containers,1
 28.10426,privileged:,Run container in privileged mode,1
-28.10427,allowPrivilegeEscalation,controls whether a process can gain more privileges than its parent process(boolean),1
+28.10427,allowPrivilegeEscalation:,controls whether a process can gain more privileges than its parent process(boolean),1
 28.10428,capabilities:,capabilities to add/drop when running containers,0
 28.104281,add:,add capabilities,1
 28.104282,drop:,remove capabilities,1
@@ -63,11 +63,8 @@
 28.104302,role:,SELinux role label that applies to the container,1
 28.104303,type:,SELinux type label that applies to the container,1
 28.104304,user:,SELinux user label that applies to the container,1
-28.10431,windowsOptions:,If unspecified, the options from the PodSecurityContext will be used,0
+28.10431,windowsOptions:,If unspecified the options from the PodSecurityContext will be used,0
 28.104311,gmsaCredentialSpec:,GMSACredentialSpec is where the GMSA admission webhook,1
 28.104312,gmsaCredentialSpecName:,GMSA credential spec to use,1
 28.104313,hostProcess:, if a container should be run as a 'Host Process' container(boolean),1
 28.104314,runAsUserName:,UserName in Windows to run the entrypoint of the container process,1
-
-
-

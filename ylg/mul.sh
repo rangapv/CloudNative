@@ -665,15 +665,22 @@ echo "The modified database is in the file $file34; kindly checkit once and rena
 #the file should begin with numbers with a comma seperator then alphanumeric with :, as seperator then alphanumeric with , sep
 #finally ending the line with numeric value of either 0/1
 lint(){
-file1="./data/data1.text"
+file1="./data/31Epheramal.txt"
+lc=0
+nc=0
 while read -r line; do
-
-
-l1=$(echo "$line" | grep "^[0-9].*,[a-zA-Z0-9].*:,[a-zA-Z0-9].*,[0-1]$")
-echo "l1 is $l1"
+((lc+=1))
+#echo "ls is $lc"
+l1=`echo "$line" | grep -o "^[0-9].*,.*:,.*,[0-1].$"` 
+#echo "l1 is $l1"
+if [[ ( -z "$l1" ) ]]
+then
+   echo "the line in $lc and  $line is non-compliant "
+   ((nc+=1))
+#echo "l1 is $l1"
+fi
 done <$file1
-
-
+echo "Total nc is $nc"
 }
 
 

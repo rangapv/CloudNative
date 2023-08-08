@@ -1,2 +1,8 @@
 10.101,key_id:,Enter the  access key,1
 10.101,key_id:,Enter the  access key,1
+28.1017,env:,List of environment variables to set in the container,0
+28.10171,name:,Name of the environment variable,1
+28.10183,secretRef:, SecretEnvSource selects a Secret to populate the environment variables with.,0
+28.100,epheramalContainers:,The epheramal,0
+28.101,- name:,Name of the ephemeral container(unique among all containers/init-containers and ephemeral containers),1
+28.104314,runAsUserName:,UserName in Windows to run the entrypoint of the container process,1
