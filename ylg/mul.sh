@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #author: rangapv@yahoo.com 17-04-23
 #This is a multi utility script to make Database changes which is take care by the function fix2 to adda new filed "tag"
 #This SCRIPT should be run to update Key values INDEX incrementing it by 1(m varaible) and then commit the ylgdb.sh to REPO taken care by function fix1
@@ -657,6 +657,23 @@ done <$file1
 echo "count is $count"
 echo "The modified database is in the file $file34; kindly checkit once and rename it as ylgdb.sh and uplaod to the git repo"
 #`cp ./thb.sh ./tgb.sh`
+}
+
+
+#lint functions
+#for data ingestion into the Database , 
+#the file should begin with numbers with a comma seperator then alphanumeric with :, as seperator then alphanumeric with , sep
+#finally ending the line with numeric value of either 0/1
+lint(){
+file1="./data/data1.text"
+while read -r line; do
+
+
+l1=$(echo "$line" | grep "^[0-9].*,[a-zA-Z0-9].*:,[a-zA-Z0-9].*,[0-1]$")
+echo "l1 is $l1"
+done <$file1
+
+
 }
 
 
