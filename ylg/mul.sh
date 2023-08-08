@@ -4,6 +4,12 @@
 #This SCRIPT should be run to update Key values INDEX incrementing it by 1(m varaible) and then commit the ylgdb.sh to REPO taken care by function fix1
 #THe dunction fix3 adds the tag value "0" to the labels fields mentioned in the array tago
 
+#Functionality
+#fix51() to add inputs from file3 to thb.db ;;;;; then call the fix14 to sortit
+
+
+
+
 set -E
 
 #source "./ylgdb.sh"
@@ -354,13 +360,13 @@ callfix5() {
 fix51() {
 file1="./ylgdb.sh"
 file34="./thb.sh"
-file3="data4.text"
+file3="./data/31Epheramal.txt"
 `> $file34`
 `cp $file1 $file34`
 count=0
 
 while read line; do
-        echo "line ois $line"
+        echo "line is $line"
         IFS=',' read -r -a insa <<< "$line"
         #echo "the length of array is ${#insa[@]}"
         #echo "${insa[0]}" "${insa[1]}" "${insa[2]}" "${insa[3]}" 
