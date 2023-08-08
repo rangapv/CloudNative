@@ -1,0 +1,73 @@
+28.100,epheramalContainers:,The epheramal,0
+28.101,- name:,Name of the ephemeral container(unique among all containers/init-containers and ephemeral containers),1
+28.1011,targetContainerName:,Name of the container from PodSpec that this ephemeral container targets,1
+28.1012,image:,Container image name,1
+28.1013,imagePullPolicy:,Always/Never/IfNotPresent,1
+28.1014,command:,Entrypoint array,1
+28.1015,args:,either this or cmd,1
+28.1016,workingDir:,containers working directory,1
+28.1017,env:,List of environment variables to set in the container,0
+28.10171,name:,Name of the environment variable,1
+28.10172,value:,are expanded using the previously defined environment variables in the container and any service environment variables,1
+28.10173,valueFrom:,Source for the environment variable's value. Cannot be used if value is not empty.,0
+28.101731,configMapKeyRef:,Selects a key from a ConfigMap,0
+28.1017311,key:,configMapKeyRef key to select,1
+28.1017312,name:,configMapKeyRef Name of the referent,1
+28.1017313,optional:,Specify whether the ConfigMap or its key must be defined(Boolean),1
+28.101732,fieldRef:,Selects a field of the pod(supports metadata.name/metadata.namespace/metadata.labels/status.podIPs),1
+28.101733,resourceFieldRef:,Selects a resource of the container(linits Request are supported),1
+28.101734,secretKeyRef:,Selects a key of a secret in the pod's namespace,0
+28.1017341,key:,key of the secret to select from,1
+28.1017342,name:,Name of the referent of secretKeyRef,1
+28.1017343,optional:,Specify whether secretKeyRef's Secret or its key must be defined,1
+28.1018,envFrom:,EnvFromSource represents the source of a set of ConfigMap,0
+28.10181,configMapRef:,ConfigMap to select from,0
+28.101811,name:,ConfigMap name to select from,1
+28.101812,optional:,Specify whether the ConfigMap must be defined(Boolean),1
+28.10182,prefix:,An optional identifier to prepend to each key in the ConfigMap,0
+28.10183,secretRef:,*SecretEnvSource selects a Secret to populate the environment variables with.,0
+28.101831,name:,SecretEnvSource name,1
+28.101832,optional:,Specify whether the Secret must be defined(Boolean),1
+28.1020,volumeMounts:,Pod volumes to mount into the container's filesystem,0
+28.102011,mountPath:,Path within the container at which the volume should be mounted,1
+28.10201,- name:,Name of the Volume and the mount path enter value as name;path-of-mount here,1
+28.102012,mountPropogation:,mountPropagation determines how mounts are propagated from the host to container and the other way around.,1
+28.102013,readOnly:,Mounted read-only if true, read-write otherwise (false or unspecified).,1
+28.102014,subPathExpr:,Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded using the container's environment,1
+28.1021,volumeDevices:,is the list of block devices to be used by the container,0
+28.102121,devicePath:,path inside of the container that the device will be mapped to,1
+28.10212,- name:,name must match the name of a persistentVolumeClaim in the pod,1
+28.1031,resizePolicy:,Resources resize policy for the container,0
+28.10311,resourcesName:,Name of the resource to which this resource resize policy applies(cpu/memory),1
+28.1033,terminationMessagePath:,Path at which the file to which the container's termination message will be written is mounted into the container's filesystem,1
+28.1034,terminationMessagePolicy:,Indicate how the termination message should be populated:,1
+28.1036,stdin:,Whether this container should allocate a buffer for stdin in the container runtime(boolean),1
+28.1037,stdinOnce:,Whether the container runtime should close the stdin channel after it has been opened by a single attach(boolean),1
+28.1039,tty:,Whether this container should allocate a TTY for itself,1
+28.1042,secuityContext:, SecurityContext defines the security options the ephemeral container should be run with,0
+28.10421,runAsUser:,UID to run the entrypoint of the container process,1
+28.10422,runAsNonRoot:,Indicates that the container must run as a non-root user,1
+28.10423,runAsGroup:,GID to run the entrypoint of the container process,1
+28.10424,readOnlyRootFilesystem:,Whether this container has a read-only root filesystem(boolean).1
+28.10425,procMount:,procMount denotes the type of proc mount to use for the containers,1
+28.10426,privileged:,Run container in privileged mode,1
+28.10427,allowPrivilegeEscalation,controls whether a process can gain more privileges than its parent process(boolean),1
+28.10428,capabilities:,capabilities to add/drop when running containers,0
+28.104281,add:,add capabilities,1
+28.104282,drop:,remove capabilities,1
+28.10429,seccompProfile:,seccomp options to use by this container,0
+28.104291,type:,Valid options are(localhost/runtimedefault/Unconfied),1
+28.104292,localhostProfile:,indicates a profile defined in a file on the node should be used,1
+28.10430,seLinuxOptions:,If unspecified the container runtime will allocate a random SELinux context for each container,0
+28.104301,level:,SELinux level label that applies to the container,1
+28.104302,role:,SELinux role label that applies to the container,1
+28.104303,type:,SELinux type label that applies to the container,1
+28.104304,user:,SELinux user label that applies to the container,1
+28.10431,windowsOptions:,If unspecified, the options from the PodSecurityContext will be used,0
+28.104311,gmsaCredentialSpec:,GMSACredentialSpec is where the GMSA admission webhook,1
+28.104312,gmsaCredentialSpecName:,GMSA credential spec to use,1
+28.104313,hostProcess:, if a container should be run as a 'Host Process' container(boolean),1
+28.104314,runAsUserName:,UserName in Windows to run the entrypoint of the container process,1
+
+
+
