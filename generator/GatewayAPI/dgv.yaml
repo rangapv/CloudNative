@@ -1,0 +1,11 @@
+Version:
+kind:
+Name for this kind:
+Namespaces that you want this kind to be deployed:
+ControllerName is the name of the controller that is managing Gateways of this class(example.net/gateway-controller):
+configuration parameters corresponding to the GatewayClass:
+Name of the referant:
+kind of the referant:
+group of the referent:
+Namespaces (optional):
+helps describe a GatewayClass with more details:
