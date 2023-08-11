@@ -360,7 +360,7 @@ callfix5() {
 fix51() {
 file1="./ylgdb.sh"
 file34="./thb.sh"
-file3="./data/GWClass.txt"
+file3="./data/GW.txt"
 `> $file34`
 `cp $file1 $file34`
 count=0
