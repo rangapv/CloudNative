@@ -1,0 +1,8 @@
+37,spec:,Gateway Class specs,0
+37.1,controllerName:,ControllerName is the name of the controller that is managing Gateways of this class(example.net/gateway-controller),1
+37.2,parametersRef:,configuration parameters corresponding to the GatewayClass,1
+37.21,- name:,Name of the referant,1
+37.211,kind:,kind of the referant,1
+37.212,group:,group of the referent,1
+37.213,namespace:,Namespaces (optional),1
+37.3,description:,helps describe a GatewayClass with more details,1

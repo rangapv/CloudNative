@@ -1,0 +1,34 @@
+39,spec:,Spec defines the desired state of HTTPRoute(CommonRouteSpec embedded),0
+39.1,parentRefs:,references the resources (usually Gateways) that a Route wants to be attached to,0
+39.2,- name:,THe name for this parentrefs,1
+39.21,kind:,The valide values are(Gateway/Service),1
+39.22,port:,is the network port this Route targets,1
+39.23,sectionName:,name of a section in a Kubernetes resource(invalid values are /),1
+39.24,namespace:,The namespaces that needs to appear,1
+39.25,group:,When unspecified (gateway.networking.k8s.io) is inferred,1
+39.3,hostnames:,Valid hostnames,1
+39.4,rules:,Rules are a list of HTTP matchers, filters and actions,0
+39.41,- backendRefs:,,0
+39.411,- name:,The name for this backend refs,1
+39.4111,weight,Weight specifies the proportion of requests forwarded to the referenced backend,1
+39.42111,port:,The port number,1
+39.42,- matches,Matched defined condition,0
+39.421,path:,specifies a HTTP request path matcher(default /),0
+39.4211,type:How to match(Exact/PathPrefix/Regular-expresssion),1
+39.4212,value:,The path string value to match,1
+39.422,headers,specifies HTTP request header matchers,0
+39.4221,- name:,name of the header to be matched,1
+39.42211,value:,Value of HTTP header to match,1
+39.423,queryParams,HTTP query parameter matchers. Multiple match values are ANDed together,1
+39.4231,- name:,name of HTTP query param to match(exact string match req),1
+39.42311,value:,value of HTTP query param to match,1
+39.424,method:,When specified this route will be matched only if the request has the specified method,1
+39.4241,value:,how to select a HTTP route by matching the HTTP method UPPERCASE(CONNECT/DELETE/GET/HEAD/OPTIONS/PATCH/POST/PUT/TRACE),1
+39.43,- filters:,define filters,0
+39.431,type:,Such as (Core/Extended/Implementation-specific),1
+39.432,requestHeaderModifier:,defines a schema for a filter that modifies request headers,1
+39.433,responseHeaderModifier:,defines a schema for a filter that modifies response headers,1
+39.434,requestMirror:,Requests are sent to the specified destination,1
+39.435,requestRedirect:,RequestRedirect defines a schema for a filter that responds to the request with an HTTP redirection,1
+39.436,urlRewrite:,URLRewrite defines a schema for a filter that modifies a request during forwarding,1
+39.437,extensionRef:, implementation-specific extension to the “filter” behavior,1

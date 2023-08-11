@@ -360,7 +360,7 @@ callfix5() {
 fix51() {
 file1="./ylgdb.sh"
 file34="./thb.sh"
-file3="./data/31Epheramal.txt"
+file3="./data/GWClass.txt"
 `> $file34`
 `cp $file1 $file34`
 count=0
@@ -374,7 +374,7 @@ while read line; do
         echo "value[${insa[0]}]=\"${insa[2]}\"">>"$file34"
         echo "tag[${insa[0]}]=\"${insa[3]}\"">>"$file34"
 done <$file3
-
+ echo "Done copying new database entries into $file34 FILE check & verify and cp it to ylgdb.sh after satisfaction"
 
 }
 
@@ -671,13 +671,16 @@ echo "The modified database is in the file $file34; kindly checkit once and rena
 #the file should begin with numbers with a comma seperator then alphanumeric with :, as seperator then alphanumeric with , sep
 #finally ending the line with numeric value of either 0/1
 lint(){
-file1="./data/31Epheramal.txt"
+new1="/home/ubuntu/cn/ylg/data/"
+new=$1
+file1="${new1}${new}"
+echo "Currently linting for $file1"
 lc=0
 nc=0
 while read -r line; do
 ((lc+=1))
 #echo "ls is $lc"
-l1=`echo "$line" | grep -o "^[0-9].*,.*:,.*,[0-1].$"` 
+l1=`echo "$line" | grep -o "^[0-9].*,.*:,.*,[0-1]$"` 
 #echo "l1 is $l1"
 if [[ ( -z "$l1" ) ]]
 then

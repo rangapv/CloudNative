@@ -1,0 +1,23 @@
+38,spec:,Gateway specs,0
+38.1,gatewayClassName:,This is the name of a GatewayClass resource,1
+38.2,listeners:,listener in a Gateway must have a unique combination of Hostname, Port, and Protocol(one manadatory),0
+38.3,- name:The combo of (name;port;protocol FOR more than 1 listener seperate by comma),1
+38.31,port:,The numeric protocol number,0
+38.32,protocol:,The protocol(TCP/UDP/http..),0
+38.33,tls:,TLS config,1
+38.331,mode:,TLS behavior for TLS session(Terminate/Passthrough),1
+38.332,certificateRefs:,series of references to k8s objects that contain TLS certs,1
+39.333,options:,List of key/value pairs,1
+38.34,allowedRoutes:,Defines type oflisteners that can be attached,0
+38.341,namespaces,Namespaces indicates namespaces from which Routes may be attached to this Listener,1
+38.3411,from:,indicates where Routes will be selected for this Gateway(All/Same/Selector),1
+38.3412,selector,Selector must be specified when From is set to (Selector),0
+38.34121,matchLabels:,Match labels,0
+38.341211,expose-apps:,Apps to expose(boolean),1
+38.342,kinds:,specifies the groups and kinds of Routes that are allowed to bind to this Gateway Listener,0
+38.3421,- kind:,The kind value,1
+38.34211,group:,Group of the route,1
+38.35,hostname:,specifies the virtual hostname to match for protocol types that define this concept,1
+38.6,addresses:,Addresses field represents a request for the address(es) on the (outside of the Gateway) that traffic bound for this Gateway will use,0
+38.361,- value:,value of address,1
+38.3611,type:,type of addess(hostname/ipaddress),1
