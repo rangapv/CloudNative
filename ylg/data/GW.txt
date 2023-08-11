@@ -7,7 +7,7 @@
 38.33,tls:,TLS config,1
 38.331,mode:,TLS behavior for TLS session(Terminate/Passthrough),1
 38.332,certificateRefs:,series of references to k8s objects that contain TLS certs,1
-39.333,options:,List of key/value pairs,1
+38.333,options:,List of key/value pairs,1
 38.34,allowedRoutes:,Defines type oflisteners that can be attached,0
 38.341,namespaces:,Namespaces indicates namespaces from which Routes may be attached to this Listener,1
 38.3411,from:,indicates where Routes will be selected for this Gateway(All/Same/Selector),1
