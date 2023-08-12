@@ -1,0 +1,32 @@
+apiVersion:
+kind:
+metadata:
+  name:
+  namespace:
+spec:
+  gatewayClassName:
+  listeners:
+  - name:
+    port:
+    protocol:
+    tls:
+      mode:
+      certificateRefs:
+        - name:
+          kind:
+          group:
+          namespace:
+      options:
+    allowedRoutes:
+      namespaces:
+        from:
+        selector:
+          matchLabels:
+            expose-apps:
+      kinds:
+        - kind:
+          group:
+    hostname:
+  addresses:
+    - value:
+      type:

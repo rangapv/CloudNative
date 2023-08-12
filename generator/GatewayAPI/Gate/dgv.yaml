@@ -1,0 +1,22 @@
+Version:
+kind:
+Name for this kind:
+Namespaces that you want this kind to be deployed:
+This is the name of a GatewayClass resource:
+The combo of (name;port;protocol FOR more than 1 listener seperate by comma):
+TLS config:
+TLS behavior for TLS session(Terminate/Passthrough):
+series of references to k8s objects that contain TLS certs:
+is the name of certificateRefs:
+Kind is kind of certificateRefs:
+is the group of the certificateRefs:
+Namespace of the certificateRefs:
+List of key/value pairs:
+Namespaces indicates namespaces from which Routes may be attached to this Listener:
+indicates where Routes will be selected for this Gateway(All/Same/Selector):
+Apps to expose(boolean):
+The kind value:
+Group of the route:
+specifies the virtual hostname to match for protocol types that define this concept:
+value of address:
+type of addess(hostname/ipaddress):
