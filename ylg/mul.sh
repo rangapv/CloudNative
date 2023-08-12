@@ -7,7 +7,8 @@
 #Functionality
 #fix51() to add inputs from file3 to thb.db ;;;;; then call the fix14 to sortit
 
-
+#Function SORTs
+#fix14()
 
 
 set -E
@@ -139,7 +140,7 @@ done<$file3
 
 #This takes an input file and sorts the array[] , just copy the top part of the Database 
 fix14() {
-
+echo "This function sorts the arrays from ylgdb.sh to thb.sh; Once done copy the top part of old ylgdb.sh to thb.sh and copy-it-back to ylgdb.sh"
 file1="./ylgdb.sh"
 file34="./thb.sh"
 `> $file34`
@@ -358,15 +359,28 @@ callfix5() {
 
 #reads entries in file3 to add to database
 fix51() {
+
+echo "Usuage ./mul.sh fix51 filename-in-Data-directory-with-values-to-be-added"
+if [[ -z $1 ]]
+then
+	echo "Wrong usuage exiting"
+	exit
+fi
+new1="$HOME/cn/ylg/data/"
+new=$1
+file3="${new1}${new}"
+echo "Currently adding entries from $file3"
+echo "enter any key"
+read ffg
 file1="./ylgdb.sh"
 file34="./thb.sh"
-file3="./data/GW.txt"
+#file3=$file1
 `> $file34`
 `cp $file1 $file34`
 count=0
 
 while read line; do
-        echo "line is $line"
+        #echo "line is $line"
         IFS=',' read -r -a insa <<< "$line"
         #echo "the length of array is ${#insa[@]}"
         #echo "${insa[0]}" "${insa[1]}" "${insa[2]}" "${insa[3]}" 
@@ -732,15 +746,61 @@ done
 }
 
 
+sethelp() {
+	echo "Usage: ./mul.sh function ( For list of functions defined in script )"
+	echo "       ./mul.sh -h     ( For usage of this script ) "
+	echo "       ./mul.sh -f     ( List of Functions ) "
+	exit
+}
+
+#sethelp
+
+
+funclist() {
+
+echo "*FUNCTION*      *USE_CASE*"
+echo "_________________________________________________________________________________________________"
+echo ""
+echo " fix14         Sorts the database(usuage: ./mul.sh fix14)"
+echo " fix51         Adds entries from a file in data directory to database(usuage: ./mul.sh fix51 httpRule.txt"
+echo " lint          lints the file in data-directory (usuage: ./mul.sh lint GW.txt)"
+echo " display1      enter the index for resource and level to display eg: 25-1 to display initContainer level 1;" 
+#Functionality
+#fix51() to add inputs from file3 to thb.db ;;;;; then call the fix14 to sortit
+
+#Function SORTs
+#fix14()
+
+}
+
+
+
+while getopts ":hf" option; do
+   case $option in
+      h) # display Help
+         sethelp 
+         exit;;
+      f) # edit description
+         funclist 
+         exit;;
+     l) # dispaly repo root
+	 origin
+         exit;;	 
+     d) # display the complete database
+	 dbs
+	 exit;;
+   esac
+done
+
+
 if [[ ("$#" -eq "") ]]
 then
-	echo "need a function name to execute"
+        echo "need a function name to execute"
+        echo "see the help options ./mul.sh -h"
 	exit
 else
 	$@
 fi
-
-
 
 #fix1
 #fix2

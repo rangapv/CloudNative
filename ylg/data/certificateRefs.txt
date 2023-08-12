@@ -1,0 +1,4 @@
+38.3321,- name:,is the name of certificateRefs,1
+38.33211,kind:,Kind is kind of certificateRefs,1
+38.33212,group:,is the group of the certificateRefs,1
+38.33213,namespace:,Namespace of the certificateRefs,1
