@@ -1,0 +1,36 @@
+39.4321,set:,Set overwrites the request with the given header in requestHeaderModifier,0
+39.43211,- name:,HTTP Header to be matched for set in requestHeaderModifier filter for httpRoute,1
+39.432111,value:,value of HTTP Header to be matched for set in requestHeaderModifier filter for httpRoute,1
+39.4322,add:,Add adds the given header to the request before the action in requestHeaderModifier ,0
+39.43221,- name:,HTTP Header to be matched for add in requestHeaderModifier filter for httpRoute,1
+39.432211,value:,value of HTTP Header to be matched for add in requestHeaderModifier filter for httpRoute,1
+39.4323,remove:,the given header(s) from the HTTP request before the action for requestHeaderModifier in filters of httpRouter rules,1
+39.4331,set:,Set overwrites the request with the given header in responseHeaderModifier,0
+39.43311,- name:,HTTP Header to be matched for set in responseHeaderModifier filter for httpRoute,1
+39.433111,value:,value of HTTP Header to be matched for set in responseHeaderModifier filter for httpRoute,1
+39.4332,add:,Add adds the given header to the request before the action in responseHeaderModifier ,0
+39.43321,- name:,HTTP Header to be matched for add in responseHeaderModifier filter for httpRoute,1
+39.433211,value:,value of HTTP Header to be matched for add in responseHeaderModifier filter for httpRoute,1
+39.4333,remove:,the given header(s) from the HTTP request before the action for responseHeaderModifier in filters of httpRouter rules,1
+39.4341,backendRef:,BackendRef references a resource where mirrored requests are sent,0
+39.43411,-name:,the name of the referent requestMirror,1
+39.434111,kind:,Kubernetes resource kind of the referent requestMirror,1
+39.434112,group:,Group is the group of the referent requestMirror,1
+39.434113,port:,specifies the destination port number to use for this resource of requestMirror,1
+39.434114,namespace:,namespace of the backend requestMirror,1
+39.4351,path:,Path defines a path rewrite in httpRoute requestRedirect filters,1
+39.43511,replaceFullPath:,ReplaceFullPath specifies the value with which to replace the full path of a request during a rewrite or redirec in httpRoute requestRedirect,1
+39.43512,replacePrefixMatch:,ReplacePrefixMatch specifies the value with which to replace the prefix match of a request in httproute requestRedirect filters,1
+39.43513,type:,type of replaceFullPath/replacePrefixMatch in Requestredirect,1
+39.4353,port:, port to be used in the value of the Location header in the response requestRedirect filter,1
+39.4354,hostname:,hostname to be used in the value of the Location header in the response requestRedirect filter,1
+39.4355,scheme:, is the scheme to be used in the value of the Location header in the response requestRedirect filter,1
+39.4356,statusCode:,HTTP status code to be used in response for requestRedirect filter,1
+39.4361,path:,Path defines a path rewrite in httpRoute URLRewrite filters,1
+39.43611,type:,type of replaceFullPath/replacePrefixMatch in URLRwrite,1
+39.43612,replaceFullPath:,ReplaceFullPath specifies the value with which to replace the full path of a request during a rewrite or redirec in httpRoute URLRewrite filter,1
+39.43613,replacePrefixMatch:,ReplacePrefixMatch specifies the value with which to replace the prefix match of a request in httproute URLRewrite filters,1
+39.4362,hostname:,Hostname is the value to be used to replace the Host header value during forwarding in httproute URLRewrite filters,1
+39.4371,- name:, is the name of the referent extensionRef of filters in httpRoute,1
+39.43711,kind:, kind of the referent extensionRef of filters in httpRoute,1
+39.43712,group:, is the group of the referent extensionRef of filters in httpRoute,1
