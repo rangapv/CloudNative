@@ -388,7 +388,7 @@ while read line; do
         echo "value[${insa[0]}]=\"${insa[2]}\"">>"$file34"
         echo "tag[${insa[0]}]=\"${insa[3]}\"">>"$file34"
 done <$file3
- echo "Done copying new database entries into $file34 FILE check & verify and cp it to ylgdb.sh after satisfaction"
+ echo "Done copying new database entries into $file34 FILE check & verify and cp it to ylgdb.sh after visual-checks-pass"
 
 }
 
@@ -703,7 +703,8 @@ then
 #echo "l1 is $l1"
 fi
 done <$file1
-echo "Total nc is $nc"
+echo "Total non-compliant is $nc"
+echo "Total lines are $lc"
 }
 
 
@@ -762,9 +763,11 @@ echo "*FUNCTION*      *USE_CASE*"
 echo "_________________________________________________________________________________________________"
 echo ""
 echo " fix14         Sorts the database(usuage: ./mul.sh fix14)"
-echo " fix51         Adds entries from a file in data directory to database(usuage: ./mul.sh fix51 httpRule.txt"
+echo " fix51         Adds entries from a file in data directory to database(usuage: ./mul.sh fix51 httpRule.txt)"
 echo " lint          lints the file in data-directory (usuage: ./mul.sh lint GW.txt)"
 echo " display1      enter the index for resource and level to display eg: 25-1 to display initContainer level 1;" 
+echo " dbdetails     function is to display the Database starting index of various resource YAML currently in the database(YLGDB.sh)"
+echo ""
 #Functionality
 #fix51() to add inputs from file3 to thb.db ;;;;; then call the fix14 to sortit
 
