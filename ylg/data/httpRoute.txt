@@ -7,7 +7,7 @@
 39.24,namespace:,The namespaces that needs to appear,1
 39.25,group:,When unspecified (gateway.networking.k8s.io) is inferred,1
 39.3,hostnames:,Valid hostnames,1
-39.4,rules:,Rules are a list of HTTP matchers, filters and actions,0
+39.4,rules:,Rules are a list of HTTP matcher filters and actions,0
 39.41,- backendRefs:,backendRefs for the Rules,0
 39.411,- name:,The name for this backend refs,1
 39.4111,weight:,Weight specifies the proportion of requests forwarded to the referenced backend,1

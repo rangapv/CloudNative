@@ -685,6 +685,12 @@ echo "The modified database is in the file $file34; kindly checkit once and rena
 #the file should begin with numbers with a comma seperator then alphanumeric with :, as seperator then alphanumeric with , sep
 #finally ending the line with numeric value of either 0/1
 lint(){
+if [[ ( -z $1 ) ]]
+then
+echo "usuage is ./mul.sh lint filename-in-data-directory"
+exit
+fi
+
 new1="/home/ubuntu/cn/ylg/data/"
 new=$1
 file1="${new1}${new}"
@@ -694,7 +700,8 @@ nc=0
 while read -r line; do
 ((lc+=1))
 #echo "ls is $lc"
-l1=`echo "$line" | grep -o "^[0-9].*,.*:,.*,[0-1]$"` 
+#l1=`echo "$line" | grep -o "^[^,]+,[^,]+,[^,]+$"` 
+l1=`echo "$line" | grep -o "^[0-9][^,]*,[^,]*:,[^,]*[^,]*,*[0-1]$"` 
 #echo "l1 is $l1"
 if [[ ( -z "$l1" ) ]]
 then
