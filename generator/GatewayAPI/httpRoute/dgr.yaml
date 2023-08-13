@@ -1,0 +1,45 @@
+apiVersion:
+kind:
+metadata:
+  name:
+  namespace:
+  labels:
+    app:
+spec:
+  parentRefs:
+  - name:
+    kind:
+    port:
+    sectionName:
+    namespace:
+    group:
+  hostnames:
+  rules:
+    - backendRefs:
+      - name:
+        weight:
+        port:
+        kind:
+        group:
+    - matches:
+      path:
+        type:
+        value:
+      headers:
+        - name:
+          value:
+          type:
+      queryParams:
+        - name:
+          value:
+          type:
+      method:
+        value:
+    - filters:
+      type:
+      requestHeaderModifier:
+      responseHeaderModifier:
+      requestMirror:
+      requestRedirect:
+      urlRewrite:
+      extensionRef:
