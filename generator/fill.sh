@@ -224,10 +224,11 @@ while read -r line; do
    line10=$(echo "$line" | awk '{split($0,f1,":"); print f1[1]}')
    #echo "line30 is $line30"
    linec2=$(echo "$line1" | grep ",")
+   linec2c=$(echo "$line1" | grep ";")
    #echo "line is $line and linec2 is $linec2"
     linec3=$(echo "$line1" | grep "\[") 
    #echo THIS IF is for values with comma and in one below the other
-   if [[ ("${value[$fg]}" == "$line10") && ( ! -z "$linec2") && ( -z "$linec3" ) ]]
+   if [[ ("${value[$fg]}" == "$line10") && ( ! -z "$linec2" || ! -z "$linec2c" ) && ( -z "$linec3" ) ]]
    then
    #echo "in the while line10 is $line10 and line2c is $line2c" 
       # rgenylg "$num143" "$lined2" "$pvrfln"
