@@ -228,7 +228,7 @@ while read -r line; do
    #echo "line is $line and linec2 is $linec2"
     linec3=$(echo "$line1" | grep "\[") 
    #echo THIS IF is for values with comma and in one below the other
-   if [[ ("${value[$fg]}" == "$line10") && ( ! -z "$linec2" || ! -z "$linec2c" ) && ( -z "$linec3" ) ]]
+   if [[ ("${value[$fg]}" == "$line10") && ( ! -z "$linec2" || ! -z "$linec2c" ) && (( $donef -eq 0 )) && ( -z "$linec3" ) ]]
    then
    #echo "in the while line10 is $line10 and line2c is $line2c" 
       # rgenylg "$num143" "$lined2" "$pvrfln"
@@ -243,11 +243,6 @@ while read -r line; do
        lined1=($(echo "$lined" | awk '{ld=split($0,fd1,","); for (i = 1; i <= ld; i++) print fd1[i];}'))
        count1=0
          #entries which have commas
-
-        if [[ ( ! -z "$linec2c" ) ]]
-	then
-		lined1=($(echo "$lined" | awk '{ld=split($0,fd1,";"); for (i = 1; i <= ld; i++) print fd1[i];}'))
-	fi
 
          #Check to see if line has comma FIRST
          if [[ ( ! -z "$lined1" ) ]]
@@ -273,10 +268,11 @@ while read -r line; do
   	   # kl="${sorted[$k+1]}"  
 	      for k in "${!sorted[@]}";
               do
-              if [[ "${sorted[$k]}" = "${index}" ]];
+              if [[ "${sorted[$k]}" == "$index" ]];
               then
               index=$k
               newindex="${sorted[$k+1]}"
+	      index=$newindex
 #            echo "newindex is $newindex"
               fi
               done
@@ -354,7 +350,7 @@ while read -r line; do
              donef=1
    fi
    #echo THIS IF for value without comma basically just one value types like replicas either 1 or 10 types / apiversions 
-   if [[ ("${value[$fg]}" == "$line10") && ( -z "$linec2") && ( -z "$linec2c") && ( -z "$linec3" ) ]]
+   if [[ ("${value[$fg]}" == "$line10") && ( -z "$linec2") && ( -z "$linec2c") && (( $donef -eq 0 )) && ( -z "$linec3" ) ]]
    then
    #echo "line1 2 is $line1"
      #v1=$(echo "$line" | awk '{l=index($0,":"); print substr($0,l+1)}')
