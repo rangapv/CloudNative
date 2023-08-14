@@ -38,8 +38,44 @@ spec:
     - filters:
       type:
       requestHeaderModifier:
+        set:
+          - name:
+            value:
+        add:
+          - name:
+            value:
+        remove:
       responseHeaderModifier:
+        set:
+          - name:
+            value:
+        add:
+          - name:
+            value:
+        remove:
       requestMirror:
+        backendRef:
+          -name:
+            kind:
+            group:
+            port:
+            namespace:
       requestRedirect:
+        path:
+          replaceFullPath:
+          replacePrefixMatch:
+          type:
+        port:
+        hostname:
+        scheme:
+        statusCode:
       urlRewrite:
+        path:
+          type:
+          replaceFullPath:
+          replacePrefixMatch:
+        hostname:
       extensionRef:
+        - name:
+          kind:
+          group:
