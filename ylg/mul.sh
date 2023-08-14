@@ -237,7 +237,7 @@ mm2=$(((m+m1)| bc))
 echo "m2 is $mm2" 
 }
 
-#this function is to change the elements in the array tago() values of tag to "0" or can be used for vice-versa
+#this function is to change the elements in the array tag[] values of tag to "0" or can be used for vice-versa
 fix3() {
 
 sortit
