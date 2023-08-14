@@ -243,56 +243,50 @@ while read -r line; do
        lined1=($(echo "$lined" | awk '{ld=split($0,fd1,","); for (i = 1; i <= ld; i++) print fd1[i];}'))
        count1=0
          #entries which have commas
-        
-	if [[ ( ! -z "$lined1" ) ]]
-	then
-		lined1=($(echo "$lined" | awk '{ld=split($0,fd1,","); for (i = 1; i <= ld; i++) print fd1[i];}'))
-        fi
 
         if [[ ( ! -z "$linec2c" ) ]]
 	then
 		lined1=($(echo "$lined" | awk '{ld=split($0,fd1,";"); for (i = 1; i <= ld; i++) print fd1[i];}'))
 	fi
 
-
-         if [[ ( ! -z "$lined1" || ! -z "$linec2c" ) ]]
+         #Check to see if line has comma FIRST
+         if [[ ( ! -z "$lined1" ) ]]
 	 then
+		lined1=($(echo "$lined" | awk '{ld=split($0,fd1,","); for (i = 1; i <= ld; i++) print fd1[i];}'))
           for i1 in "${lined1[@]}"
           do
-
 		  #entires which have ; inbetween them
-		    v14=$(echo "$i1" | grep ";")
+	       v14=$(echo "$i1" | grep ";")
 	    if [[ ( ! -z "$v14" ) ]] 
 	    then
 	    v13=($(echo "$i1" | awk '{ld=split($0,fd1,";"); for (i = 1; i <= ld; i++) print fd1[i]}'))
             #echo "the length of v13 is ${#v13[@]}"
             kl=0
-
+            index=$fg
+	    newindex=$fg 
 	    for k1 in "${v13[@]}"
 	    do  
             lined22=$(echo "${k1}" | awk '{$1=$1;print}')
-            v2="${spec[$fg]}"
+            v2="${spec[$index]}"
             v3="${v2} $lined22"
-            rgenylg "$fg" "$v3" "$pvrfln"
+            rgenylg "$newindex" "$v3" "$pvrfln"
   	   # kl="${sorted[$k+1]}"  
 	      for k in "${!sorted[@]}";
               do
-              if [[ "${sorted[$k]}" = "${fg}" ]];
+              if [[ "${sorted[$k]}" = "${index}" ]];
               then
               index=$k
               newindex="${sorted[$k+1]}"
 #            echo "newindex is $newindex"
               fi
               done
-              fg="${newindex}"
 	    #  v2="${spec[$newindex]}"
              # lined22=$(echo "${v13[1]}" | awk '{$1=$1;print}')
              # v3="${v2} $lined22"
               #rgenylg "$newindex" "$v3" "$pvrfln"
-           
 	    done
 
-         else
+           else
             #rgenylg "$fg" "${spec[$fg]}" "$pvrfln"
                        #echo "array is $i1"
                         ((count1+=1))
