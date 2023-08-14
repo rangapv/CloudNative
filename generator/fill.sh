@@ -272,8 +272,10 @@ while read -r line; do
               if [[ "${sorted[$k]}" = $index ]];
               then
               index=$k
-              newindex="${sorted[$k+1]}"
-              index="${sorted[$k+1]}"
+	      bb=$((k+1))
+	      echo "bb is $bb and k is $k"
+              newindex=$bb
+              index=$bb
 #            echo "newindex is $newindex"
               fi
               done
