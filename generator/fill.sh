@@ -272,7 +272,8 @@ while read -r line; do
               then
               index=$k
               newindex="${sorted[$k+1]}"
-	      index=$newindex
+	      echo "inside ${spec[$newindex]}"
+	      index="$newindex"
 #            echo "newindex is $newindex"
               fi
               done
