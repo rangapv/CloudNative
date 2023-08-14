@@ -264,7 +264,7 @@ while read -r line; do
             lined22=$(echo "${k1}" | awk '{$1=$1;print}')
             v2="${spec[$newindex]}"
             v3="${v2} $lined22"
-            echo "inside new index is $index v3 is $v3 and newindex is $newindex"
+           # echo "inside new index is $index v3 is $v3 and newindex is $newindex"
 	    rgenylg "$newindex" "$v3" "$pvrfln"
   	   # kl="${sorted[$k+1]}"  
 	      for k in "${!sorted[@]}";
@@ -273,8 +273,10 @@ while read -r line; do
               then
                index="${sorted[$k+1]}"
                newindex="${sorted[$k+1]}"
-               echo "newindex is $newindex"
-              fi
+           
+	       #echo "newindex is $newindex"
+               break
+	      fi
               done
 	    #  v2="${spec[$newindex]}"
              # lined22=$(echo "${v13[1]}" | awk '{$1=$1;print}')

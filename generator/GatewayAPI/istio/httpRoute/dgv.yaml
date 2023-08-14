@@ -1,0 +1,64 @@
+Version:
+kind:
+Name for this kind:
+Namespaces that you want this kind to be deployed:
+app name to be referenced:
+THe name for this parentrefs:
+The valide values are(Gateway/Service):
+is the network port this Route targets:
+name of a section in a Kubernetes resource(invalid values are /):
+The namespaces that needs to appear:
+When unspecified (gateway.networking.k8s.io) is inferred:
+Valid hostnames:
+The name for this backend refs:
+Weight specifies the proportion of requests forwarded to the referenced backend:
+The port number for backendRefs:
+The kind for the backendRefs:
+The group for the backendRefs:
+How to match(Exact/PathPrefix/Regular-expresssion):
+The path string value to match:
+name of the header to be matched:
+Value of HTTP header to match:
+specifies how to match against the value of the query parameter(Exact/RegularExpression):
+name of HTTP query param to match(exact string match req):
+value of HTTP query param to match:
+specifies how to match against the value of the query parameter(Exact/RegularExpression):
+how to select a HTTP route by matching the HTTP method UPPERCASE(CONNECT/DELETE/GET/HEAD/OPTIONS/PATCH/POST/PUT/TRACE):
+Such as (Core/Extended/Implementation-specific/URL-rewrite/ResponseHeaderModifier etc):
+defines a schema for a filter that modifies request headers:
+HTTP Header to be matched for set in requestHeaderModifier filter for httpRoute:
+value of HTTP Header to be matched for set in requestHeaderModifier filter for httpRoute:
+HTTP Header to be matched for add in requestHeaderModifier filter for httpRoute:
+value of HTTP Header to be matched for add in requestHeaderModifier filter for httpRoute:
+the given header(s) from the HTTP request before the action for requestHeaderModifier in filters of httpRouter rules:
+defines a schema for a filter that modifies response headers:
+HTTP Header to be matched for set in responseHeaderModifier filter for httpRoute:
+value of HTTP Header to be matched for set in responseHeaderModifier filter for httpRoute:
+HTTP Header to be matched for add in responseHeaderModifier filter for httpRoute:
+value of HTTP Header to be matched for add in responseHeaderModifier filter for httpRoute:
+the given header(s) from the HTTP request before the action for responseHeaderModifier in filters of httpRouter rules:
+Requests are sent to the specified destination:
+the name of the referent requestMirror:
+Kubernetes resource kind of the referent requestMirror:
+Group is the group of the referent requestMirror:
+specifies the destination port number to use for this resource of requestMirror:
+namespace of the backend requestMirror:
+RequestRedirect defines a schema for a filter that responds to the request with an HTTP redirection:
+Path defines a path rewrite in httpRoute requestRedirect filters:
+ReplaceFullPath specifies the value with which to replace the full path of a request during a rewrite or redirec in httpRoute requestRedirect:
+ReplacePrefixMatch specifies the value with which to replace the prefix match of a request in httproute requestRedirect filters:
+type of replaceFullPath/replacePrefixMatch in Requestredirect:
+ port to be used in the value of the Location header in the response requestRedirect filter:
+hostname to be used in the value of the Location header in the response requestRedirect filter:
+ is the scheme to be used in the value of the Location header in the response requestRedirect filter:
+HTTP status code to be used in response for requestRedirect filter:
+URLRewrite defines a schema for a filter that modifies a request during forwarding:
+Path defines a path rewrite in httpRoute URLRewrite filters:
+type of replaceFullPath/replacePrefixMatch in URLRwrite:
+ReplaceFullPath specifies the value with which to replace the full path of a request during a rewrite or redirec in httpRoute URLRewrite filter:
+ReplacePrefixMatch specifies the value with which to replace the prefix match of a request in httproute URLRewrite filters:
+Hostname is the value to be used to replace the Host header value during forwarding in httproute URLRewrite filters:
+implementation-specific extension to the filter behavior:
+ is the name of the referent extensionRef of filters in httpRoute:
+ kind of the referent extensionRef of filters in httpRoute:
+ is the group of the referent extensionRef of filters in httpRoute:

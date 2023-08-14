@@ -1,0 +1,81 @@
+apiVersion:
+kind:
+metadata:
+  name:
+  namespace:
+  labels:
+    app:
+spec:
+  parentRefs:
+  - name:
+    kind:
+    port:
+    sectionName:
+    namespace:
+    group:
+  hostnames:
+  rules:
+    - backendRefs:
+      - name:
+        weight:
+        port:
+        kind:
+        group:
+    - matches:
+      path:
+        type:
+        value:
+      headers:
+        - name:
+          value:
+          type:
+      queryParams:
+        - name:
+          value:
+          type:
+      method:
+        value:
+    - filters:
+      type:
+      requestHeaderModifier:
+        set:
+          - name:
+            value:
+        add:
+          - name:
+            value:
+        remove:
+      responseHeaderModifier:
+        set:
+          - name:
+            value:
+        add:
+          - name:
+            value:
+        remove:
+      requestMirror:
+        backendRef:
+          -name:
+            kind:
+            group:
+            port:
+            namespace:
+      requestRedirect:
+        path:
+          replaceFullPath:
+          replacePrefixMatch:
+          type:
+        port:
+        hostname:
+        scheme:
+        statusCode:
+      urlRewrite:
+        path:
+          type:
+          replaceFullPath:
+          replacePrefixMatch:
+        hostname:
+      extensionRef:
+        - name:
+          kind:
+          group:
