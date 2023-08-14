@@ -286,7 +286,7 @@ while read -r line; do
               #rgenylg "$newindex" "$v3" "$pvrfln"
 	    done
 
-           else
+            else
             #rgenylg "$fg" "${spec[$fg]}" "$pvrfln"
                        #echo "array is $i1"
                         ((count1+=1))
@@ -354,7 +354,7 @@ while read -r line; do
              donef=1
    fi
    #echo THIS IF for value without comma basically just one value types like replicas either 1 or 10 types / apiversions 
-   if [[ ("${value[$fg]}" == "$line10") && ( -z "$linec2") && ( -z "$linec3" ) ]]
+   if [[ ("${value[$fg]}" == "$line10") && ( -z "$linec2") && ( -z "$linec2c") && ( -z "$linec3" ) ]]
    then
    #echo "line1 2 is $line1"
      #v1=$(echo "$line" | awk '{l=index($0,":"); print substr($0,l+1)}')
@@ -395,7 +395,7 @@ while read -r line; do
    fi
 #ADDES
    #echo This IF is for command line args but has comma and still comes in one line and NOT below each other 
-   if [[ ("${value[$fg]}" == "$line10") && ( ! -z "$linec2")  && ( ! -z "$linec3" ) ]]
+   if [[ ("${value[$fg]}" == "$line10") && ( ! -z "$linec2") && (( $donef -eq 0 )) && ( ! -z "$linec3" ) ]]
    then
    #echo "line1 3 is $line1"
      # v1=$(echo "$line" | awk '{l=index($0,":"); print substr($0,l+1)}')
