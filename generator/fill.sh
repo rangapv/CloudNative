@@ -257,25 +257,22 @@ while read -r line; do
 	    v13=($(echo "$i1" | awk '{ld=split($0,fd1,";"); for (i = 1; i <= ld; i++) print fd1[i]}'))
             #echo "the length of v13 is ${#v13[@]}"
             kl=0
-            index=$fg
-	    newindex=$fg 
+            index="${fg}"
+	    newindex="${fg}" 
 	    for k1 in "${v13[@]}"
 	    do  
             lined22=$(echo "${k1}" | awk '{$1=$1;print}')
-            v2="${spec[$index]}"
+            v2="${spec[$newindex]}"
             v3="${v2} $lined22"
-            echo "inside new is index is $index v3 is $v3"
+            echo "inside new index is $index v3 is $v3 and newindex is $newindex"
 	    rgenylg "$newindex" "$v3" "$pvrfln"
   	   # kl="${sorted[$k+1]}"  
 	      for k in "${!sorted[@]}";
               do
-              if [[ "${sorted[$k]}" = $index ]];
+              if [[ "${sorted[$k]}" = "${index}" ]];
               then
-              index=$k
-	      bb=$((k+1))
-	      echo "bb is $bb and k is $k"
-              newindex=$bb
-              index=$bb
+               index="${sorted[$k+1]}"
+               newindex="${sorted[$k+1]}"
 #            echo "newindex is $newindex"
               fi
               done
