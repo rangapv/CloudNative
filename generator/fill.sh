@@ -269,11 +269,11 @@ while read -r line; do
   	   # kl="${sorted[$k+1]}"  
 	      for k in "${!sorted[@]}";
               do
-              if [[ "${sorted[$k]}" = "${index}" ]];
+              if [[ "${sorted[$k]}" = $index ]];
               then
                index="${sorted[$k+1]}"
                newindex="${sorted[$k+1]}"
-#            echo "newindex is $newindex"
+               echo "newindex is $newindex"
               fi
               done
 	    #  v2="${spec[$newindex]}"
