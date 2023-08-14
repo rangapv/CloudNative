@@ -242,8 +242,20 @@ while read -r line; do
        #double braces is for store the value as associative array
        lined1=($(echo "$lined" | awk '{ld=split($0,fd1,","); for (i = 1; i <= ld; i++) print fd1[i];}'))
        count1=0
-         #entries which have commas 
-         if [[ ( ! -z "$lined1" ) ]]
+         #entries which have commas
+        
+	if [[ ( ! -z "$lined1" ) ]]
+	then
+		lined1=($(echo "$lined" | awk '{ld=split($0,fd1,","); for (i = 1; i <= ld; i++) print fd1[i];}'))
+        fi
+
+        if [[ ( ! -z "$linec2c" ) ]]
+	then
+		lined1=($(echo "$lined" | awk '{ld=split($0,fd1,";"); for (i = 1; i <= ld; i++) print fd1[i];}'))
+	fi
+
+
+         if [[ ( ! -z "$lined1" || ! -z "$linec2c" ) ]]
 	 then
           for i1 in "${lined1[@]}"
           do
@@ -253,12 +265,17 @@ while read -r line; do
 	    if [[ ( ! -z "$v14" ) ]] 
 	    then
 	    v13=($(echo "$i1" | awk '{ld=split($0,fd1,";"); for (i = 1; i <= ld; i++) print fd1[i]}'))
-            v2="${spec[$fg]}"
             #echo "the length of v13 is ${#v13[@]}"
-            lined22=$(echo "${v13[0]}" | awk '{$1=$1;print}')
+            kl=0
+
+	    for k1 in "${v13[@]}"
+	    do  
+            lined22=$(echo "${k1}" | awk '{$1=$1;print}')
+            v2="${spec[$fg]}"
             v3="${v2} $lined22"
             rgenylg "$fg" "$v3" "$pvrfln"
-  	      for k in "${!sorted[@]}";
+  	   # kl="${sorted[$k+1]}"  
+	      for k in "${!sorted[@]}";
               do
               if [[ "${sorted[$k]}" = "${fg}" ]];
               then
@@ -267,11 +284,15 @@ while read -r line; do
 #            echo "newindex is $newindex"
               fi
               done
-              v2="${spec[$newindex]}"
-              lined22=$(echo "${v13[1]}" | awk '{$1=$1;print}')
-              v3="${v2} $lined22"
-              rgenylg "$newindex" "$v3" "$pvrfln"
-            else
+              fg="${newindex}"
+	    #  v2="${spec[$newindex]}"
+             # lined22=$(echo "${v13[1]}" | awk '{$1=$1;print}')
+             # v3="${v2} $lined22"
+              #rgenylg "$newindex" "$v3" "$pvrfln"
+           
+	    done
+
+         else
             #rgenylg "$fg" "${spec[$fg]}" "$pvrfln"
                        #echo "array is $i1"
                         ((count1+=1))
