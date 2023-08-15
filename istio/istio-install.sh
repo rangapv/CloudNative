@@ -100,13 +100,36 @@ then
 	echo "istio minimal install failed"
 	exit
 else
-	echo "istion minimal install succeeded"
-	echo "istio SUCCESSFULLY installed"
+	echo "istio minimal install succeeded"
+        echo "istio SUCCESSFULLY installed"
 fi
-
 
 }
 
+verify() {
+
+
+vi1=`kubectl get deployments --all-namespaces | grep istio |wc -l`
+if [[ ( "$vi1" = "2" ) ]]
+then
+	echo "Verifying..."
+	echo "`kubectl get deployments --all-namespaces | grep istio`"
+else
+	echo "Uneven istio install ..pls try again"
+fi
+
+}
+
+unins_istio() {
+
+unis1=`istioctl uninstall -y --purge`
+unis2=`kubectl delete namespace istio-system`
+unis3=`kubectl label namespace default istio-injection-`
+
+}
 
 check_crd
 check_isctl
+verify
+#un-install istio uncomment the below line and re-run the script
+#unins_istio
