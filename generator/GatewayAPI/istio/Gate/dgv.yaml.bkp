@@ -6,4 +6,4 @@ This is the name of a GatewayClass resource:istio
 The combo of (name;port;protocol FOR more than 1 listener seperate by comma):default;80;HTTP
 Namespaces indicates namespaces from which Routes may be attached to this Listener:
 indicates where Routes will be selected for this Gateway(All/Same/Selector):All
-specifies the virtual hostname to match for protocol types that define this concept:"*.example.com"
+specifies the virtual hostname to match for protocol types that define this concept:"www.kubedom.com"
