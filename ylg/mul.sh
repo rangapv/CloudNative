@@ -286,6 +286,104 @@ done
 }
 
 
+test1() {
+sortit
+file1="./ylgdb.sh"
+file2="./tgb.sh"
+
+fg=39.43
+endindx=39.43712
+
+count1=1
+
+             num11=$(echo "$fg" |sed  's/[^0-9]//g')
+             num12=${#num11}
+	     num12=$((num12-1))
+	     #echo "num12 is $num12"
+	     num14="1"
+                   for (( b=1; b <= $num12; b++))
+                   do
+                     num14=$((num14*10))
+                   done
+             #echo "num14 is $num14"
+             num141="$num12"
+             #echo "num141 is $num141"
+             num5="$count1"
+             num142=`echo "scale=${num141}; $num5/$num14" | bc -l`
+             #echo "num142 is $num142"
+             num143=`echo "scale=${num141}; $num142+$fg" | bc -l`
+              #echo "count1 is $count1"
+             echo "num143 is $num143"
+
+
+     }
+
+
+
+fixshiftright() {
+
+sortit
+
+file1="./ylgdb.sh"
+file34="./tgb.sh"
+index1=39.43
+index2=39.43712
+fg=39.43
+endindx=39.43712
+count1=1
+
+`> ./$file34`
+
+while read -r line; do
+  if [[ ("$line" =~ ^"spec") || ("$line" =~ ^"value") || ("$line" =~ ^"tag") ]]
+  then
+
+
+            lin1=$(echo "$line" | awk '{split($0,a,"=");print a[1]}')
+
+	    mstr1=`grep -o "[(0-9)(.)(0-9)]*" <<< $lin1`
+            fg="$mstr1"
+            #echo "mstr1 is $fg"
+
+             num11=$(echo "$fg" |sed  's/[^0-9]//g')
+             num12=${#num11}
+             num12=$((num12-1))
+             #echo "num12 is $num12"
+             num14="1"
+                   for (( b=1; b <= $num12; b++))
+                   do
+                     num14=$((num14*10))
+                   done
+             #echo "num14 is $num14"
+             num141="$num12"
+             #echo "num141 is $num141"
+             num5="$count1"
+             num142=`echo "scale=${num141}; $num5/$num14" | bc -l`
+             #echo "num142 is $num142"
+             num143=`echo "scale=${num141}; $num142+$fg" | bc -l`
+              #echo "count1 is $count1"
+
+	        mm2=$(echo "$mstr1" | bc)
+
+		mm3=$(echo "$num143" | bc)
+
+       if (( $(echo "$mm2 $index1" | awk '{print ($1 >= $2)}') )) && (( $(echo "$mm2 $index2" | awk '{print ($1 < $2)}') ))
+      then
+          lin1=$(echo "$line" | awk '{split($0,a,"[");print a[1]}')
+	lin3=$(echo "$line" | awk '{split($0,a,"]");print a[2]}')
+        echo "$lin1[$mstr2]$lin3"
+        `echo "$lin1[$mm3]$lin3">>"$file34"`
+      else
+       echo "$line">>"$file34"
+      fi  
+
+ else
+    echo "$line">>"$file34"
+   fi
+
+done <$file1
+
+}
 
 
 #This function increment the index inside a particluar range so new features can be added
@@ -293,9 +391,9 @@ fix41() {
 sortit
 file1="./ylgdb.sh"
 file2="./tgb.sh"
-index1=4.711
-index2=5
-m1=0.2
+index1=39.43
+index2=39.43712
+m1=0.1
 `> ./$file2`
 `cp $file1 $file2`
 for a in "${sorted[@]}"
@@ -774,6 +872,7 @@ echo " fix51         Adds entries from a file in data directory to database(usua
 echo " lint          lints the file in data-directory (usuage: ./mul.sh lint GW.txt)"
 echo " display1      enter the index for resource and level to display eg: 25-1 to display initContainer level 1;" 
 echo " dbdetails     function is to display the Database starting index of various resource YAML currently in the database(YLGDB.sh)"
+echo " fixshiftright function to Right-Shift Index varaible from start index to index index"
 echo ""
 #Functionality
 #fix51() to add inputs from file3 to thb.db ;;;;; then call the fix14 to sortit
