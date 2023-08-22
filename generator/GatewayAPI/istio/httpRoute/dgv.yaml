@@ -1,3 +1,4 @@
+
 Version: gateway.networking.k8s.io/v1beta1
 kind: HTTPRoute
 Name for this kind: http
@@ -14,7 +15,6 @@ Weight specifies the proportion of requests forwarded to the referenced backend:
 The port number for backendRefs:8000
 The kind for the backendRefs:
 The group for the backendRefs:
-How to match(Exact/PathPrefix/Regular-expresssion) enter (type;value) for more than one seperate by comma:PathPrefix;/ip,PathPrefix;/headers
+How to match(Exact/PathPrefix/Regular-expresssion) enter (type;value) for more than one seperate by comma:PathPrefix;/,PathPrefix;/ip,PathPrefix;/headers
 Such as (Core/Extended/Implementation-specific/URL-rewrite/ResponseHeaderModifier etc):RequestHeaderModifier
-HTTP Header to be matched for add in requestHeaderModifier filter for httpRoute: my-added-header
-value of HTTP Header to be matched for add in requestHeaderModifier filter for httpRoute: added-value
+HTTP Header to be matched for add in requestHeaderModifier filter for httpRoute (enter as name;value) as pairs:my-added-header;added-value

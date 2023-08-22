@@ -22,6 +22,8 @@ spec:
     - matches:
       - path:
           type: PathPrefix
+          value: /
+          type: PathPrefix
           value: /ip
           type: PathPrefix
           value: /headers

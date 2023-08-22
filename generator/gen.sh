@@ -8,7 +8,7 @@
 set -E
 source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh) >>/dev/null 2>&1
 #source "../../../ylg/thv1.sh"
-#source "../../../ylg/ylgdb.sh"
+#source "$HOME/cn/ylg/ylgdb.sh"
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 
 
@@ -135,7 +135,7 @@ do
 if [[ "${spec[$ab]}" == "$p:" ]]
 then
 	skip1=1
-	#echo "inside skipp"
+	#echo "inside skipp chind is $p and child is $chind "
 	break
 fi
 done

@@ -4,7 +4,7 @@
 
 set -E
 source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh) >>/dev/null 2>&1
-#source "../../../ylg/ylgdb.sh"
+#source "$HOME/cn/ylg/ylgdb.sh"
 #source "../../../ylg/thv1.sh"
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh) >>/dev/null 2>&1
 
