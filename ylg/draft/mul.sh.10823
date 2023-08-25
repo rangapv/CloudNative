@@ -1,15 +1,8 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #author: rangapv@yahoo.com 17-04-23
 #This is a multi utility script to make Database changes which is take care by the function fix2 to adda new filed "tag"
 #This SCRIPT should be run to update Key values INDEX incrementing it by 1(m varaible) and then commit the ylgdb.sh to REPO taken care by function fix1
 #THe dunction fix3 adds the tag value "0" to the labels fields mentioned in the array tago
-
-#Functionality
-#fix51() to add inputs from file3 to thb.db ;;;;; then call the fix14 to sortit
-
-#Function SORTs
-#fix14()
-
 
 set -E
 
@@ -140,7 +133,7 @@ done<$file3
 
 #This takes an input file and sorts the array[] , just copy the top part of the Database 
 fix14() {
-echo "This function sorts the arrays from ylgdb.sh to thb.sh; Once done copy the top part of old ylgdb.sh to thb.sh and copy-it-back to ylgdb.sh"
+
 file1="./ylgdb.sh"
 file34="./thb.sh"
 `> $file34`
@@ -237,7 +230,7 @@ mm2=$(((m+m1)| bc))
 echo "m2 is $mm2" 
 }
 
-#this function is to change the elements in the array tag[] values of tag to "0" or can be used for vice-versa
+#this function is to change the elements in the array tago() values of tag to "0" or can be used for vice-versa
 fix3() {
 
 sortit
@@ -286,104 +279,6 @@ done
 }
 
 
-test1() {
-sortit
-file1="./ylgdb.sh"
-file2="./tgb.sh"
-
-fg=39.43
-endindx=39.43712
-
-count1=1
-
-             num11=$(echo "$fg" |sed  's/[^0-9]//g')
-             num12=${#num11}
-	     num12=$((num12-1))
-	     #echo "num12 is $num12"
-	     num14="1"
-                   for (( b=1; b <= $num12; b++))
-                   do
-                     num14=$((num14*10))
-                   done
-             #echo "num14 is $num14"
-             num141="$num12"
-             #echo "num141 is $num141"
-             num5="$count1"
-             num142=`echo "scale=${num141}; $num5/$num14" | bc -l`
-             #echo "num142 is $num142"
-             num143=`echo "scale=${num141}; $num142+$fg" | bc -l`
-              #echo "count1 is $count1"
-             echo "num143 is $num143"
-
-
-     }
-
-
-
-fixshiftright() {
-
-sortit
-
-file1="./ylgdb.sh"
-file34="./tgb.sh"
-index1=39.43
-index2=39.43712
-fg=39.43
-endindx=39.43712
-count1=1
-
-`> ./$file34`
-
-while read -r line; do
-  if [[ ("$line" =~ ^"spec") || ("$line" =~ ^"value") || ("$line" =~ ^"tag") ]]
-  then
-
-
-            lin1=$(echo "$line" | awk '{split($0,a,"=");print a[1]}')
-
-	    mstr1=`grep -o "[(0-9)(.)(0-9)]*" <<< $lin1`
-            fg="$mstr1"
-            #echo "mstr1 is $fg"
-
-             num11=$(echo "$fg" |sed  's/[^0-9]//g')
-             num12=${#num11}
-             num12=$((num12-1))
-             #echo "num12 is $num12"
-             num14="1"
-                   for (( b=1; b <= $num12; b++))
-                   do
-                     num14=$((num14*10))
-                   done
-             #echo "num14 is $num14"
-             num141="$num12"
-             #echo "num141 is $num141"
-             num5="$count1"
-             num142=`echo "scale=${num141}; $num5/$num14" | bc -l`
-             #echo "num142 is $num142"
-             num143=`echo "scale=${num141}; $num142+$fg" | bc -l`
-              #echo "count1 is $count1"
-
-	        mm2=$(echo "$mstr1" | bc)
-
-		mm3=$(echo "$num143" | bc)
-
-       if (( $(echo "$mm2 $index1" | awk '{print ($1 >= $2)}') )) && (( $(echo "$mm2 $index2" | awk '{print ($1 < $2)}') ))
-      then
-          lin1=$(echo "$line" | awk '{split($0,a,"[");print a[1]}')
-	lin3=$(echo "$line" | awk '{split($0,a,"]");print a[2]}')
-        echo "$lin1[$mstr2]$lin3"
-        `echo "$lin1[$mm3]$lin3">>"$file34"`
-      else
-       echo "$line">>"$file34"
-      fi  
-
- else
-    echo "$line">>"$file34"
-   fi
-
-done <$file1
-
-}
 
 
 #This function increment the index inside a particluar range so new features can be added
@@ -391,9 +286,9 @@ fix41() {
 sortit
 file1="./ylgdb.sh"
 file2="./tgb.sh"
-index1=39.43
-index2=39.43712
-m1=0.1
+index1=4.711
+index2=5
+m1=0.2
 `> ./$file2`
 `cp $file1 $file2`
 for a in "${sorted[@]}"
@@ -457,28 +352,15 @@ callfix5() {
 
 #reads entries in file3 to add to database
 fix51() {
-
-echo "Usuage ./mul.sh fix51 filename-in-Data-directory-with-values-to-be-added"
-if [[ -z $1 ]]
-then
-	echo "Wrong usuage exiting"
-	exit
-fi
-new1="$HOME/cn/ylg/data/"
-new=$1
-file3="${new1}${new}"
-echo "Currently adding entries from $file3"
-echo "enter any key"
-read ffg
 file1="./ylgdb.sh"
 file34="./thb.sh"
-#file3=$file1
+file3="data4.text"
 `> $file34`
 `cp $file1 $file34`
 count=0
 
 while read line; do
-        #echo "line is $line"
+        echo "line ois $line"
         IFS=',' read -r -a insa <<< "$line"
         #echo "the length of array is ${#insa[@]}"
         #echo "${insa[0]}" "${insa[1]}" "${insa[2]}" "${insa[3]}" 
@@ -486,7 +368,7 @@ while read line; do
         echo "value[${insa[0]}]=\"${insa[2]}\"">>"$file34"
         echo "tag[${insa[0]}]=\"${insa[3]}\"">>"$file34"
 done <$file3
- echo "Done copying new database entries into $file34 FILE check & verify and cp it to ylgdb.sh after visual-checks-pass"
+
 
 }
 
@@ -658,12 +540,8 @@ then
 IFS='-' read -r -a insa <<< "$rl"
 inslen="${#insa}"
 #echo "inslen is $inslen"
+
 uk=$(echo "${insa[0]} + 1" | bc -l)
-
-spn="${insa[1]}"
-
-parentspn=0
-
 #echo "$uk is uk  and insa is ${insa[0]}"
 for k in "${sorted[@]}"
 do
@@ -671,28 +549,10 @@ do
 	if ( (( $(echo "$k >= ${insa[0]}" | bc -l ) )) && (( $(echo "$k < $uk" | bc -l) )) )
         then
 
-		if [[ (( $parentspn -eq 0 )) ]]
-		then
-			p13=$(echo "$k" |sed 's/[^0-9]//g')
-       			p1=${#p13}
-        		p2=`echo "scale=${p1}; $k" | bc -l`
-                        parentspn="$p1"
-			childspn=$(echo "$spn + $parentspn" | bc -l)
-			#echo "parent span is $parentspn and child spn is $childspn"
-		fi
-	
-	
-	
-	p13=$(echo "$k" |sed 's/[^0-9]//g')
-	p1=${#p13}
-	p2=`echo "scale=${p1}; $k" | bc -l`
-	#echo "p13 is $p13 and p1 is $p1 and p2 is $p2 and  parent spn is $parentspn childspn is $childspn"
-	if ( (( $(echo "$p1 >= $parentspn" | bc -l ) )) && (( $(echo "$p1 <= $childspn" | bc -l ) )) ) 
-	 then
-  		indent "$k" 
+  	indent "$k" 
 
-	 fi
 	fi
+
 done
 
 
@@ -778,41 +638,6 @@ echo "The modified database is in the file $file34; kindly checkit once and rena
 }
 
 
-#lint functions
-#for data ingestion into the Database , 
-#the file should begin with numbers with a comma seperator then alphanumeric with :, as seperator then alphanumeric with , sep
-#finally ending the line with numeric value of either 0/1
-lint(){
-if [[ ( -z $1 ) ]]
-then
-echo "usuage is ./mul.sh lint filename-in-data-directory"
-exit
-fi
-
-new1="/home/ubuntu/cn/ylg/data/"
-new=$1
-file1="${new1}${new}"
-echo "Currently linting for $file1"
-lc=0
-nc=0
-while read -r line; do
-((lc+=1))
-#echo "ls is $lc"
-#l1=`echo "$line" | grep -o "^[^,]+,[^,]+,[^,]+$"` 
-l1=`echo "$line" | grep -o "^[0-9][^,]*,[^,]*:,[^,]*[^,]*,*[0-1]$"` 
-#echo "l1 is $l1"
-if [[ ( -z "$l1" ) ]]
-then
-   echo "the line in $lc and  $line is non-compliant "
-   ((nc+=1))
-#echo "l1 is $l1"
-fi
-done <$file1
-echo "Total non-compliant is $nc"
-echo "Total lines are $lc"
-}
-
-
 
 #This function is to display the Database starting index of various resource YAML
 dbdetails() {
@@ -838,79 +663,30 @@ do
         	else
 			fg=$green
 			col="1"
+		fi	    
+               echo -e "${fg}${value[$a]}${nc}   Begins at index ${fg}$gt${nc}"
+               oldgt=$gt
+	fi
+       
 
-		fi
-	echo -e "${fg}${value[$a]}${nc} Begins from index ${fg}$gt${nc}"
 	fg=$cyan
        	#echo "gt is $gt"
 	#echo "i1 is $i1 ${sorted[$i1]}"
 	((i1+=1))
-	oldgt="$gt"
 
-	fi
 done
 }
-
-
-sethelp() {
-	echo "Usage: ./mul.sh function ( For list of functions defined in script )"
-	echo "       ./mul.sh -h     ( For usage of this script ) "
-	echo "       ./mul.sh -f     ( List of Functions ) "
-	echo "       ./mul.sh -d     ( List of Database starting Index Numbers ) "
-	exit
-}
-
-#sethelp
-
-
-funclist() {
-
-echo "*FUNCTION*      *USE_CASE*"
-echo "_________________________________________________________________________________________________"
-echo ""
-echo " fix14         Sorts the database(usuage: ./mul.sh fix14)"
-echo " fix51         Adds entries from a file in data directory to database(usuage: ./mul.sh fix51 httpRule.txt)"
-echo " lint          lints the file in data-directory (usuage: ./mul.sh lint GW.txt)"
-echo " display1      enter the index for resource and level to display eg: 25-1 to display initContainer level 1;" 
-echo " dbdetails     function is to display the Database starting index of various resource YAML currently in the database(YLGDB.sh)"
-echo " fixshiftright function to Right-Shift Index varaible from start index to index index"
-echo ""
-#Functionality
-#fix51() to add inputs from file3 to thb.db ;;;;; then call the fix14 to sortit
-
-#Function SORTs
-#fix14()
-
-}
-
-
-
-while getopts ":hfd" option; do
-   case $option in
-      h) # display Help
-         sethelp 
-         exit;;
-      f) # edit description
-         funclist 
-         exit;;
-     d) # display the complete database
-	 dbdetails
-	 exit;;
-     l) # dispaly repo root
-	 origin
-         exit;;	 
-   esac
-done
 
 
 if [[ ("$#" -eq "") ]]
 then
-        echo "need a function name to execute"
-        echo "see the help options ./mul.sh -h"
+	echo "need a function name to execute"
 	exit
 else
 	$@
 fi
+
+
 
 #fix1
 #fix2
