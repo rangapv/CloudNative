@@ -1,0 +1,19 @@
+apiVersion:
+kind:
+metadata:
+  name:
+  namespace:
+  annotations:
+      ephemeralContainers:
+      - name:
+        targetContainerName:
+        image:
+        imagePullPolicy:
+        command:
+        args:
+        workingDir:
+        terminationMessagePath:
+        terminationMessagePolicy:
+        stdin:
+        stdinOnce:
+        tty:

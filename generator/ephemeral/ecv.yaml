@@ -1,0 +1,17 @@
+Version:
+kind:
+Name for this kind:
+Namespaces that you want this kind to be deployed:
+The list of annotations for this kind:
+Name of the ephemeral container(unique among all containers/init-containers and ephemeral containers):
+Name of the container from PodSpec that this ephemeral container targets:
+Container image name:
+Always/Never/IfNotPresent:
+Entrypoint array:
+either this or cmd:
+containers working directory:
+Path at which the file to which the container's termination message will be written is mounted into the container's filesystem:
+Indicate how the termination message should be populated:
+Whether this container should allocate a buffer for stdin in the container runtime(boolean):
+Whether the container runtime should close the stdin channel after it has been opened by a single attach(boolean):
+Whether this container should allocate a TTY for itself:
