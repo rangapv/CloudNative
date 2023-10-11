@@ -1,0 +1,28 @@
+42,spec:,Spec defines the Cluster Issuer for a Cert-Manager,0
+42.1,acme:,Automated Certificate Management Environment (ACME) Certificate Authority server validation,0
+42.11,server:,Server details from which the Validation needs to occur,1
+42.12,email:,e-mail registered with your domain that needs the certificate,1
+42.13,privateKeySecretRef:,Private key name refrence,0
+42.131,name:,Private key name,1
+42.14,solvers:,The solvers that needs to be deployed http/DNS,0
+42.15,- http01:,The HTTP solver that needs to be deployed,0
+42.151,ingress:,ingress based HTTP01 challenge solver will solve challenges by creating or modifying Ingress resources in order to route requests,0
+42.1511,serviceType:,Supported values are NodePort or ClusterIP,1
+42.1512,ingressClassName:,Only one of class or name or ingressClassName may be specified,1
+42.1513,class:,Only one of class or name or ingressClassName may be specified,1
+42.1514,name:,Only one of class or name or ingressClassName may be specified,1
+42.1515,podTemplate:,pod template used to configure the ACME challenge solver pods used for HTTP01 challenges,1
+42.15151,metadata:,ObjectMeta overrides for the pod used to solve HTTP01 challenges,0
+42.151511,annotations:,Annotations that should be added to the create ACME HTTP01 solver pods,1
+42.151512,labels:,Labels that should be added to the created ACME HTTP01 solver pods,1
+42.15152,spec:,defines overrides for the HTTP01 challenge solver pod,0
+42.151521,nodeSelector:,Selector which must match a node’s labels for the pod to be scheduled on that node,1
+42.151522,affinity:,the pod’s scheduling constraints,1
+42.151523,tolerations:,the pod’s tolerations,1
+42.151524,priorityClassName:,the pod’s priorityClassName,1
+42.151525,serviceAccountName:,the pod’s service account,1
+42.151526,imagePullSecrets:,the pod’s imagePullSecrets,1
+42.152,gatewayHTTPRoute:,Gateway API is a sig-network community API that models service networking in Kubernetes(experimental),0
+42.1521,serviceType:,service type for Kubernetes solver service. Supported values are NodePort or ClusterIP,1
+42.1522,labels:, Custom labels that will be applied to HTTPRoutes created by cert-manager while solving HTTP-01 challenges,1
+42.1523,parentRefs:,Generally the parentRef references a Gateway,1
