@@ -464,7 +464,7 @@ then
 	echo "Wrong usuage exiting"
 	exit
 fi
-new1="$HOME/cn/ylg/data/"
+new1="$HOME/cncf/ylg/data/"
 new=$1
 file3="${new1}${new}"
 echo "Currently adding entries from $file3"
@@ -789,7 +789,7 @@ echo "usuage is ./mul.sh lint filename-in-data-directory"
 exit
 fi
 
-new1="/home/ubuntu/cn/ylg/data/"
+new1="/home/ubuntu/cncf/ylg/data/"
 new=$1
 file1="${new1}${new}"
 echo "Currently linting for $file1"
