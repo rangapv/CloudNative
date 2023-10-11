@@ -1,0 +1,33 @@
+apiVersion:
+kind:
+metadata:
+  name:
+  namespace:
+spec:
+  acme:
+    server:
+    email:
+    privateKeySecretRef:
+      name:
+    solvers:
+    - http01:
+      ingress:
+        serviceType:
+        ingressClassName:
+        class:
+        name:
+        podTemplate:
+          metadata:
+            annotations:
+            labels:
+          spec:
+            nodeSelector:
+            affinity:
+            tolerations:
+            priorityClassName:
+            serviceAccountName:
+            imagePullSecrets:
+      gatewayHTTPRoute:
+        serviceType:
+        labels:
+        parentRefs:

@@ -1,0 +1,23 @@
+Version:
+kind:
+Name for this kind:
+Namespaces that you want this kind to be deployed:
+Server details from which the Validation needs to occur:
+e-mail registered with your domain that needs the certificate:
+Private key name:
+Supported values are NodePort or ClusterIP:
+Only one of class or name or ingressClassName may be specified:
+Only one of class or name or ingressClassName may be specified:
+Only one of class or name or ingressClassName may be specified:
+pod template used to configure the ACME challenge solver pods used for HTTP01 challenges:
+Annotations that should be added to the create ACME HTTP01 solver pods:
+Labels that should be added to the created ACME HTTP01 solver pods:
+Selector which must match a node’s labels for the pod to be scheduled on that node:
+the pod’s scheduling constraints:
+the pod’s tolerations:
+the pod’s priorityClassName:
+the pod’s service account:
+the pod’s imagePullSecrets:
+service type for Kubernetes solver service. Supported values are NodePort or ClusterIP:
+ Custom labels that will be applied to HTTPRoutes created by cert-manager while solving HTTP-01 challenges:
+Generally the parentRef references a Gateway:
