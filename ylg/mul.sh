@@ -458,10 +458,10 @@ callfix5() {
 #reads entries in file3 to add to database
 fix51() {
 
-echo "Usuage ./mul.sh fix51 filename-in-Data-directory-with-values-to-be-added"
+echo "Usage ./mul.sh fix51 filename-in-Data-directory-with-values-to-be-added"
 if [[ -z $1 ]]
 then
-	echo "Wrong usuage exiting"
+	echo "Wrong usage exiting"
 	exit
 fi
 new1="$HOME/cncf/ylg/data/"
@@ -799,7 +799,7 @@ while read -r line; do
 ((lc+=1))
 #echo "ls is $lc"
 #l1=`echo "$line" | grep -o "^[^,]+,[^,]+,[^,]+$"` 
-l1=`echo "$line" | grep -o "^[0-9][^,]*,[^,]*:,[^,]*[^,]*,*[0-1]$"` 
+l1=`echo "$line" | grep -o "^[0-9][^,][^:]*,[^,][^:]*:,[^,][^:]*,[^:]*[0-1]$"` 
 #echo "l1 is $l1"
 if [[ ( -z "$l1" ) ]]
 then
