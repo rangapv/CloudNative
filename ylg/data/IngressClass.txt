@@ -1,0 +1,8 @@
+50,spec:,Spec for IngressClass,0
+50.1,controller:,name of the controller that should handle this class,1
+50.2,parameters:,optional additional config for the controller,1
+50.21,kind:,type of resource being referenced for ingress parameters,1
+50.22,name:,name of the reource being referenced for ingress parameters,1
+50.23,apiGroup:,group of ingress parameters being referenced,1
+50.24,namespace:, namespace of ingress parameters being referenced,1
+50.25,scope:,either Cluster/Namespace scope,1

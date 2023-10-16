@@ -1,0 +1,19 @@
+51,spec:,Spec for the Ingress,0
+51.1,defaultBackend:,the backend that should handle the request if no rules,1
+51.2,ingressClassName:,name of the IngressClass resource(deprecated),1
+51.3,rules:,The list of host rules to configure ingress,1
+51.4,- host:,FQDN,1
+51.41,http:,http rule value,1
+51.411,paths:,paths is a collection of paths that map requests to backends,0
+51.412,- backend:,referenced service endpoint to which the traffic will be forwarded to,0
+51.4121,resource:,If specified it needs Name as well as Port exclusive to setting service,1
+51.4122,service:,backend service mutually exclusive to setting resource,1
+51.41221,name:,serivce in ingress namesapce,1
+51.41222,port:,port name or number for IngressServiceBackend,1
+51.412221,name:,name of port exclusive to setting number,1
+51.412222,number:,numer of port on service exclusive to setting name,1
+51.4123,pathType:,interpretation of the Path matching is up to the IngressClass. Implementations can treat this as a separate PathType or treat it identically to Prefix or Exact path types,1
+51.4124,path:,path of an incoming request,1
+51.5,tls:,tls represents the TLS configuration,0
+51.6,- hosts:,list of hosts inluded in the TLS certificate,1
+51.61,secretName:,name of secret used to terminate TLS,1
