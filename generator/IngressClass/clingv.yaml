@@ -1,0 +1,11 @@
+Version:
+kind:
+Name for this kind:
+Namespaces that you want this kind to be deployed:
+name of the controller that should handle this class:
+optional additional config for the controller:
+type of resource being referenced for ingress parameters:
+name of the reource being referenced for ingress parameters:
+group of ingress parameters being referenced:
+ namespace of ingress parameters being referenced:
+either Cluster/Namespace scope:

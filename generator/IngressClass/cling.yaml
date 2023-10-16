@@ -1,0 +1,13 @@
+apiVersion:
+kind:
+metadata:
+  name:
+  namespace:
+spec:
+  controller:
+  parameters:
+    kind:
+    name:
+    apiGroup:
+    namespace:
+    scope:

@@ -3,11 +3,11 @@
 set -E
 
 #The YAMl file name for this resource ; this can be changed
-pvfile="cih.yaml"
+pvfile="cling.yaml"
 #The Values file name for this resource ; this can be changed
-pvvfile="cihv.yaml"
+pvvfile="clingv.yaml"
 #The starting Index in the database(ylgdb.sh) for this resource ; this can have multiple indexes depending on your particular use case
-myindx="1,2,3(labels type annotations),42"
+myindx="1,2,3(labels type annotations),50"
 
 
 if [[ "$1" == "gen" ]]
@@ -22,6 +22,6 @@ then
 	#source /home/ubuntu/cn/generator/gen.sh "fill" "$pvfile" "$pvvfile" "$myindx"
 	source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/generator/gen.sh) "fill" "$pvfile" "$pvvfile" "$myindx"
 else
-	echo "usuage: http.sh gen/fill"
+	echo "usuage: cling.sh gen/fill"
 
 fi

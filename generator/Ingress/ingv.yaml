@@ -1,0 +1,19 @@
+Version:
+kind:
+Name for this kind:
+Namespaces that you want this kind to be deployed:
+the backend that should handle the request if no rules:
+name of the IngressClass resource(deprecated):
+The list of host rules to configure ingress:
+FQDN:
+http rule value:
+If specified it needs Name as well as Port exclusive to setting service:
+backend service mutually exclusive to setting resource:
+serivce in ingress namesapce:
+port name or number for IngressServiceBackend:
+name of port exclusive to setting number:
+numer of port on service exclusive to setting name:
+interpretation of the Path matching is up to the IngressClass. Implementations can treat this as a separate PathType or treat it identically to Prefix or Exact path types:
+path of an incoming request:
+list of hosts inluded in the TLS certificate:
+name of secret used to terminate TLS:

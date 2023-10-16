@@ -1,0 +1,24 @@
+apiVersion:
+kind:
+metadata:
+  name:
+  namespace:
+spec:
+  defaultBackend:
+  ingressClassName:
+  rules:
+  - host:
+    http:
+      paths:
+      - backend:
+        resource:
+        service:
+          name:
+          port:
+            name:
+            number:
+        pathType:
+        path:
+  tls:
+  - hosts:
+    secretName:
