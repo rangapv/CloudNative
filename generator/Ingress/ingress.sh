@@ -7,7 +7,7 @@ pvfile="ing.yaml"
 #The Values file name for this resource ; this can be changed
 pvvfile="ingv.yaml"
 #The starting Index in the database(ylgdb.sh) for this resource ; this can have multiple indexes depending on your particular use case
-myindx="1,2,3(labels type annotations),51"
+myindx="1,2,3(labels type),51(defaultBackend ingressClassName)"
 
 
 if [[ "$1" == "gen" ]]

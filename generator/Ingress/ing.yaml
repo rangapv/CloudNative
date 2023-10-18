@@ -1,24 +1,26 @@
-apiVersion:
-kind:
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name:
-  namespace:
+  name: ingress-nginx
+  namespace: 
+  annotations:
+     nginx.ingress.kubernetes.io/rewrite-target: /
+     kubernetes.io/ingress.className: "nginx"
+     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
 spec:
-  defaultBackend:
-  ingressClassName:
   rules:
-  - host:
+  - host: "simplek8s.com"
     http:
       paths:
-      - backend:
-        resource:
+      - backend: 
+        resource: 
         service:
-          name:
+          name: web-service-lb
           port:
-            name:
-            number:
-        pathType:
-        path:
+            name: 
+            number: 80
+        pathType: Prefix
+        path: /
   tls:
-  - hosts:
-    secretName:
+  - hosts: 
+    secretName: 
