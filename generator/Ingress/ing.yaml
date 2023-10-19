@@ -13,12 +13,11 @@ spec:
     http:
       paths:
       - backend: 
-        resource: 
-        service:
-          name: web-service-lb
-          port:
-            name: 
-            number: 80
+          service:
+            name: web-service-lb
+            port:
+              name: 
+              number: 80
         pathType: Prefix
         path: /
   tls:
