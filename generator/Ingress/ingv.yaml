@@ -5,7 +5,7 @@ Namespaces that you want this kind to be deployed:
 The list of annotations for this kind:nginx.ingress.kubernetes.io/rewrite-target:/,kubernetes.io/ingress.className:"nginx",nginx.ingress.kubernetes.io/ssl-passthrough:"true"
 FQDN: "simplek8s.com"
 referenced service endpoint to which the traffic will be forwarded to:
-If specified it needs Name as well as Port exclusive to setting service:
+Resource if specified it needs Name as well as Port exclusive to setting service:
 name of the service in ingress namespace:web-service-lb
 name of the port exclusive to setting number:
 number of the port on service exclusive to setting name:80

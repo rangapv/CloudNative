@@ -13,6 +13,7 @@ spec:
     http:
       paths:
       - backend: 
+          resource:
           service:
             name: web-service-lb
             port:
