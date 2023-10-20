@@ -1,13 +1,7 @@
-apiVersion:
-kind:
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
 metadata:
-  name:
-  namespace:
+  name: nginx
+  namespace: 
 spec:
-  controller:
-  parameters:
-    kind:
-    name:
-    apiGroup:
-    namespace:
-    scope:
+  controller: nginx.org/ingress-controller
