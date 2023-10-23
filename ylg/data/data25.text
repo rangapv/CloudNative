@@ -1,0 +1,12 @@
+42.193,42.21,disableAccountKeyGeneration:,Enables or disables generating a new ACME account key(boolean),1
+42.21,42.22,enableDurationFeature:,Enables requesting a Not After date on certificates that matches the duration of the certificate,1
+42.22,42.23,externalAccountBinding:,reference to a CA external account of the ACME server,0
+42.23,42.231,keyID:,ID of the CA key that the External Account is bound to in ACME server,1
+42.231,42.232,keySecretRef:,Secret Key Selector referencing a data item in a Kubernetes Secret which holds the symmetric MAC key of the External Account Binding in AC<ME server,0
+42.232,42.2321,LocalObjectReference:,name of the Secret resource being referred to in ACME server,0
+42.2321,42.23211,name:,Name of the resource being referred to for loacalObjecrRef of keySecretRef in ACME server,1
+42.23211,42.2322,key:,key of the entry in the Secret resource’s data field to be used of keysecretRef in ACME server,1
+42.2322,42.233,keyAlgorithm:,depreceated key algorithm hardcoded in golang acme,0
+42.233,42.24,skipTLSVerify:,Enables or disables validation of the ACME server TLS certificate(boolean),1
+42.24,42.25,caBundle:,Base64-encoded bundle of PEM CAs which can be used to validate the certificate chain presented by the ACME server,1
+42.25,42.26,preferredChain:,PreferredChain is the chain to use if the ACME server outputs multiple(string),1

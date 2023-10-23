@@ -1,0 +1,4 @@
+42.1523,42.19,selector:,selects a set of DNSNames on the Certificate resource that should be solved using this challenge solver,0
+42.19,42.191,matchLabels:,label selector that is used to refine the set of certificate’s that this challenge solver will apply to,1
+42.191,42.192,dnsNames:,List of DNSNames that this solver will be used to solve,1
+42.192,42.193,dnsZones:,List of DNSZones that this solver will be used to solve,1

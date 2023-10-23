@@ -1,0 +1,4 @@
+42.151526,42.1516,ingressTemplate:,Optional ingress template used to configure the ACME challenge solver ingress used for HTTP01 challenges,0
+42.1516,42.15161,metadata:,ObjectMeta overrides for the ingress used to solve HTTP01 challenges,0
+42.15161,42.151611,annotations:,Annotations that should be added to the created ACME HTTP01 solver ingress,1
+42.151611,42.151612,labels:,Labels that should be added to the created ACME HTTP01 solver ingress,1

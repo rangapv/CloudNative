@@ -583,7 +583,18 @@ sudo sed -i "s|${str22}|${str23}|" $filename
 fix61() {
 #file1="./ylgdb.sh"
 #file2="./bkpylgdb"
-file3="./data1.text"
+#file3="home/ubuntu/cncf/ylg/data/data23.text"
+if [[ ( -z $1 ) ]]
+then
+echo "usuage is ./mul.sh fix61 filename-in-data-directory"
+exit
+fi
+
+new1="/home/ubuntu/cncf/ylg/data/"
+new=$1
+file3="${new1}${new}"
+echo "Currently adding file $file1"
+
 #file3="./data.text"
 #cp1=`cp ${file1 $file2`
 
@@ -605,6 +616,60 @@ done <$file3
 
 }
 
+#this function reads the data file parses the line and inserts the vlaue in that particular index number
+fix62() {
+file11="./ylgdb.sh"
+file134="./thb.sh"
+
+sortit
+lensort=${#sorted[@]}
+echo "length of sortit is $lensort"
+echo "the first element is ${sorted[0]}"
+
+for ((i=0;i<=$lensort;i++))
+do
+ echo "element is ${sorted[$i]}"
+done
+
+for k in "${sorted[@]}"
+do
+        while read -r line;do
+         g1=`echo "$line" | grep "\[$k\]"`
+         g1s="$?"
+         #echo "g1 is $g1"
+
+	if [[ ("$line" =~ ^"tag") ]]
+	then
+	dig1=`echo "$line" | awk '{split($0,a,"="); print a[1]}'`
+   	mstr1=`grep -o "[(0-9)(.)(0-9)]*" <<< $dig1`
+   	#echo "mstr1 is $mstr1"
+  	# mstr1=`grep -o "[0-9.]*" <<< $line`
+   	num1=$(echo "$mstr1" | sed 's/[^0-9]//g')
+  	# mstr11=${#num1}
+   	mstr2=${#num1}
+   	#echo "mstr2 is $mstr2 and num1 is $num1"
+   	#echo "hi mstr1 $mstr1 and mstr2 is $mstr2 line is $line"
+  	# echo "num1 is $num1"
+   	echo "$line">>"$file34"
+   	if [[ ("$insindex"  == "$mstr1") ]]
+   	then
+        #`echo "$line">>"$file34"`
+        ((count+=1))
+        #echo "hi $count and line is $line"
+        #echo "mstr1 is $mstr1"
+        echo "spec[$pnsindex]=\"$specvalue\"">>"$file134"
+        echo "value[$pnsindex]=\"$valuevalue\"">>"$file134"
+        echo "tag[$pnsindex]=\"$tagvalue\"">>"$file134"
+   	fi
+	else
+		echo `"$line">>"$file134"`
+	fi
+done
+
+done
+
+
+}
 
 indent() {
 sortit
@@ -799,7 +864,12 @@ while read -r line; do
 ((lc+=1))
 #echo "ls is $lc"
 #l1=`echo "$line" | grep -o "^[^,]+,[^,]+,[^,]+$"` 
-l1=`echo "$line" | grep -o "^[0-9][^,][^:]*,[^,][^:]*:,[^,][^:]*,[^:]*[0-1]$"` 
+
+#Uncomment the below line for insertion from aparticluar index number; usually for adding missed/forgotten indexes into the database
+l1=`echo "$line" | grep -o "^[0-9][^,][^:]*,[0-9][^,][^:]*,[^,][^:]*:,[^,][^:]*,[^:]*[0-1]$"` 
+
+#Uncomment the below line for new entries genrerally at the end of database
+#l1=`echo "$line" | grep -o "^[0-9][^,][^:]*,[^,][^:]*:,[^,][^:]*,[^:]*[0-1]$"` 
 #echo "l1 is $l1"
 if [[ ( -z "$l1" ) ]]
 then
