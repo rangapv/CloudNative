@@ -16,18 +16,23 @@ spec:
         ingressClassName:
         class:
         name:
-        podTemplate:
-          metadata:
-            annotations:
-            labels:
-          spec:
-            nodeSelector:
-            affinity:
-            tolerations:
-            priorityClassName:
-            serviceAccountName:
-            imagePullSecrets:
       gatewayHTTPRoute:
         serviceType:
         labels:
         parentRefs:
+    selector:
+      matchLabels:
+      dnsNames:
+      dnsZones:
+    disableAccountKeyGeneration:
+    enableDurationFeature:
+    externalAccountBinding:
+      keyID:
+      keySecretRef:
+        LocalObjectReference:
+          name:
+        key:
+      keyAlgorithm:
+    skipTLSVerify:
+    caBundle:
+    preferredChain:
