@@ -7,7 +7,7 @@ pvfile="cih.yaml"
 #The Values file name for this resource ; this can be changed
 pvvfile="cihv.yaml"
 #The starting Index in the database(ylgdb.sh) for this resource ; this can have multiple indexes depending on your particular use case
-myindx="1,2,3(labels type annotations),42(podTemplate ingressTemplate)"
+myindx="1,2,3(labels type annotations),42(podTemplate ingressTemplate externalAccountBinding gatewayHTTPRoute)"
 
 
 if [[ "$1" == "gen" ]]

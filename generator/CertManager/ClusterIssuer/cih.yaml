@@ -1,38 +1,23 @@
-apiVersion:
-kind:
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
 metadata:
-  name:
-  namespace:
+  name: letsencrypt-stag
+  namespace: cert-manager
 spec:
   acme:
-    server:
-    email:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: admin@simplek8s.com
     privateKeySecretRef:
-      name:
+      name: stag-route53-credentials-secret
     solvers:
     - http01:
-      ingress:
-        serviceType:
-        ingressClassName:
-        class:
-        name:
-      gatewayHTTPRoute:
-        serviceType:
-        labels:
-        parentRefs:
-    selector:
-      matchLabels:
-      dnsNames:
-      dnsZones:
-    disableAccountKeyGeneration:
-    enableDurationFeature:
-    externalAccountBinding:
-      keyID:
-      keySecretRef:
-        LocalObjectReference:
-          name:
-        key:
-      keyAlgorithm:
-    skipTLSVerify:
-    caBundle:
-    preferredChain:
+        ingress:
+          serviceType: 
+          ingressClassName: 
+          class: ingress-nginx
+          name: 
+    disableAccountKeyGeneration: 
+    enableDurationFeature: 
+    skipTLSVerify: 
+    caBundle: 
+    preferredChain: 
