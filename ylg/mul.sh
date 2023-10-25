@@ -13,6 +13,7 @@
 
 set -E
 
+
 #source "./ylgdb.sh"
 source <(curl -s https://raw.githubusercontent.com/rangapv/CloudNative/main/ylg/ylgdb.sh)
 
@@ -318,8 +319,75 @@ count1=1
 
      }
 
+#Take index1 & index2 and insert a integer(count1) in the middle and stich back the rest of integer if present
+#Typically used such that the parent gets right shifted hence the child follows
+fixinsertmiddle() {
+
+sortit
+
+file1="./ylgdb.sh"
+file34="./tgb.sh"
+index1=42.15
+index2=42.1613
+fg=0
+#This is refrencing after what position to isert the insval(below)"
+count1=2
+#This is referencing what number to insert"
+insval=1
+
+`> ./$file34`
+
+while read -r line; do
+  if [[ ("$line" =~ ^"spec") || ("$line" =~ ^"value") || ("$line" =~ ^"tag") ]]
+  then
+
+            lin1=$(echo "$line" | awk '{split($0,a,"=");print a[1]}')
+
+            mstr1=`grep -o "[(0-9)(.)(0-9)]*" <<< $lin1`
+            fg="$mstr1"
+            #echo "mstr1 is $fg"
+	    dot1=`grep -o "[.]" <<< $fg`		
+	    if [[ ( ! -z $dot1 ) ]]
+	    then
+		IFS='.' read -r -a ina <<< "$fg"		
+		#echo "mstr1 is ${ina[0]} and ${ina[1]}"
+		rt0="${ina[0]}"
+		rt1="${ina[1]}"
+		insindex="$count1"
+		leng=${#rt1}
+	        #echo "leng is $leng"
+		lenina=${rt1:0:$count1}
+		lenend=${rt1:$count1:$leng}
+		newina=".${lenina}${insval}${lenend}"
+		newrep="${ina[0]}${newina}"
+		#echo "newina is $newina"
+		#echo "the new rep is $newrep"
+	    fi
+		mm2=$(echo "$mstr1" | bc)
+                mm3=$(echo "$newrep" | bc)
+
+       if (( $(echo "$mm2 $index1" | awk '{print ($1 >= $2)}') )) && (( $(echo "$mm2 $index2" | awk '{print ($1 <= $2)}') ))
+      then
+          lin1=$(echo "$line" | awk '{split($0,a,"[");print a[1]}')
+        lin3=$(echo "$line" | awk '{split($0,a,"]");print a[2]}')
+        #echo "$lin1[$mm3]$lin3"
+        `echo "$lin1[$mm3]$lin3">>"$file34"`
+      else
+       echo "$line">>"$file34"
+      fi
+ else
+    echo "$line">>"$file34"
+   fi
+
+done <$file1
+
+}
 
 
+
+
+
+#Take index1 & index2 and add an interger(count1) to the end of it
 fixshiftright() {
 
 sortit
@@ -673,9 +741,11 @@ done
 
 indent() {
 sortit
+#ar1="$*"
+#echo "ar1 is $ar1"
+#ai="$ar1[1]"
 ai="$1"
 ifile="$gh"
-#echo "inside indent $ai"
         num1=$(echo "$ai" |sed  's/[^0-9]//g')
 	num2=${#num1}
         num3=$((num2-=1))
@@ -754,7 +824,8 @@ do
 	#echo "p13 is $p13 and p1 is $p1 and p2 is $p2 and  parent spn is $parentspn childspn is $childspn"
 	if ( (( $(echo "$p1 >= $parentspn" | bc -l ) )) && (( $(echo "$p1 <= $childspn" | bc -l ) )) ) 
 	 then
-  		indent "$k" 
+		 indent $k 
+		 #echo "$k `$(indent ${k})`" 
 
 	 fi
 	fi
