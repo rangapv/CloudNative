@@ -1015,6 +1015,7 @@ echo " lint          lints the file in data-directory (usuage: ./mul.sh lint GW.
 echo " display1      enter the index for resource and level to display eg: 25-1 to display initContainer level 1;" 
 echo " dbdetails     function is to display the Database starting index of various resource YAML currently in the database(YLGDB.sh)"
 echo " fixshiftright function to Right-Shift Index varaible from start index to index index"
+echo " fixinsertmiddle function to insert value in the middle of the after decimal and rewrtite db"
 echo ""
 #Functionality
 #fix51() to add inputs from file3 to thb.db ;;;;; then call the fix14 to sortit
