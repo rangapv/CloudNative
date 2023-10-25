@@ -739,6 +739,117 @@ done
 
 }
 
+
+
+#This function differs from fix5 in the if comparison and also does spec,value,tag order
+fix52() {
+
+sortag
+#file1="./tgb.sh"
+file1="./ylgdb.sh"
+file34="./thb.sh"
+`> $file34`
+count=0
+
+pnsindex="$1"
+specvalue="$2"
+valuevalue="$3"
+tagvalue="$4"
+mglag=0
+
+while read -r line; do
+
+
+   if [[ ("$line" =~ ^"spec") ]]
+   then
+   #echo "line os $line and mstr1 is $mstr11 and a is $a"
+   dig1=`echo "$line" | awk '{split($0,a,"="); print a[1]}'`
+   #echo "dig1 is $dig1"
+   mstr1=`grep -o "[(0-9)(.)(0-9)]*" <<< $dig1`
+   #echo "mstr1 is $mstr1"
+  # mstr1=`grep -o "[0-9.]*" <<< $line`
+   num1=$(echo "$mstr1" | sed 's/[^0-9]//g') 
+  # mstr11=${#num1}
+   mstr2=${#num1}
+   #echo "mstr2 is $mstr2 and num1 is $num1"
+   #echo "hi mstr1 $mstr1 and mstr2 is $mstr2 line is $line"
+  # echo "num1 is $num1"
+   
+
+  	t1=$(echo "$mstr1" | bc)
+  	t2=$(echo "$pnsindex" | bc)
+
+
+   if (( ($(echo "$t2 $t1" | awk '{print ($1 < $2)}') ) )) 
+   then
+	   if  [[ ( "$mglag" != "1" ) ]]
+	   then
+        #`echo "$line">>"$file34"`
+        ((count+=1))
+	echo "hi $count and line is $line"
+        #echo "mstr1 is $mstr1"
+	echo "spec[$t2]=\"$specvalue\"">>"$file34"
+	echo "value[$t2]=\"$valuevalue\"">>"$file34"
+	echo "tag[$t2]=\"$tagvalue\"">>"$file34"
+	mglag=1
+	   fi
+   fi
+    echo "$line">>"$file34"
+  elif [[ ("$line" =~ ^"value") ]]
+  then
+       echo "$line">>"$file34"
+   elif [[ ("$line" =~ ^"tag") ]]
+   then
+       echo "$line">>"$file34"
+   else
+    echo "$line">>"$file34"
+   fi
+
+done <$file1
+
+echo "count is $count"
+`cp $file34 $file1`
+
+}
+
+
+#This function takes a data-file (assuming the file is incrementa ordered) reverses(sed 1-d command look in the function) the file(last line first) and then inserts the new entry if less than ylgdb.sh database current index in the dataabse(no need to provide before-index values)
+
+fix64() {
+
+if [[ ( -z $1 ) ]]
+then
+echo "usuage is ./mul.sh fix64 filename-in-data-directory"
+exit
+fi
+
+new1="/home/ubuntu/cncf/ylg/data/"
+new=$1
+file3="${new1}${new}"
+echo "Currently adding file $file1"
+file4="./file3rev"
+`>$file4`
+`sed '1!G;h;$!d' $file3 >> $file4` 
+
+while read line; do
+        echo "line ois $line"
+	#insa=($(line.split(",")))
+	#insa=($(echo $line | tr "," "\n"))
+	#insa=($(echo $line | awk '{len=split($0,a,",");for(i=1;i<=len;i++) print a[i];}'))
+	#insa=($(echo $line | cut -d "," -f 1-5 --output-delimiter=' '))
+
+	#insa=($(echo $line | awk '{len=split($0,a,"/");for(i=1;i<=len;i++) cut -d ',' -f 1-2print a[i];}'))
+#	insa=($(echo $line | cut -f 1 -d ','))
+        IFS=',' read -r -a insa <<< "$line"
+	#echo "the length of array is ${#insa[@]}"
+	#echo "${insa[0]}" "${insa[1]}" "${insa[2]}" "${insa[3]}"
+        fix52 "${insa[0]}" "${insa[1]}" "${insa[2]}" "${insa[3]}"
+
+done <$file4
+
+}
+
+
 indent() {
 sortit
 #ar1="$*"
@@ -937,10 +1048,10 @@ while read -r line; do
 #l1=`echo "$line" | grep -o "^[^,]+,[^,]+,[^,]+$"` 
 
 #Uncomment the below line for insertion from aparticluar index number; usually for adding missed/forgotten indexes into the database
-l1=`echo "$line" | grep -o "^[0-9][^,][^:]*,[0-9][^,][^:]*,[^,][^:]*:,[^,][^:]*,[^:]*[0-1]$"` 
+#l1=`echo "$line" | grep -o "^[0-9][^,][^:]*,[0-9][^,][^:]*,[^,][^:]*:,[^,][^:]*,[^:]*[0-1]$"` 
 
 #Uncomment the below line for new entries genrerally at the end of database
-#l1=`echo "$line" | grep -o "^[0-9][^,][^:]*,[^,][^:]*:,[^,][^:]*,[^:]*[0-1]$"` 
+l1=`echo "$line" | grep -o "^[0-9][^,][^:]*,[^,][^:]*:,[^,][^:]*,[^:]*[0-1]$"` 
 #echo "l1 is $l1"
 if [[ ( -z "$l1" ) ]]
 then
@@ -1016,6 +1127,7 @@ echo " display1      enter the index for resource and level to display eg: 25-1 
 echo " dbdetails     function is to display the Database starting index of various resource YAML currently in the database(YLGDB.sh)"
 echo " fixshiftright function to Right-Shift Index varaible from start index to index index"
 echo " fixinsertmiddle function to insert value in the middle of the after decimal and rewrtite db"
+echo " fix64         function to insert values based on the insert-index < current-index from file in data by sub-function fix52"
 echo ""
 #Functionality
 #fix51() to add inputs from file3 to thb.db ;;;;; then call the fix14 to sortit

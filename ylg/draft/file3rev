@@ -1,0 +1,63 @@
+42.1811982,resourceID:,resource ID of the managed identity Azure DNS solver,1
+42.1811981,clientID:,client ID of the managed identity in Azure DNS solver,1
+42.181198,managedIdentity:,managed identity configuration for Azure DNS solver,0
+42.181197,environment:,name of the Azure environment for Azure DNS solver(hint AzurePublicCloud),1
+42.181196,hostedZoneName:,name of the DNS zone that should be used in Azure DNS solver,1
+42.181195,resourceGroupName:,Azure resource group the DNS zone is located in DNS solver,1
+42.181194,tenantID:,specifying ClientID and ClientSecret then this field is also needed gor Azure DNS solver,1
+42.181193,subscriptionID:,ID of the Azure subscription for DNS challenge,1
+42.1811922,key:,key of Azure secret secret ref entry in the Secret resource’s data field to be used,1
+42.1811921,name:,name of Azure secret secret key secret ref dns,1
+42.181192,clientSecretSecretRef:,Azure cline tsecret ref,0
+42.181191,clientID:,Azure clinetID,1
+42.18119,azureDNS:,the Microsoft Azure DNS API to manage DNS01 challenge records,0
+42.181183,config:,Additional configuration that should be passed to the webhook apiserver when challenges are processed,1
+42.181182,solverName:,name of the solver to use, as defined in the webhook provider implementation(like cloudflare),1
+42.181181,groupName:,API group name that should be used when POSTing ChallengePayload resources to the webhook apiserver,1
+42.18118,webhook:,Configure an external webhook based DNS01 challenge solver to manage DNS01 challenge records,0
+42.1811722,key:,key of ACMEsaccount secret ref entry in the Secret resource’s data field to be used,1
+42.1811721,name:,name of ACME account secret key secret ref dns,1
+42.181172,accountSecretRef:,ACME DNS account ref,0
+42.181171,host:,ACEM host name,1
+42.18117,acmeDNS:, the ACME DNS API to manage DNS01 challenge records,0
+42.181156,region:,Always set the AWS region when using AccessKeyID and SecretAccessKey,1
+42.181155,hostedZoneID:,AWS the provider will manage only this zone in Route53 and will not do an lookup using the route53-ListHostedZonesByName api call,1
+42.181154,role:,Role is a Role ARN which the Route53 provider will assume using either the explicit credentials AccessKeyID/SecretAccessKey or the inferred credentials from environment variables,1
+42.1811532,key:,key of AWS toute53 secret client access key secret ref entry in the Secret resource’s data field to be used,1
+42.1811531,name:,name of AWS route53 secret access key secret ref dns,1
+42.181153,secretAccessKeySecretRef:,SecretAccessKey is used for authentication. If neither the Access Key nor Key ID are set then we fall-back to using env vars shared credentials file or AWS Instance metadata,0
+42.1811522,key:,key AWS toute53 secret client access token secret ref entry in the Secret resource’s data field to be used,1
+42.1811521,name:,name AWS route53 access token secret ref dns,1
+42.181152,accessKeyIDSecretRef:,SecretAccessKey is used for authentication. If set, pull the AWS access key ID from a key within a Kubernetes Secret,0
+42.181151,accessKeyID:,AccessKeyID is used for authentication. Cannot be set when SecretAccessKeyID is set,1
+42.18115,route53:,the AWS Route53 API to manage DNS01 challenge records,0
+42.1811432,key:,key CloudFlare API token secretclient access token secret ref entry in the Secret resource’s data field to be used,1
+42.1811431,name:,name CloudFlare API token secret ref for GCP dns,1
+42.181143,apiTokenSecretRef:,API token used to authenticate with Cloudflare,0
+42.1811422,key:,key CloudFlare API account secretclinet access token secret ref entry in the Secret resource’s data field to be used,1
+42.1811421,name:,name CloudFlare API account secret ref for GCP dns,1
+42.181142,apiKeySecretRef:,API key to use to authenticate with Cloudflare,0
+42.181141,email:,Cloudflare Email of the account only required when using API key based authentication,1
+42.18114,cloudflare:,Cloudflare API to manage DNS01 challenge records,0
+42.181133,hostedZoneName:,HostedZoneName for GCP is an optional field that tells cert-manager in which Cloud DNS zone the challenge record has to be created,1
+42.1811322,key:,key clinet access token secret ref for akami key of the entry in the Secret resource’s data field to be used,1
+42.1811321,name:,name Google Cloud account secret ref for GCP dns,1
+42.181132,serviceAccountSecretRef:, service account secret for Google CLoud DNS,0
+42.181131,project:,the Google Cloud DNS Project,1
+42.18113,cloudDNS:,the Google Cloud DNS API to manage DNS01 challenge records,0
+42.1811242,key:,key clinet access token secret ref for akami key of the entry in the Secret resource’s data field to be used,1
+42.1811241,name:,name client access token secret ref for akami dns,1
+42.181124,accessTokenSecretRef:,access token secre ref for akami,0
+42.1811232,key:,key clinet secret secret ref for akami key of the entry in the Secret resource’s data field to be used,1
+42.1811231,name:,name client secret secret ref for akami dns,1
+42.181123,clientSecretSecretRef:,Azure clinet secret ref,0
+42.1811222,key:,key clinet token secret ref for akami key of the entry in the Secret resource’s data field to be used,1
+42.1811221,name:,name client token secret ref for akami dns,1
+42.181122,clientTokenSecretRef:,client token secret ref for akami dns solver,0
+42.181121,serviceConsumerDomain:,service consumer domain for akami,1
+42.18112,akamai:,Akamai DNS zone management API to manage DNS01 challenge records,0
+42.181113,dnsZones:,List of DNSZones that this solver will be used to solve,1
+42.181112,dnsNames:,List of DNSNames that this solver will be used to solve,1
+42.181111,matchLabels:,label selector that is used to refine the set of certificate’s that this challenge solver will apply to,1
+42.18111,cnameStrategy:,CNAMEStrategy configures how the DNS01 provider should handle CNAME records when found in DNS zones,0
+42.181,- dns01:,Configures cert-manager to attempt to complete authorizations by performing the DNS01 challenge flow,0
