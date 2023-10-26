@@ -46,7 +46,7 @@
 42.1811722,key:,key of ACMEsaccount secret ref entry in the Secret resource’s data field to be used,1
 42.18118,webhook:,Configure an external webhook based DNS01 challenge solver to manage DNS01 challenge records,0
 42.181181,groupName:,API group name that should be used when POSTing ChallengePayload resources to the webhook apiserver,1
-42.181182,solverName:,name of the solver to use, as defined in the webhook provider implementation(like cloudflare),1
+42.181182,solverName:,name of the solver to use as defined in the webhook provider implementation(like cloudflare),1
 42.181183,config:,Additional configuration that should be passed to the webhook apiserver when challenges are processed,1
 42.18119,azureDNS:,the Microsoft Azure DNS API to manage DNS01 challenge records,0
 42.181191,clientID:,Azure clinetID,1
