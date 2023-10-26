@@ -1051,7 +1051,7 @@ while read -r line; do
 #l1=`echo "$line" | grep -o "^[0-9][^,][^:]*,[0-9][^,][^:]*,[^,][^:]*:,[^,][^:]*,[^:]*[0-1]$"` 
 
 #Uncomment the below line for new entries genrerally at the end of database
-l1=`echo "$line" | grep -o "^[0-9][^,][^:]*,[^,][^:]*:,[^,][^:]*,[^:]*[0-1]$"` 
+l1=`echo "$line" | grep -o "^[0-9][^,][^:]*,[^,][^:]*:,[^,][^:]*,^(0-1)$"` 
 #echo "l1 is $l1"
 if [[ ( -z "$l1" ) ]]
 then

@@ -1,17 +1,60 @@
-Version:  cert-manager.io/v1
-kind: ClusterIssuer
-Name for this kind: letsencrypt-stag
-Namespaces that you want this kind to be deployed: cert-manager
-Server details from which the Validation needs to occur: https://acme-staging-v02.api.letsencrypt.org/directory
-e-mail registered with your domain that needs the certificate: admin@simplek8s.com
-Private key name: stag-route53-credentials-secret
+Version:
+kind:
+Name for this kind:
+Namespaces that you want this kind to be deployed:
+Server details from which the Validation needs to occur:
+e-mail registered with your domain that needs the certificate:
+Private key name:
 Supported values are NodePort or ClusterIP:
 The ingressClassName for ingress may be specified:
-The class for ingress may be specified: ingress-nginx
+The class for ingress may be specified:
 The name for ingress may be specified:
 label selector that is used to refine the set of certificate’s that this challenge solver will apply to:
 List of DNSNames that this solver will be used to solve:
 List of DNSZones that this solver will be used to solve:
+label selector that is used to refine the set of certificate’s that this challenge solver will apply to:
+List of DNSNames that this solver will be used to solve:
+List of DNSZones that this solver will be used to solve:
+service consumer domain for akami:
+name client token secret ref for akami dns:
+key clinet token secret ref for akami key of the entry in the Secret resource’s data field to be used:
+name client secret secret ref for akami dns:
+key clinet secret secret ref for akami key of the entry in the Secret resource’s data field to be used:
+name client access token secret ref for akami dns:
+key clinet access token secret ref for akami key of the entry in the Secret resource’s data field to be used:
+the Google Cloud DNS Project:
+name Google Cloud account secret ref for GCP dns:
+key clinet access token secret ref for akami key of the entry in the Secret resource’s data field to be used:
+HostedZoneName for GCP is an optional field that tells cert-manager in which Cloud DNS zone the challenge record has to be created:
+Cloudflare Email of the account only required when using API key based authentication:
+name CloudFlare API account secret ref for GCP dns:
+key CloudFlare API account secretclinet access token secret ref entry in the Secret resource’s data field to be used:
+name CloudFlare API token secret ref for GCP dns:
+key CloudFlare API token secretclient access token secret ref entry in the Secret resource’s data field to be used:
+AccessKeyID is used for authentication. Cannot be set when SecretAccessKeyID is set:
+name AWS route53 access token secret ref dns:
+key AWS toute53 secret client access token secret ref entry in the Secret resource’s data field to be used:
+name of AWS route53 secret access key secret ref dns:
+key of AWS toute53 secret client access key secret ref entry in the Secret resource’s data field to be used:
+Role is a Role ARN which the Route53 provider will assume using either the explicit credentials AccessKeyID/SecretAccessKey or the inferred credentials from environment variables:
+AWS the provider will manage only this zone in Route53 and will not do an lookup using the route53-ListHostedZonesByName api call:
+Always set the AWS region when using AccessKeyID and SecretAccessKey:
+ACEM host name:
+name of ACME account secret key secret ref dns:
+key of ACMEsaccount secret ref entry in the Secret resource’s data field to be used:
+API group name that should be used when POSTing ChallengePayload resources to the webhook apiserver:
+name of the solver to use as defined in the webhook provider implementation(like cloudflare):
+Additional configuration that should be passed to the webhook apiserver when challenges are processed:
+Azure clinetID:
+name of Azure secret secret key secret ref dns:
+key of Azure secret secret ref entry in the Secret resource’s data field to be used:
+ID of the Azure subscription for DNS challenge:
+specifying ClientID and ClientSecret then this field is also needed gor Azure DNS solver:
+Azure resource group the DNS zone is located in DNS solver:
+name of the DNS zone that should be used in Azure DNS solver:
+name of the Azure environment for Azure DNS solver(hint AzurePublicCloud):
+client ID of the managed identity in Azure DNS solver:
+resource ID of the managed identity Azure DNS solver:
 Enables or disables generating a new ACME account key(boolean):
 Enables requesting a Not After date on certificates that matches the duration of the certificate:
 Enables or disables validation of the ACME server TLS certificate(boolean):

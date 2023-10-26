@@ -1,23 +1,90 @@
-apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
+apiVersion:
+kind:
 metadata:
-  name: letsencrypt-stag
-  namespace: cert-manager
+  name:
+  namespace:
 spec:
   acme:
-    server: https://acme-staging-v02.api.letsencrypt.org/directory
-    email: admin@simplek8s.com
+    server:
+    email:
     privateKeySecretRef:
-      name: stag-route53-credentials-secret
+      name:
     solvers:
-    - http01:
-        ingress:
-          serviceType: 
-          ingressClassName: 
-          class: ingress-nginx
-          name: 
-    disableAccountKeyGeneration: 
-    enableDurationFeature: 
-    skipTLSVerify: 
-    caBundle: 
-    preferredChain: 
+      - http01:
+          ingress:
+            serviceType:
+            ingressClassName:
+            class:
+            name:
+      - selector:
+          matchLabels:
+          dnsNames:
+          dnsZones:
+      - dns01:
+          cnameStrategy:
+            matchLabels:
+            dnsNames:
+            dnsZones:
+          akamai:
+            serviceConsumerDomain:
+            clientTokenSecretRef:
+              name:
+              key:
+            clientSecretSecretRef:
+              name:
+              key:
+            accessTokenSecretRef:
+              name:
+              key:
+          cloudDNS:
+            project:
+            serviceAccountSecretRef:
+              name:
+              key:
+            hostedZoneName:
+          cloudflare:
+            email:
+            apiKeySecretRef:
+              name:
+              key:
+            apiTokenSecretRef:
+              name:
+              key:
+          route53:
+            accessKeyID:
+            accessKeyIDSecretRef:
+              name:
+              key:
+            secretAccessKeySecretRef:
+              name:
+              key:
+            role:
+            hostedZoneID:
+            region:
+          acmeDNS:
+            host:
+            accountSecretRef:
+              name:
+              key:
+          webhook:
+            groupName:
+            solverName:
+            config:
+          azureDNS:
+            clientID:
+            clientSecretSecretRef:
+              name:
+              key:
+            subscriptionID:
+            tenantID:
+            resourceGroupName:
+            hostedZoneName:
+            environment:
+            managedIdentity:
+              clientID:
+              resourceID:
+    disableAccountKeyGeneration:
+    enableDurationFeature:
+    skipTLSVerify:
+    caBundle:
+    preferredChain:
