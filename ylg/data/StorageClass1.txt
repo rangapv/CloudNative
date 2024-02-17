@@ -1,0 +1,8 @@
+9.4,allowVolumeExpansion:,shows whether the storage class allow volume expand,1
+9.5,mountOptions:,controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class,1
+9.6,reclaimPolicy:,controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class/defaults to Delete,1
+9.7,volumeBindingMode:,indicates how PersistentVolumeClaims should be provisioned and bound,1
+9.8,allowedTopologies:,restrict the node topologies where volumes can be dynamically provisioned,0
+9.81,matchLabelExpressions:,topology selector requirement is a selector that matches given label,0
+9.811,key:,label key that the selector applies to,1
+9.812,values:,One value must match the label to be selected,1

@@ -1047,15 +1047,21 @@ while read -r line; do
 #echo "ls is $lc"
 #l1=`echo "$line" | grep -o "^[^,]+,[^,]+,[^,]+$"` 
 
+
+#l1=`echo "$line" | grep -o "^[0-9]"` 
+#l1=`echo "$line" | grep -o "^[0-9]*,[0-9]*:,[^,][^:]*,*[0-1]$"` 
+
 #Uncomment the below line for insertion from aparticluar index number; usually for adding missed/forgotten indexes into the database
 #l1=`echo "$line" | grep -o "^[0-9][^,][^:]*,[0-9][^,][^:]*,[^,][^:]*:,[^,][^:]*,[^:]*[0-1]$"` 
 
 #Uncomment the below line for new entries genrerally at the end of database
 l1=`echo "$line" | grep -o "^[0-9][^,][^:]*,[^,][^:]*:,[^,][^:]*,^(0-1)$"` 
-#echo "l1 is $l1"
+
+echo "l1 is $l1"
+
 if [[ ( -z "$l1" ) ]]
 then
-   echo "the line in $lc and  $line is non-compliant "
+   echo "the line is $lc and  $line is non-compliant "
    ((nc+=1))
 #echo "l1 is $l1"
 fi
