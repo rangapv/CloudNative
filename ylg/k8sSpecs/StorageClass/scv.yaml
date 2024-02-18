@@ -1,0 +1,12 @@
+Version:
+kind:
+Name for this kind:
+Namespaces that you want this kind to be deployed:
+spec of provisioner for aws/gcp/azure:
+spec parameters of provisioner for aws/gcp/azure:
+shows whether the storage class allow volume expand:
+controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class:
+controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class/defaults to Delete:
+indicates how PersistentVolumeClaims should be provisioned and bound:
+label key that the selector applies to:
+One value must match the label to be selected:

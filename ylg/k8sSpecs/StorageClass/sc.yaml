@@ -1,0 +1,16 @@
+apiVersion:
+kind:
+metadata:
+  name:
+  namespace:
+spec:
+  provisioner:
+  parameters:
+  allowVolumeExpansion:
+  mountOptions:
+  reclaimPolicy:
+  volumeBindingMode:
+  allowedTopologies:
+    matchLabelExpressions:
+      key:
+      values:
