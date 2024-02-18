@@ -8,5 +8,6 @@ https://rangapv.medium.com/1a5a4a57a156?source=friends_link&sk=54b251c078ff0601c
 
 ________________________________________________________________________________________________________
 YLG Database Specs/Index Number in tabular form currently supported
-![Resource1](https://github.com/rangapv/CloudNative/assets/12977412/90db6e05-57ee-4e3d-904d-104a5ed186d3)
+![Resource2](https://github.com/rangapv/CloudNative/assets/12977412/bf7660f9-35c5-4858-8ca8-05dab300ffe9)
+
 
