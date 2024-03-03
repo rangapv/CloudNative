@@ -658,7 +658,7 @@ echo "usuage is ./mul.sh fix61 filename-in-data-directory"
 exit
 fi
 
-new1="/home/ubuntu/cncf/ylg/data/"
+new1="./data/"
 new=$1
 file3="${new1}${new}"
 echo "Currently adding file $file1"
@@ -823,7 +823,7 @@ echo "usuage is ./mul.sh fix64 filename-in-data-directory"
 exit
 fi
 
-new1="/home/ubuntu/cncf/ylg/data/"
+new1="./data/"
 new=$1
 file3="${new1}${new}"
 echo "Currently adding file $file1"
@@ -1036,7 +1036,7 @@ echo "usuage is ./mul.sh lint filename-in-data-directory"
 exit
 fi
 
-new1="/home/ubuntu/cncf/ylg/data/"
+new1="./data/"
 new=$1
 file1="${new1}${new}"
 echo "Currently linting for $file1"
@@ -1051,17 +1051,22 @@ while read -r line; do
 #l1=`echo "$line" | grep -o "^[0-9]"` 
 #l1=`echo "$line" | grep -o "^[0-9]*,[0-9]*:,[^,][^:]*,*[0-1]$"` 
 
-#Uncomment the below line for insertion from aparticluar index number; usually for adding missed/forgotten indexes into the database
+#Uncomment the below line for insertion from a particluar index number; usually for adding missed/forgotten indexes into the database
 #l1=`echo "$line" | grep -o "^[0-9][^,][^:]*,[0-9][^,][^:]*,[^,][^:]*:,[^,][^:]*,[^:]*[0-1]$"` 
 
 #Uncomment the below line for new entries genrerally at the end of database
-l1=`echo "$line" | grep -o "^[0-9][^,][^:]*,[^,][^:]*:,[^,][^:]*,^(0-1)$"` 
+l1=`echo "$line" | grep -o "^[0-9][^,][^:]*,[^,][^:]*:,[^,][^:]*,[0-1]$"`
 
-echo "l1 is $l1"
+if [[ ( -z $l1 ) ]]
+then
+        echo "l1 is BLANK meaning no-match"
+else
+	echo "l1 is $l1"
+fi
 
 if [[ ( -z "$l1" ) ]]
 then
-   echo "the line is $lc and  $line is non-compliant "
+   echo "the line number is $lc and the data  $line /////is non-compliant "
    ((nc+=1))
 #echo "l1 is $l1"
 fi
