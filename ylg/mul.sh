@@ -1111,7 +1111,7 @@ done
 
 
 sethelp() {
-	echo "Usage: ./mul.sh function ( For list of functions defined in script )"
+	echo "Usage: ./mul.sh -f     ( For list of functions defined in script )"
 	echo "       ./mul.sh -h     ( For usage of this script ) "
 	echo "       ./mul.sh -f     ( List of Functions ) "
 	echo "       ./mul.sh -d     ( List of Database starting Index Numbers ) "
